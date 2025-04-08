@@ -1,89 +1,35 @@
+import { useEffect, useState} from "react";
+import MovieCard from "./MovieCard";
 
 
 function MovieCat({showNav}){
+
+    const [movieDet,setMovieDet] = useState([]);
+
+    const URL = 'http://localhost/REACT_PROJECTS/Film_App/api/Backend_Handlers/Films_Home_Display.php';
+    useEffect(() => {
+        
+        async function fetchFilms() {
+            const res = await fetch(URL);
+            const data = await res.json();
+            console.log(data.movieData);
+            setMovieDet(data.movieData);
+        }
+        fetchFilms();
+    },[]);
     return (
         <section className={showNav ? "main-section open":"main-section"}>
             <section className="movie-cat-section">
-            
+
                 {/* header for the film category */}
                 <h1>
                     Suggestions
                 </h1>
-
                 {/* films under each category */}
                 <div className="movie-cat">
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp3.jpg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp4.jpeg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp6.jpg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp3.jpg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp4.jpeg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp6.jpg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp3.jpg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp4.jpeg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp6.jpg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
+                    {movieDet.map((film,index) => (
+                        <MovieCard film={film} key={index} />
+                    ))}
                 </div>
                 
             </section>
@@ -99,78 +45,9 @@ function MovieCat({showNav}){
 
                 {/* films under each category */}
                 <div className="movie-cat">
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp3.jpg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp4.jpeg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp6.jpg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp3.jpg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp4.jpeg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp6.jpg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp3.jpg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp4.jpeg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp6.jpg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
+                    {movieDet.map((film,index) => (
+                        <MovieCard film={film} key={index} />
+                    ))}
                 </div>
                 
             </section>
@@ -183,78 +60,9 @@ function MovieCat({showNav}){
 
             {/* films under each category */}
             <div className="movie-cat">
-                <div>
-                    {/* film card containing the film thumbnail and desc under it.. */}
-                    <span><img src="./src/assets/img/wp3.jpg" alt="film_thumbnail" /></span>
-                    <p>
-                        {/* description */}
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                    </p>
-                </div>
-                <div>
-                    {/* film card containing the film thumbnail and desc under it.. */}
-                    <span><img src="./src/assets/img/wp4.jpeg" alt="film_thumbnail" /></span>
-                    <p>
-                        {/* description */}
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                    </p>
-                </div>
-                <div>
-                    {/* film card containing the film thumbnail and desc under it.. */}
-                    <span><img src="./src/assets/img/wp6.jpg" alt="film_thumbnail" /></span>
-                    <p>
-                        {/* description */}
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                    </p>
-                </div>
-                <div>
-                    {/* film card containing the film thumbnail and desc under it.. */}
-                    <span><img src="./src/assets/img/wp3.jpg" alt="film_thumbnail" /></span>
-                    <p>
-                        {/* description */}
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                    </p>
-                </div>
-                <div>
-                    {/* film card containing the film thumbnail and desc under it.. */}
-                    <span><img src="./src/assets/img/wp4.jpeg" alt="film_thumbnail" /></span>
-                    <p>
-                        {/* description */}
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                    </p>
-                </div>
-                <div>
-                    {/* film card containing the film thumbnail and desc under it.. */}
-                    <span><img src="./src/assets/img/wp6.jpg" alt="film_thumbnail" /></span>
-                    <p>
-                        {/* description */}
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                    </p>
-                </div>
-                <div>
-                    {/* film card containing the film thumbnail and desc under it.. */}
-                    <span><img src="./src/assets/img/wp3.jpg" alt="film_thumbnail" /></span>
-                    <p>
-                        {/* description */}
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                    </p>
-                </div>
-                <div>
-                    {/* film card containing the film thumbnail and desc under it.. */}
-                    <span><img src="./src/assets/img/wp4.jpeg" alt="film_thumbnail" /></span>
-                    <p>
-                        {/* description */}
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                    </p>
-                </div>
-                <div>
-                    {/* film card containing the film thumbnail and desc under it.. */}
-                    <span><img src="./src/assets/img/wp6.jpg" alt="film_thumbnail" /></span>
-                    <p>
-                        {/* description */}
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                    </p>
-                </div>
+                {movieDet.map((film,index) => (
+                    <MovieCard film={film} key={index} />
+                ))}
             </div>
             
             </section>
@@ -267,78 +75,9 @@ function MovieCat({showNav}){
 
                 {/* films under each category */}
                 <div className="movie-cat">
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp3.jpg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp4.jpeg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp6.jpg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp3.jpg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp4.jpeg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp6.jpg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp3.jpg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp4.jpeg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp6.jpg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
+                    {movieDet.map((film,index) => (
+                        <MovieCard film={film} key={index} />
+                    ))}
                 </div>
                 
             </section>
@@ -351,78 +90,9 @@ function MovieCat({showNav}){
 
                 {/* films under each category */}
                 <div className="movie-cat">
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp3.jpg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp4.jpeg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp6.jpg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp3.jpg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp4.jpeg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp6.jpg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp3.jpg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp4.jpeg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
-                    <div>
-                        {/* film card containing the film thumbnail and desc under it.. */}
-                        <span><img src="./src/assets/img/wp6.jpg" alt="film_thumbnail" /></span>
-                        <p>
-                            {/* description */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        </p>
-                    </div>
+                    {movieDet.map((film,index) => (
+                        <MovieCard film={film} key={index}  />
+                    ))}
                 </div>
                 
             </section>
