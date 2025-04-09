@@ -6,13 +6,16 @@ function MovieCat({showNav}){
 
     const [movieDet,setMovieDet] = useState([]);
 
-    const URL = 'http://localhost/REACT_PROJECTS/Film_App/api/Backend_Handlers/Films_Home_Display.php';
+    const URL = 'http://localhost/REACT_PROJECTS/Film_App/api/Backend/Films_Home_Display.php';
     useEffect(() => {
         
         async function fetchFilms() {
-            const res = await fetch(URL);
+            const res = await fetch(URL, {
+                method: 'GET',
+                headers: {'Content-Type':'application/json'}
+            });
             const data = await res.json();
-            console.log(data.movieData);
+            console.log(data);
             setMovieDet(data.movieData);
         }
         fetchFilms();

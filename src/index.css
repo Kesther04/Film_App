@@ -70,3 +70,24 @@ main{
 .movie-cat > div > p{
   @apply text-sm font-bold ;
 }
+
+.movie{
+  @apply w-full h-screen xl:p-10 flex justify-center;
+}
+
+.movie-info{
+  @apply w-full m-2 xl:w-auto xl:h-auto rounded xl:shadow-2xl flex xl:gap-5 xl:p-20  flex-col xl:flex-row justify-center content-center ;  
+}
+
+.movie-info-img{
+  @apply w-40 xl:w-60 xl:h-100 rounded overflow-hidden ;
+}
+
+
+.movie-info-img img{
+  @apply w-full h-full rounded transition ease-in-out duration-300 hover:scale-105;
+}
+
+.movie-info-txt{
+  @apply flex flex-col  xl:h-auto  xl:p-5;
+}
