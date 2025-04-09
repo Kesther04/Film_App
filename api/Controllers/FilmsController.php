@@ -9,11 +9,8 @@ class FilmsController extends Films{
         return $this->select_Films();
     }
 
-    public function get_Movie($id){
-        header("Access-Control-Allow-Origin:*");
-        header("Access-Control-Allow-Methods: GET, POST, OPTIONS"); 
-        header("Access-Control-Allow-Headers: Content-Type");
-        header("Content-Type: application/json");   
+    public function get_Movie($input){
+        $id = json_decode(file_get_contents($input), true);   
         return $this->select_movie($id);
     }
 }
