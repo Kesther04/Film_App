@@ -10,7 +10,7 @@ class FilmsController extends Films{
     }
 
     public function get_Movie($input){
-        $id = json_decode(file_get_contents($input), true);   
+        $id = ['id' => json_decode(file_get_contents($input), true)];
         return $this->select_movie($id);
     }
 }

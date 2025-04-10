@@ -22,7 +22,7 @@ export default function MovieReadPage(){
         }
         fetchMovie();
     },[movieId]);
-    const [showNav, setShowNav] = useState(null);
+    const [showNav, setShowNav] = useState(false);
     return (
         <>
             <Header showNav={showNav} setShowNav={setShowNav}/>

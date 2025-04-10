@@ -78,6 +78,7 @@ class Films extends Database{
                 $conn = $this->db_con();
             }
 
+
             $query = "SELECT * FROM films_store WHERE id = ?";
             $stmt = $conn->prepare($query);    
             
@@ -85,7 +86,7 @@ class Films extends Database{
                 throw new Exception("SQL preparation failed: " . $conn->error);
             }
 
-            $stmt->bind_param("s",$id);
+            $stmt->bind_param("s",...array_values($id));
 
             
             if($stmt->execute()){
