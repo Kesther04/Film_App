@@ -88,7 +88,7 @@ main{
 }
 
 .movie-trailer > iframe{
-  @apply w-full xl:h-10/12 sm:h-60 h-60;
+  @apply w-full xl:h-100 md:h-100 h-60;
 }
 
 .movie-info{
