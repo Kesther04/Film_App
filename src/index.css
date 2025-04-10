@@ -76,11 +76,11 @@ main{
 }
 
 .movie{
-  @apply w-full h-auto xl:p-10 flex justify-center;
+  @apply w-full sm:h-screen h-auto xl:p-10 flex justify-center;
 }
 
 .movie-content{
-  @apply w-full m-2 xl:w-auto h-auto rounded xl:shadow-2xl flex gap-2 xl:gap-5 xl:p-10  flex-col lg:flex-row justify-between content-center;  
+  @apply w-full m-2 xl:w-auto h-full rounded xl:shadow-2xl flex gap-2 xl:gap-5 xl:p-10  flex-col lg:flex-row justify-between content-center ;  
 }
 
 .movie-trailer{
