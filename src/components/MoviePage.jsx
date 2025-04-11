@@ -21,8 +21,8 @@ export default function MoviePage ({movie}) {
                         </span>
                         
                         <span className="btn flex w-full gap-2  mt-4 justify-end">
-                            <button className="bg-black text-white p-2 rounded border-solid cursor-pointer">Stream Movie</button>
-                            <button className="bg-black text-white p-2 rounded border-solid cursor-pointer">Download Movie</button>
+                            <button className="secondary-color secondary-bg p-2 rounded  cursor-pointer">Stream Movie</button>
+                            <button className="secondary-color secondary-bg p-2 rounded border-solid cursor-pointer">Download Movie</button>
                         </span>
                     </div>
                 </div>
