@@ -7,7 +7,7 @@ import MoviePage from "../components/MoviePage";
 export default function MovieReadPage(){
     const { movieId } = useParams();
     const [movie, setMovie] = useState({});
-    const URL = 'http://localhost/REACT_PROJECTS/Film_App/api/Backend/Movie_Display.php';
+    const URL = 'http://localhost/REACT_PROJECTS/Film_App/api/?apiKey=fetchMovie';
 
     useEffect(() => {
         async function fetchMovie() {

@@ -1,6 +1,6 @@
 <?php
 
-require_once '../Database_Handler/Database.php';
+require_once './Database_Handler/Database.php';
 
 class Films extends Database{
     // Film Data properties

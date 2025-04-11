@@ -1,6 +1,6 @@
 <?php
 
-require_once '../Models/Films.php';
+require_once './Models/Films.php';
 
 class FilmsController extends Films{
 

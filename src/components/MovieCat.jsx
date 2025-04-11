@@ -6,7 +6,7 @@ function MovieCat({showNav}){
 
     const [movieDet,setMovieDet] = useState([]);
 
-    const URL = 'http://localhost/REACT_PROJECTS/Film_App/api/Backend/Films_Home_Display.php';
+    const URL = 'http://localhost/REACT_PROJECTS/Film_App/api/?apiKey=fetchFilms';
     useEffect(() => {
         
         async function fetchFilms() {
