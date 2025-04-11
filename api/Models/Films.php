@@ -18,7 +18,7 @@ class Films extends Database{
                 $conn = $this->db_con();
             }
 
-            $query = "SELECT * FROM films_store ORDER BY RAND()  LIMIT 9";
+            $query = "SELECT * FROM films ORDER BY RAND()  LIMIT 9";
             $stmt = $conn->prepare($query);    
             
             if (!$stmt) {
@@ -79,7 +79,7 @@ class Films extends Database{
             }
 
 
-            $query = "SELECT * FROM films_store WHERE id = ?";
+            $query = "SELECT * FROM films WHERE id = ?";
             $stmt = $conn->prepare($query);    
             
             if (!$stmt) {

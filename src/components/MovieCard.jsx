@@ -6,10 +6,10 @@ export default function MovieCard({film}){
         <div>
             {/* film card containing the film thumbnail and desc under it.. */}
             <Link to={`/movies/${film.id}`} className="LinkHolder">
-                <span><img src={film.film_img_data} alt={film.film_name} /></span>
+                <span><img src={film.img} alt={film.title} /></span>
                 <p>
                     {/* description */}
-                    {film.film_name}
+                    {film.title}
                 </p>
             </Link>
         </div>
