@@ -3,11 +3,12 @@ import { useParams } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import MoviePage from "../components/MoviePage";
+import { BASE_API_URL } from "../../constants";
 
 export default function MovieReadPage(){
     const { movieId } = useParams();
     const [movie, setMovie] = useState({});
-    const URL = 'http://localhost/REACT_PROJECTS/Film_App/api/?apiKey=fetchMovie';
+    const URL = `${BASE_API_URL}?apiKey=fetchMovie`;
 
     useEffect(() => {
         async function fetchMovie() {

@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { BASE_API_URL } from "../../constants";
 
 export default function SignUp() {
     const [formData, setFormData] = useState({name:"",email:"",password:""});
-    const URL = "http://localhost/REACT_PROJECTS/Film_App/api/?apiKey=signUp";    
+    const URL = `${BASE_API_URL}?apiKey=signUp`;    
     let navigate = useNavigate();
     const signUpUser = (e) => {
         e.preventDefault();

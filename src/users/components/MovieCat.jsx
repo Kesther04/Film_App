@@ -1,12 +1,13 @@
 import { useEffect, useState} from "react";
 import MovieCard from "./MovieCard";
+import { BASE_API_URL } from "../../constants";
 
 
 function MovieCat({showNav}){
 
     const [movieDet,setMovieDet] = useState([]);
 
-    const URL = 'http://localhost/REACT_PROJECTS/Film_App/api/?apiKey=fetchFilms';
+    const URL = `${BASE_API_URL}?apiKey=fetchFilms`;
     useEffect(() => {
         
         async function fetchFilms() {
