@@ -3,9 +3,7 @@
 require_once './Database_Handler/Database.php';
 
 class Films extends Database{
-    // Film Data properties
-
-
+    
     // Method to select Film Data
     protected function select_films(){
         
@@ -76,8 +74,7 @@ class Films extends Database{
             // Optional: check if the connection is alive
             if (method_exists($conn, 'ping') && !$conn->ping()) {
                 $conn = $this->db_con();
-            }
-
+            }               
 
             $query = "SELECT * FROM films WHERE id = ?";
             $stmt = $conn->prepare($query);    
@@ -124,8 +121,6 @@ class Films extends Database{
             ]);
             exit();
         }
-
-
 
     }
 }

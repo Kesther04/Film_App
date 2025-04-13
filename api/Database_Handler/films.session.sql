@@ -1,7 +1,7 @@
 --@block
 CREATE TABLE users(
     id INT AUTO_INCREMENT,
-    google_id VARCHAR(255) NOT NULL UNIQUE,
+    google_id VARCHAR(255) UNIQUE,
     email VARCHAR(255) NOT NULL UNIQUE,
     username VARCHAR(255) NOT NULL,
     is_admin BOOLEAN DEFAULT FALSE,
@@ -92,9 +92,9 @@ INSERT INTO films (title,img,film_desc,film_type,release_year,trailer_link)VALUE
 ('The Adam Project','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeLkFkR5x4LlRW81Ezz93yZrcMGA5YnZwoiw&s','Movie Desc','MOVIE','2022','https://www.youtube.com/embed/IE8HIsIrq4o?si=f4PSAWN7vDX7cX9z')
 
 --@block
--- DROP TABLE records;
--- DROP TABLE uploads;
--- DROP TABLE series;
--- DROP TABLE genres;
+DROP TABLE records;
+DROP TABLE uploads;
+DROP TABLE series;
+DROP TABLE genres;
 -- DROP TABLE films;
 DROP TABLE users;

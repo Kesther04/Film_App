@@ -130,10 +130,17 @@ main{
 }
 
 .btn button{
-  @apply transition ease-in-out duration-300
+  @apply transition ease-in-out duration-300  rounded cursor-pointer;
+  color:var(--secondary-color); 
+  background: var(--secondary-bg);
 }
 
-.btn button:hover{
+.btn button a{
+  @apply p-2;
+  color:var(--secondary-color); 
+}
+
+.btn > button:hover{
   background-color: var(--tertiary-bg);
 }
 
