@@ -4,6 +4,8 @@ require_once './Database_Handler/Database.php';
 
 class User extends Database{
 
+    
+
     // To insert user data into database
     protected function insert_user($data){
         try {
@@ -31,7 +33,8 @@ class User extends Database{
                 require_once './Database_Handler/session.php';
                 $_SESSION['user'] = [
                     'name' => $data['name'],
-                    'email' => $data['email']
+                    'email' => $data['email'],
+                    'isAdmin' => $data['is_admin']
                 ];
 
                 if ($_SESSION['user']) {
@@ -64,7 +67,7 @@ class User extends Database{
     }
 
     // To select user data from database based on email
-    protected function select_user($data){
+    protected function select_user($data,$field){
         try {
             $conn = $this->db_con();
 
@@ -89,12 +92,47 @@ class User extends Database{
                 $conn->close();
 
                 $row = $result->fetch_assoc();
-                
-                if ($row['email'] === $data['email'] && password_verify($data['password'],$row['password'])) {
+                if ($field == 'admin' && $row['email'] === $data['email'] && password_verify($data['password'],$row['password'])) {
+
+                    if ($row['is_admin'] == 0) {
+                        $isAdmin = false;
+                        return json_encode([
+                            "status"=>"error",
+                            "message"=>"User is Not an Admin"
+                        ]); 
+                        exit();
+                    }else{
+                        $isAdmin = true;
+                        require_once './Database_Handler/session.php';
+                        $_SESSION['user'] = [
+                            'name' => $row['username'],
+                            'email' => $row['email'],
+                            'is_admin' => $isAdmin
+                        ];
+    
+                        if ($_SESSION['user']) {
+                            return json_encode([
+                                "status"=>"success",
+                                "message"=>"Sign In Successful"
+                            ]); 
+                            exit();    
+                        }
+                    }
+
+                   
+                }else if ($row['email'] === $data['email'] && password_verify($data['password'],$row['password'])) {
                     require_once './Database_Handler/session.php';
+
+                    if ($row['is_admin'] == 0) {
+                        $isAdmin = false;
+                    }else{
+                        $isAdmin = true;
+                    }
+
                     $_SESSION['user'] = [
                         'name' => $row['username'],
-                        'email' => $row['email']
+                        'email' => $row['email'],
+                        'is_admin' => $isAdmin
                     ];
 
                     if ($_SESSION['user']) {

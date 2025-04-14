@@ -1,11 +1,10 @@
 <?php
+require_once './Models/Admin.php';
 
-require_once './Models/User.php';
-
-class UserController extends User{
-    
-    // To sign Up the user with an Account
-    public function signup_user($input){
+class AdminController extends Admin{
+        
+    // To sign Up the user as an Admin
+    public function signup_admin($input){
         $data = json_decode(file_get_contents($input), true);
         
         if (empty($data['name']) || empty($data['email']) || empty($data['password'])){
@@ -23,17 +22,17 @@ class UserController extends User{
                 'google_id' => NULL,
                 'email' => htmlspecialchars(trim($data['email'])),
                 'username' => htmlspecialchars(trim($data['name'])),
-                'is_admin' => FALSE,
+                'is_admin' => TRUE,
                 'password' => $hashedPwd
             ];           
             
-            return $this->insert_user($arrData);
+            return $this->insert_admin($arrData);
         }
 
     }
 
-    // To sign In the user if the user has as an account and enters the correct credentials
-    public function signin_user($input){
+    // To sign In the user if the user is an Admin and enters correct credentials
+    public function signin_admin($input){
         $data = json_decode(file_get_contents($input), true);
         
         if (empty($data['email']) || empty($data['password'])){
@@ -46,10 +45,10 @@ class UserController extends User{
             $arrData = [
                 'email' => htmlspecialchars(trim($data['email'])),
                 'password' => $password
-            ];           
-            $field = "user";
+            ];       
+                
             
-            return $this->select_user($arrData,$field);
+            return $this->select_admin($arrData);
         }
 
     }
