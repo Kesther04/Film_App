@@ -66,6 +66,44 @@ class User extends Database{
         }
     }
 
+    // To update users table when user logs in
+    private function update_on_user_login($id){
+        try{
+            $conn = $this->db_con();
+
+            // Optional: check if the connection is alive
+            if (method_exists($conn, 'ping') && !$conn->ping()) {
+                $conn = $this->db_con();
+            }
+
+            $query = "UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE id = ?";
+
+            $stmt = $conn->prepare($query);
+
+            if (!$stmt) {
+                throw new Exception("SQL preparation failed: " . $conn->error);
+            }
+
+            $stmt->bind_param("s",$id);
+
+            if ($stmt->execute()) {
+                $stmt->close();
+                $conn->close();
+
+                return "successful";
+                
+            }else{
+                return "unsuccessful";
+            
+            }
+
+
+        }catch(Exception $e){
+            return "unsuccessful".$e->getMessage();
+            
+        }
+    }
+
     // To select user data from database based on email
     protected function select_user($data,$field){
         try {
@@ -92,8 +130,11 @@ class User extends Database{
                 $conn->close();
 
                 $row = $result->fetch_assoc();
+                $updateUserLogin = $this->update_on_user_login($row['id']);
                 if ($field == 'admin' && $row['email'] === $data['email'] && password_verify($data['password'],$row['password'])) {
+                   
 
+                    
                     if ($row['is_admin'] == 0) {
                         $isAdmin = false;
                         return json_encode([
@@ -102,26 +143,36 @@ class User extends Database{
                         ]); 
                         exit();
                     }else{
+
                         $isAdmin = true;
-                        require_once './Database_Handler/session.php';
-                        $_SESSION['user'] = [
-                            'name' => $row['username'],
-                            'email' => $row['email'],
-                            'is_admin' => $isAdmin
-                        ];
-    
-                        if ($_SESSION['user']) {
+                        if ($updateUserLogin === "successful") {
+                            require_once './Database_Handler/session.php';
+                            $_SESSION['user'] = [
+                                'name' => $row['username'],
+                                'email' => $row['email'],
+                                'is_admin' => $isAdmin
+                            ];
+        
+                            if ($_SESSION['user']) {
+                                return json_encode([
+                                    "status"=>"success",
+                                    "message"=>"Sign In Successful"
+                                ]); 
+                                exit();    
+                            }
+                        }else{
                             return json_encode([
-                                "status"=>"success",
-                                "message"=>"Sign In Successful"
+                                "status"=>"error",
+                                "message"=>$updateUserLogin
                             ]); 
                             exit();    
                         }
+                        
                     }
 
                    
                 }else if ($row['email'] === $data['email'] && password_verify($data['password'],$row['password'])) {
-                    require_once './Database_Handler/session.php';
+                    
 
                     if ($row['is_admin'] == 0) {
                         $isAdmin = false;
@@ -129,20 +180,28 @@ class User extends Database{
                         $isAdmin = true;
                     }
 
-                    $_SESSION['user'] = [
-                        'name' => $row['username'],
-                        'email' => $row['email'],
-                        'is_admin' => $isAdmin
-                    ];
+                    if ($updateUserLogin === "successful") {
+                        require_once './Database_Handler/session.php';
+                        $_SESSION['user'] = [
+                            'name' => $row['username'],
+                            'email' => $row['email'],
+                            'is_admin' => $isAdmin
+                        ];
 
-                    if ($_SESSION['user']) {
+                        if ($_SESSION['user']) {
+                            return json_encode([
+                                "status"=>"success",
+                                "message"=>"Sign In Successful"
+                            ]); 
+                            exit();    
+                        }
+                    }else{
                         return json_encode([
-                            "status"=>"success",
-                            "message"=>"Sign In Successful"
+                            "status"=>"error",
+                            "message"=>$updateUserLogin
                         ]); 
-                        exit();    
+                        exit();  
                     }
-                    
                 }else{
                     return json_encode([
                         "status"=>"error",
