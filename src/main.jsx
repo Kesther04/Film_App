@@ -5,11 +5,11 @@ import './index.css'
 import App from './users/App.jsx'
 import MovieReadPage from './users/pages/MovieReadPage.jsx'
 import ErrorPage from './users/pages/ErrorPage.jsx';
-import SignIn from './users/auth/SignIn.jsx'
-import SignUp from './users/auth/SignUp.jsx'
 import AdminSignIn from './admin/auth/AdminSignIn.jsx'
 import AdminSignUp from './admin/auth/AdminSignUp.jsx'
 import AdminControlUnit from './admin/AdminControlUnit.jsx'
+import Auth from './users/components/Auth.jsx'
+import Logout from './admin/pages/Logout.jsx'
 
 
 
@@ -25,13 +25,8 @@ const router = createBrowserRouter([
   errorElement: <ErrorPage/>
   },
   {
-    path: '/user/auth/signin',
-    element: <SignIn/>,
-    errorElement: <ErrorPage/>
-  },
-  {
-    path: '/user/auth/signup',
-    element: <SignUp/>,
+    path: '/user/auth/:auth',
+    element: <Auth/>,
     errorElement: <ErrorPage/>
   },
   {
@@ -47,6 +42,11 @@ const router = createBrowserRouter([
   {
     path: '/admin/',
     element: <AdminControlUnit/>,
+    errorElement: <ErrorPage/>
+  },
+  {
+    path: '/admin/logout',
+    element: <Logout/>,
     errorElement: <ErrorPage/>
   }
 ]);

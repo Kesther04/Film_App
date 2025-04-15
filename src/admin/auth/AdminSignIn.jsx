@@ -6,6 +6,7 @@ import { BASE_API_URL } from "../../constants";
 export default function AdminSignIn(){
     const [formData, setFormData] = useState({email:"",password:""});
         const URL = `${BASE_API_URL}?apiKey=admin_signIn`;
+        const [msg,setMsg] = useState("");
         let navigate = useNavigate();
         const signIn = (e) => {
             e.preventDefault();
@@ -15,25 +16,30 @@ export default function AdminSignIn(){
                 if(res.data.status === "success"){
                     navigate('/admin/');
                 }
+                setMsg(res.data.message);
             })
             .catch((err)=>console.log(err));
         }
         return (
-            <section className="auth">
-                <h1>Sign In</h1>
-                <form action="" method="post" onSubmit={(data)=>signIn(data)}>
+            <main className="main-auth">
+                <section className="auth">
+
+                <form className="active" action="" method="post" onSubmit={(data)=>signIn(data)}>
+                    <h1>Sign In</h1>
+                    <p className="p-msg">{msg}</p>
                     <div>
                         <label htmlFor="email">Email:</label>
-                        <input type="email" name="email" id="email" onChange={(e)=>setFormData({...formData,email:e.target.value})} value={formData.email} placeholder="Enter Email Address.." />
+                        <input type="email" name="email" id="email" onChange={(e)=>setFormData({...formData,email:e.target.value})} placeholder="Enter Email Address.." />
                     </div>
     
                     <div>
                         <label htmlFor="password">Password:</label>
-                        <input type="password" name="password" id="password" onChange={(e)=>setFormData({...formData,password:e.target.value})} value={formData.password} placeholder="Enter Password.." />
+                        <input type="password" name="password" id="password" onChange={(e)=>setFormData({...formData,password:e.target.value})} placeholder="Enter Password.." />
                     </div>
     
-                    <button type="submit">Submit</button>
+                    <div className="btn"><button type="submit">Submit</button></div>
                 </form>
-            </section>
+                </section>
+            </main>
         )
 }

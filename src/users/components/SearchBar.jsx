@@ -11,7 +11,7 @@ function SearchBar(){
             <button className="absolute p-2 cursor-pointer text-sm">
                 <FontAwesomeIcon icon={faMagnifyingGlass} />
             </button>
-            <input type="text" name="search" id="search" placeholder="Search Here.." required value={search} onChange={(e)=>setSearch(e.target.value)} className="pl-10 pr-4 py-1 xl:w-120 w-full border-solid border-gray-500 border-1 rounded-sm outline-none" />
+            <input type="text" name="search" id="search" placeholder="Search Here.." required value={search} onChange={(e)=>setSearch(e.target.value)} className="pl-10 pr-4 py-1 xl:w-120 w-full border-solid border-gray-500 border-1 rounded-sm outline-none " />
         </span>
     )    
 }

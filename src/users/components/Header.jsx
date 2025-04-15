@@ -7,7 +7,7 @@ function Header({showNav,setShowNav}){
     const { loggedIn, user} = UseSession();    
     console.log(user);
     return (
-        <header className="border-b-1 border-gray-200 border-b-solid h-auto xl:h-12 w-full px-1 xl:px-5 py-2 flex flex-wrap fixed justify-between gap-2 xl:gap-0  -top-0 primary-bg z-10">
+        <header className="border-b-1 border-gray-200 border-b-solid h-auto xl:h-12 w-full px-1 xl:px-5 py-2 flex flex-wrap fixed justify-between gap-2 xl:gap-0  -top-0 primary-bg z-10 primary-color">
             <div className="cursor-pointer text-xl font-bold border rounded-sm px-2 z-30" onClick={()=>{setShowNav(showNav ? false : true)}}>
                 &#9776;
             </div>

@@ -1,3 +1,4 @@
+import Dashboard from "./components/Dashboard";
 import { UseSessionAdmin } from "./components/UseSessionAdmin";
 
 export default function AdminControlUnit(){
@@ -6,7 +7,10 @@ export default function AdminControlUnit(){
     user ? AdminName = user.name : AdminName = "";
     return (
         <>
-        <h1>Welcome {AdminName}</h1>
+            <Dashboard/>
+            <main>
+                <h1>Welcome {AdminName}</h1>
+            </main>
         </>
     );
 }
