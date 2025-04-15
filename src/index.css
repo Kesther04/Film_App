@@ -232,18 +232,31 @@ footer:hover{
   @apply flex flex-col xl:gap-5 gap-2;
 }
 
-.db-links > li > a{
-  @apply   px-5 py-3  flex text-center transition ease-in-out duration-300 rounded font-bold relative ;
+
+.db-links > li > a, .db-links > li > button{
+  @apply   px-5 py-3  flex text-center transition ease-in-out duration-300 rounded font-bold relative w-full;
   color:var(--primary-color);
 }
 
-.db-links > li > a > span{
+.db-links > li > a > span, .db-links > li > button > span{
   @apply absolute top-2 left-12;
 }
 
 
-.db-links > li > a:hover{
+.db-links > li > a:hover, .db-links > li > button:hover{
   background-color: var(--tertiary-bg);
   color:var(--secondary-color);
 }
 
+.popup{
+  @apply w-full h-screen absolute top-0  p-50 flex justify-center content-center z-30 ;
+  background-color: rgba(0,0,0,0.7);
+}
+
+.popup-box{
+  @apply w-120 h-64 bg-white shadow-2xl p-5 flex flex-col content-center justify-center text-center rounded-2xl;
+}
+
+.popup-box .btn button{
+  @apply p-2 w-32;
+}

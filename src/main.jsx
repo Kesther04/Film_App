@@ -9,7 +9,6 @@ import AdminSignIn from './admin/auth/AdminSignIn.jsx'
 import AdminSignUp from './admin/auth/AdminSignUp.jsx'
 import AdminControlUnit from './admin/AdminControlUnit.jsx'
 import Auth from './users/components/Auth.jsx'
-import Logout from './admin/pages/Logout.jsx'
 
 
 
@@ -42,11 +41,6 @@ const router = createBrowserRouter([
   {
     path: '/admin/',
     element: <AdminControlUnit/>,
-    errorElement: <ErrorPage/>
-  },
-  {
-    path: '/admin/logout',
-    element: <Logout/>,
     errorElement: <ErrorPage/>
   }
 ]);

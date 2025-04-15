@@ -2,9 +2,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { faFilm } from "@fortawesome/free-solid-svg-icons/faFilm";
 import { faArrowRightFromBracket, faHouse, faListCheck, faUser, faUsers } from "@fortawesome/free-solid-svg-icons";
+import Logout from "./Logout";
+import { useState } from "react";
+import { createPortal } from "react-dom";
+
 
 export default function Dashboard(){
+    const [toLo,setToLo] = useState(false); 
+    // const logout = Logout();
     return (
+        <>
         <section className="dashboard open">
             
             <div className="logo">
@@ -48,14 +55,17 @@ export default function Dashboard(){
                 </li>
                 
                 <li>
-                    <Link to="/admin/logout">
+                    <button onClick={()=>setToLo(true)}>
                         <FontAwesomeIcon icon={faArrowRightFromBracket} />
                         <span>Log Out</span>
-                    </Link>
+                    </button>
                 </li>
+                
             </ul>
 
 
         </section>
+        {toLo ? <Logout toLo={setToLo} /> : ""}
+        </>
     );
 }
