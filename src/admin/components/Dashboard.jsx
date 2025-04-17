@@ -1,15 +1,25 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { faFilm } from "@fortawesome/free-solid-svg-icons/faFilm";
 import { faArrowRightFromBracket, faHouse, faListCheck, faUser, faUsers } from "@fortawesome/free-solid-svg-icons";
 import Logout from "./Logout";
 import { useState } from "react";
-import { createPortal } from "react-dom";
+import { UseSessionAdmin } from "./UseSessionAdmin";
 
 
-export default function Dashboard(){
-    const [toLo,setToLo] = useState(false); 
-    // const logout = Logout();
+export default function Dashboard({ddState}){
+    const [toLo,setToLo] = useState(false);
+    const [isOpen,setIsOpen] = useState(ddState);
+    const toggleDropDown = () => setIsOpen(!isOpen);
+    const {user} = UseSessionAdmin();
+    let navigate = useNavigate(); 
+    let params = useParams();
+    let AdminName;
+    user ? AdminName = user.name : navigate('/admin/auth/signin');
+    params == "/admin/upload" || params == "/admin/alter_upload" && setIsOpen(true) 
+    console.log(params);
+    
+
     return (
         <>
         <section className="dashboard open">
@@ -34,21 +44,30 @@ export default function Dashboard(){
                 </li>
 
                 <li>
-                    <Link to="#">
+                    <Link to="#" onClick={toggleDropDown}>
                         <FontAwesomeIcon icon={faFilm} />
-                        <span>Films</span>
+                        <span>
+                            Films
+                        </span>
+                        <span className={isOpen ? "arrow open" : "arrow"}>
+                            &#9662;
+                        </span>
                     </Link>
+                    <ul className={isOpen ? "open" : ""}>
+                        <li><Link to="/admin/upload">Enter Upload</Link></li>
+                        <li><Link to="/admin/alter_upload">Alter Upload</Link></li>
+                    </ul>
                 </li>
             
                 <li>
-                    <Link to="#">
+                    <Link to="/admin/user_details">
                         <FontAwesomeIcon icon={faUsers} />
                         <span>Users</span>
                     </Link>
                 </li>
                 
                 <li>
-                    <Link to="#">
+                    <Link to="/admin/profile">
                         <FontAwesomeIcon icon={faUser} />
                         <span>Profile</span>
                     </Link>

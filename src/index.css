@@ -49,6 +49,7 @@
 }
 
 .nav-links > li > a:hover{
+  @apply shadow-xl;
   background-color: var(--tertiary-bg);
   color:var(--secondary-color);
 }
@@ -219,13 +220,13 @@ footer:hover{
 
 
 .dashboard{
-  @apply  top-0 left-0 w-screen md:w-50 h-auto md:h-screen p-5 hidden fixed  z-20 transition ease-in-out duration-700 translate-x-80 pt-16 xl:pt-5 md:shadow-xl; 
+  @apply fixed top-0 left-0 w-screen md:w-50 h-full md:h-screen p-5 hidden   z-20 transition ease-in-out duration-700 translate-x-80 pt-16 xl:pt-5 md:shadow-xl; 
   background-color: var(--primary-bg) ;
   color:var(--primary-color);
 }
 
 .dashboard.open{
-  @apply absolute block translate-x-0;
+  @apply fixed block translate-x-0;
 }
 
 .db-links{
@@ -233,19 +234,64 @@ footer:hover{
 }
 
 
-.db-links > li > a, .db-links > li > button{
-  @apply   px-5 py-3  flex text-center transition ease-in-out duration-300 rounded font-bold relative w-full;
+.db-links li  a, .db-links li  button{
+  @apply   px-5 py-3  flex text-center transition ease-in-out duration-300 rounded font-bold relative w-full cursor-pointer;
   color:var(--primary-color);
 }
 
-.db-links > li > a > span, .db-links > li > button > span{
+.db-links  li  a  span, .db-links  li  button  span{
   @apply absolute top-2 left-12;
 }
 
+.db-links li a span.arrow{
+  @apply left-25 transition ease-in-out duration-300;
+}
 
-.db-links > li > a:hover, .db-links > li > button:hover{
+.db-links li a span.arrow.open{
+  @apply rotate-180;
+}
+
+.db-links  li > ul{
+  @apply relative shadow-xl rounded-lg overflow-hidden invisible left-0 border-gray-500 border transition duration-300 ease-in-out h-0 -translate-y-10 ; 
+}
+
+.db-links li > ul.open{
+  @apply h-auto visible translate-y-0 left-0;
+}
+
+
+.db-links  li  a:hover, .db-links  li  button:hover{
+  @apply shadow-xl;
   background-color: var(--tertiary-bg);
   color:var(--secondary-color);
+}
+
+.admin-content{
+  @apply shadow-xl rounded-xl relative left-60 w-10/12 p-5;
+}
+
+.admin-content form  h1{
+  @apply font-bold text-3xl;
+}
+
+.admin-content form .input-section{
+  @apply flex py-5 flex-wrap justify-between gap-2;
+}
+
+.input-section div{
+  @apply flex flex-col text-lg py-5 w-3/12 ;
+}
+
+.input-section div > input, .input-section div > select{
+  @apply p-2 border-solid border-gray-500 border focus:outline-0 focus:shadow-lg rounded;
+}
+
+.input-section div > textarea{
+  @apply p-2 w-full h-20 border border-solid border-gray-500 focus:outline-none rounded;
+}
+
+.admin-content form .btn button{
+  @apply p-2;
 }
 
 .popup{

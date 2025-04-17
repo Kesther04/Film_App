@@ -17,7 +17,7 @@ CREATE TABLE films(
     id INT AUTO_INCREMENT,
     title VARCHAR(100) NOT NULL UNIQUE,
     img VARCHAR(255) NOT NULL,
-    film_desc TEXT NOT NULL,
+    film_desc TEXT,
     film_type VARCHAR(100) NOT NULL,
     release_year INT NOT NULL,
     trailer_link VARCHAR(255) NOT NULL,
@@ -41,6 +41,7 @@ CREATE TABLE series(
     film_id INT NOT NULL,
     season INT NOT NULL,
     episode INT NOT NULL,
+    episode_desc TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(id),
     FOREIGN KEY(film_id) REFERENCES films(id)
@@ -96,5 +97,5 @@ DROP TABLE records;
 DROP TABLE uploads;
 DROP TABLE series;
 DROP TABLE genres;
--- DROP TABLE films;
-DROP TABLE users;
+DROP TABLE films;
+-- DROP TABLE users;
