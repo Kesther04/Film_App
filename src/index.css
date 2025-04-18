@@ -61,11 +61,11 @@ main{
 }
 
 .main-auth{
-  @apply w-full xl:mt-0 h-screen  mt-0 p-32  flex justify-center content-center gap-2;
+  @apply w-full xl:mt-0 h-full  mt-0 p-32  flex justify-center content-center gap-2 ;
 }
 
 .auth{
-  @apply w-128 h-128 ;
+  @apply w-128 h-128;
 }
 
 .auth span{
@@ -79,7 +79,7 @@ main{
 
 
 .auth span.active .bg-content{
-  @apply absolute  h-full  w-1/3 bg-gray-500/10 rounded-2xl shadow-2xl blur-sm;
+  @apply absolute  h-full  w-1/3 bg-gray-500/10 rounded-2xl shadow-2xl blur-sm ;
 }
 
 .auth span.active .content{
@@ -87,19 +87,19 @@ main{
 }
 
 .auth span.active .content a{
-  @apply hover:underline  block h-6 text-blue-500;
+  @apply hover:underline  block h-6 text-blue-500 ;
 }
 
 .auth span.active .content p{
-  @apply text-2xl italic;
+  @apply text-2xl italic ;
 }
 
 .auth form{
-  @apply w-full h-full p-5 rounded-2xl flex  flex-col justify-center content-center shadow-2xl invisible transition duration-300 overflow-hidden opacity-0 relative;
+  @apply w-full h-0 p-5 rounded-2xl flex  flex-col justify-center content-center shadow-2xl invisible transition duration-300 overflow-hidden opacity-0 relative;
 }
 
 .auth form.active{
-  @apply visible opacity-100 z-30;
+  @apply visible h-full opacity-100 z-30;
 }
 
 .auth h1{
@@ -274,7 +274,7 @@ footer:hover{
   @apply font-bold text-3xl;
 }
 
-.admin-content form .input-section{
+.input-section{
   @apply flex py-5 flex-wrap justify-between gap-2;
 }
 
@@ -286,13 +286,34 @@ footer:hover{
   @apply p-2 border-solid border-gray-500 border focus:outline-0 focus:shadow-lg rounded;
 }
 
+
 .input-section div > textarea{
-  @apply p-2 w-full h-20 border border-solid border-gray-500 focus:outline-none rounded;
+  @apply p-2 w-full h-20 border border-solid border-gray-500 focus:outline-none focus:shadow-lg rounded;
 }
+
 
 .admin-content form .btn button{
   @apply p-2;
 }
+
+.admin-content form .reverse-btn{
+  @apply flex justify-end gap-2 py-2;
+}
+
+.admin-content form .reverse-btn input[type="button"]{
+  @apply transition ease-in-out duration-300 p-2 rounded cursor-pointer;
+  color:var(--secondary-color); 
+  background: var(--secondary-bg);
+}
+
+.admin-content form .reverse-btn span{
+  @apply flex justify-center content-center p-2;
+}
+
+.admin-content form .reverse-btn input[type="button"]:hover{
+  background-color: var(--tertiary-bg);
+}
+
 
 .popup{
   @apply w-full h-screen absolute top-0  p-50 flex justify-center content-center z-30 ;

@@ -56,6 +56,7 @@ export default function Dashboard({ddState}){
                     <ul className={isOpen ? "open" : ""}>
                         <li><Link to="/admin/upload">Enter Upload</Link></li>
                         <li><Link to="/admin/alter_upload">Alter Upload</Link></li>
+                        <li><Link to="#">Delete Upload</Link></li>
                     </ul>
                 </li>
             
