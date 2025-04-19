@@ -275,7 +275,7 @@ footer:hover{
 }
 
 .input-section{
-  @apply flex py-5 flex-wrap justify-between gap-2;
+  @apply flex flex-col lg:flex-row py-5 flex-wrap justify-between gap-2;
 }
 
 .input-section div{
@@ -291,6 +291,15 @@ footer:hover{
   @apply p-2 w-full h-20 border border-solid border-gray-500 focus:outline-none focus:shadow-lg rounded;
 }
 
+.input-section div > input[type="button"]{
+  @apply transition ease-in-out duration-300 p-2 rounded cursor-pointer;
+  color:var(--secondary-color); 
+  background: var(--secondary-bg); 
+}
+
+.input-section div > input[type="button"]:hover{
+  background-color: var(--tertiary-bg);
+}
 
 .admin-content form .btn button{
   @apply p-2;
@@ -316,7 +325,7 @@ footer:hover{
 
 
 .popup{
-  @apply w-full h-screen absolute top-0  p-50 flex justify-center content-center z-30 ;
+  @apply w-full h-screen fixed top-0  p-50 flex justify-center content-center z-30 ;
   background-color: rgba(0,0,0,0.7);
 }
 
@@ -325,5 +334,14 @@ footer:hover{
 }
 
 .popup-box .btn button{
+  @apply p-2 w-32;
+}
+
+
+.video-popup-box{
+  @apply w-120 h-120 bg-white shadow-2xl p-5 flex flex-col content-center justify-center text-center rounded-2xl;
+}
+
+.video-popup-box .btn button{
   @apply p-2 w-32;
 }

@@ -1,81 +1,61 @@
-import EpisodeHandler from "./EpisodeHandler";
+import { useEffect,useState } from "react";
+import MovieHandler from "./MovieHandler";
+import SerieHandler from "./SerieHandler";
+import { FilmsContext } from "./FilmsContext";
 
 export default function FilmTypeHandler({type}) {
+    let date = new Date().getFullYear();
+    let relYears = [];
+    
+    for (let index = date; index > 2000; index--) {          
+        relYears.push(index);
+    }
+    // console.log(relYears);
+    
+
     if (type == "MOVIE" || type == "ANIMATED MOVIE") {
         return (
             <>
-                <div className="input-section">
-                <div>
-                    <label htmlFor="img">Film Thumbnail:</label>
-                    <input type="url" name="img"  placeholder="Enter Film Thumbnail.." required/>
-                </div>
-    
-                <div>
-                    <label htmlFor="tr_link">Trailer Link:</label>
-                    <input type="url" name="tr_link"  placeholder="https://TrailerLink.com" required/>
-                </div>
-    
-                <div>
-                    <label htmlFor="rel_year">Release Year:</label>
-                    <input type="number" name="rel_year"  placeholder="Enter Year of Release.." required />
-                </div>
-                    
-                <div>
-                    <label htmlFor="cast">Film Cast:</label>
-                    <textarea name="cast"  placeholder="Enter Film Cast.." required></textarea>
-                </div>
-    
-                <div>
-                    <label htmlFor="desc">Film Description:</label>
-                    <textarea name="desc" placeholder="Enter Film Description.." required></textarea>
-                </div>
-
-
-                {/* video / videos (for setting up download links or video links) */}
-                <div>
-                    <label htmlFor="video">Film Video:</label>
-                    <input type="url" name="video"  placeholder="Enter Film Video.." required />
-                </div>
-                </div>
+                <MovieHandler relYears={relYears} />
             </>
         );
     }else if (type == "SERIE" || type == "ANIMATED SERIE"){
+        const [seriesNo,setSeriesNo] = useState(1);
+        const [series,setSeries] = useState(Array(seriesNo).fill({}));
+        const {serieData,setSerieData} = FilmsContext();
+        const increment = () => setSeriesNo((prev)=> prev + 1);
+        const decrement = () => setSeriesNo((prev)=> prev == 1 ? prev : prev - 1);
+        useEffect(() => {
+            // Whenever seriesNo changes, update series array
+            // prevSeries is the already existing state
+            setSeries((prevSeries) => {
+                const newSeries = [...prevSeries];
+    
+                if (seriesNo > prevSeries.length) {
+                // Add more empty objects
+                return [...newSeries, ...Array(seriesNo - prevSeries.length).fill({})];
+                } else {
+                // Trim to new length
+                return newSeries.slice(0, seriesNo);
+                }
+            });
+            
+            setSerieData({...serieData,season: series})
+        }, [seriesNo]);
+
         return (
             <>
-                <div className="input-section">
+                {series.map((_,ind)=> (
+                      
+                    <SerieHandler relYears={relYears} ind={ind} key={ind} />
+                    
+                ))}
 
-                <div>
-                    <label htmlFor="season">Season:</label>
-                    <input type="number" name="season" id="season" placeholder="Enter Season Number.." required />
-                </div>
-                <div>
-                    <label htmlFor="img">Film Thumbnail:</label>
-                    <input type="url" name="img" placeholder="Enter Film Thumbnail.." required/>
-                </div>
-    
-                <div>
-                    <label htmlFor="tr_link">Trailer Link:</label>
-                    <input type="url" name="tr_link"  placeholder="https://TrailerLink.com" required/>
-                </div>
-    
-                <div>
-                    <label htmlFor="cast">Film Cast:</label>
-                    <textarea name="cast"  placeholder="Enter Film Cast.." required></textarea>
-                </div>
-    
-                <div>
-                    <label htmlFor="rel_year">Release Year:</label>
-                    <input type="number" name="rel_year"  placeholder="Enter Year of Release.." required />
-                </div>
-                
-                </div>
-
-                <EpisodeHandler/>
     
                 <div className="reverse-btn">
-                    <input type="button" value="Add Another Season" />
-                    <span>1</span>
-                    <input type="button" value="Remove Another Season" />
+                    <input type="button" value="Add Another Season" onClick={increment} />
+                    <span>{seriesNo}</span>
+                    <input type="button" value="Remove Another Season" onClick={decrement} />
                 </div>
             </>
         );

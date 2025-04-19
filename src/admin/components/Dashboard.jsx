@@ -15,9 +15,14 @@ export default function Dashboard({ddState}){
     let navigate = useNavigate(); 
     let params = useParams();
     let AdminName;
-    user ? AdminName = user.name : navigate('/admin/auth/signin');
+    if (user) {
+        !user.is_admin ? navigate('/admin/auth/signin') : AdminName = user.name;
+    }else{
+        navigate('/admin/auth/signin');
+    }    
+    
     params == "/admin/upload" || params == "/admin/alter_upload" && setIsOpen(true) 
-    console.log(params);
+    // console.log(params);
     
 
     return (

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function GenreHandler({genreNo}) {
+export default function GenreHandler({genreNo,md,smd}) {
     const [genres,setGenres] = useState(Array(genreNo).fill(""));
     
     let genreOpt = ["Adventure","Action","Animation","Biography","Comedy","Crime","Documentary","Drama","Family","Fantasy","History","Horror","Music","Musical","Mystery","Romance","Sci-Fi","Sport","Thriller","War"]; 
@@ -25,6 +25,7 @@ export default function GenreHandler({genreNo}) {
             return newGenres.slice(0, genreNo);
             }
         });
+        smd({...md,genre: genres});
     }, [genreNo]);
     return(
         <>
