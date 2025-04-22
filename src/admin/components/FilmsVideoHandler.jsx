@@ -1,30 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import FilmsQuality from "./FilmsQuality";
+import FilmsVideo from "./FilmsVideo";
 
-export default function FilmsVideoHandler() {
+export default function FilmsVideoHandler({videoData,videoFn}) {
     const [vidQuality,setVidQuality] = useState([]);
+    const [disInputs,setDisInputs] = useState(true);
+    let disLinks = false;
+    disInputs ? disLinks = false : disLinks = true;
+    useEffect(()=>{
+        videoFn({
+            ...videoData,
+            data:[...Array(vidQuality.length).fill({})]
+        });
+    },[vidQuality]);
+    // console.log(videoData.data);
     return (
         <section className="popup">
             <div className="video-popup-box">
-                <h1>Select Video Quality Types</h1>
-                <div>
-                    <input type="checkbox" name="360P" value="360P" />
-                    <label htmlFor="360P">360P</label>
-                </div>
-                <div>
-                    <input type="checkbox" name="480P" value="480P" />
-                    <label htmlFor="480P">480P</label>
-                </div>
-                <div>
-                    <input type="checkbox" name="720P" value="720P" />
-                    <label htmlFor="720P">720P</label>
-                </div>
-                <div>
-                    <input type="checkbox" name="1080P" value="1080P" />
-                    <label htmlFor="1080P">1080P</label>
-                </div>
-                
-                <div className="btn flex gap-2 justify-center">
-                    <button>Click Here</button>
+                <FilmsQuality vidQuality={vidQuality} setVidQuality={setVidQuality} disLinks={disLinks} disInputs={disInputs} setDisInputs={setDisInputs} />
+
+                <div className={disLinks ? "video-link-input active" : "video-link-input"}>
+                    {vidQuality.sort().map((vid,ind) => (
+                        <FilmsVideo vid={vid}  ind={ind} vdFn={videoFn} key={ind}/>
+                    ))}
+                    <div className="btn flex gap-2 justify-center">
+                        <button>Done</button>
+                    </div>
                 </div>
             </div>
         </section>

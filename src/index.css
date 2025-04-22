@@ -6,8 +6,8 @@
 
 :root{
   /* for default */
-  --primary-color: rgb(0, 0, 0);  /*  the default text color  */
-  --primary-bg: rgb(255, 255, 255);  /* the default bg color */
+  --primary-color: rgb(0,0,0);  /*  the default text color  */
+  --primary-bg: rgb(255,255,255);  /* the default bg color */
 
   /* for btn (mainly) */
   --secondary-color: rgb(255,255,255);  /* the default text color in a btn */
@@ -220,7 +220,7 @@ footer:hover{
 
 
 .dashboard{
-  @apply fixed top-0 left-0 w-screen md:w-50 h-full md:h-screen p-5 hidden   z-20 transition ease-in-out duration-700 translate-x-80 pt-16 xl:pt-5 md:shadow-xl; 
+  @apply fixed top-0 left-0 w-0 md:w-50 h-0  md:h-screen p-5 hidden   z-20 transition ease-in-out duration-700 translate-x-80 pt-16 xl:pt-5 md:shadow-xl; 
   background-color: var(--primary-bg) ;
   color:var(--primary-color);
 }
@@ -325,12 +325,12 @@ footer:hover{
 
 
 .popup{
-  @apply w-full h-screen fixed top-0  p-50 flex justify-center content-center z-30 ;
+  @apply w-full h-screen fixed top-0  flex justify-center content-center z-30 ;
   background-color: rgba(0,0,0,0.7);
 }
 
 .popup-box{
-  @apply w-120 h-64 bg-white shadow-2xl p-5 flex flex-col content-center justify-center text-center rounded-2xl;
+  @apply w-120 h-64 bg-white shadow-2xl p-5 flex flex-col content-center justify-center text-center rounded-2xl m-50;
 }
 
 .popup-box .btn button{
@@ -339,9 +339,41 @@ footer:hover{
 
 
 .video-popup-box{
-  @apply w-120 h-120 bg-white shadow-2xl p-5 flex flex-col content-center justify-center text-center rounded-2xl;
+  @apply w-120 h-120 bg-white shadow-2xl p-5 m-20 flex flex-col content-center justify-center text-center rounded-2xl;
+}
+
+.video-popup-box h1{
+  @apply font-bold text-2xl;
 }
 
 .video-popup-box .btn button{
   @apply p-2 w-32;
+}
+
+.video-quality-input,.video-link-input{
+  @apply hidden;
+}
+
+.video-quality-input.active, .video-link-input.active{
+  @apply flex flex-col ;
+}
+
+.video-quality-input > div{
+  @apply py-5 flex gap-2 justify-center;
+}
+
+.video-quality-input input[type="checkbox"]{
+  @apply w-5; 
+}
+
+.video-quality-input label{
+  @apply text-xl;
+}
+
+.video-link-input > div{
+  @apply p-2 ;
+}
+
+.video-link-input input[type="url"]{
+  @apply p-2 border-solid border-gray-500 border focus:outline-0 focus:shadow-lg rounded w-full;
 }

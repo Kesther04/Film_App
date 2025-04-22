@@ -1,7 +1,12 @@
-import { FilmsContext } from "./FilmsContext";
+import { useEffect } from "react";
+import { FilmsContext, VideoContext } from "./FilmsContext";
 
 export default function MovieHandler({relYears}) {
     const {movieData, setMovieData} = FilmsContext();
+    const {selFilm,setSelFilm} = VideoContext();
+    useEffect(()=>{
+        setMovieData({...movieData,video:selFilm.data});
+    },[selFilm.data]);
     return (
         <>
             <div className="input-section">
@@ -41,9 +46,10 @@ export default function MovieHandler({relYears}) {
                 {/* video / videos (for setting up download links or video links) */}
                 <div>
                     <label htmlFor="video">Film Video:</label>
-                    <input type="button" name="video"  value="Click Here to add Film Video" required />
+                    <input type="button" name="video"  value="Click Here to add Film Video" required onClick={()=>setSelFilm({status:true,data:movieData.video})} />
                 </div>
             </div>
+            
         </>
     );
 }

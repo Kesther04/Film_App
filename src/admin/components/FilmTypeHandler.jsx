@@ -43,14 +43,16 @@ export default function FilmTypeHandler({type}) {
             setSerieData({...serieData,season: series})
         }, [seriesNo]);
 
+        useEffect(()=>{
+            setSeries((prev) => prev = serieData.season)
+        },[serieData]);
         return (
             <>
-                {series.map((_,ind)=> (
-                      
-                    <SerieHandler relYears={relYears} ind={ind} key={ind} />
-                    
-                ))}
-
+                {   
+                    series.map((_,ind)=> (
+                        <SerieHandler relYears={relYears} ind={ind} key={ind} />
+                    ))
+                }
     
                 <div className="reverse-btn">
                     <input type="button" value="Add Another Season" onClick={increment} />

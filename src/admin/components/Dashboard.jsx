@@ -5,6 +5,7 @@ import { faArrowRightFromBracket, faHouse, faListCheck, faUser, faUsers } from "
 import Logout from "./Logout";
 import { useState } from "react";
 import { UseSessionAdmin } from "./UseSessionAdmin";
+import FilmsVideoHandler from "./FilmsVideoHandler";
 
 
 export default function Dashboard({ddState}){
