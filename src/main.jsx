@@ -58,6 +58,11 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage/>
   },
   {
+    path: '/admin/delete_upload',
+    element: <AlterUpload/>,
+    errorElement: <ErrorPage/>
+  },
+  {
     path: '/admin/user_details',
     element: <UserDetails/>,
     errorElement: <ErrorPage/>

@@ -2,7 +2,7 @@ import { useState } from "react";
 
 export default function FilmsVideo({vid,vdFn, ind}){
     const [video,setVideo] = useState({size: "",film_ext: "",vid_type: "",link: ""});
-
+    const [vidErr,setVidErr] = useState("");
     const getFileExtension = (url) => {
         return url.split('.').pop().split('?')[0].split('#')[0];
     };
@@ -10,15 +10,10 @@ export default function FilmsVideo({vid,vdFn, ind}){
     const getMimeType = (ext) => {
         const mimeTypes = {
             mp4: 'video/mp4',
-            jpg: 'image/jpeg',
-            png: 'image/png',
-            pdf: 'application/pdf',
-            mp3: 'audio/mpeg',
-            txt: 'text/plain',
-            json: 'application/json',
+            mkv: 'video/mkv'
             // Add more as needed
         };
-        return mimeTypes[ext.toLowerCase()] || 'application/octet-stream';
+        return mimeTypes[ext.toLowerCase()] || null;
     };
     
     const getFileSize = async (url) => {
@@ -32,18 +27,22 @@ export default function FilmsVideo({vid,vdFn, ind}){
         }
     };
     
+    
     const handleVideoLink = async (e) => {
         let vid_link = e.target.value;
         const ext = getFileExtension(vid_link);
         const mime = getMimeType(ext);
         const size = await getFileSize(vid_link);
-
-        setVideo({
-            size: size,
-            film_ext: ext,
-            vid_type: mime,
-            link: vid_link
-        });
+        if(size == null){
+            setVidErr("Incorrect Video Format");
+        }else{
+            setVideo({
+                size: size,
+                film_ext: mime,
+                vid_type: vid,
+                link: vid_link
+            });
+        }
 
         vdFn((prev) => {
             const updatedData = [...prev.data];
@@ -54,10 +53,10 @@ export default function FilmsVideo({vid,vdFn, ind}){
     };
 
     return (
-        <>
-            <div>
-                <input type="url" name="vid[]" placeholder={`Paste Link Here for ${vid} Video of Film`} required onChange={(e)=>handleVideoLink(e)}/>
-            </div>
-        </>
+        
+        <div>
+            <input type="file" name="vid[]" placeholder={`Paste Link Here for ${vid} Video of Film`} required onChange={(e)=>handleVideoLink(e)}/>
+            <span className="text-red-500">{vidErr}</span>
+        </div>
     );
 }

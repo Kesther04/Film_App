@@ -1,6 +1,8 @@
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
-export default function FilmsQuality({vidQuality,setVidQuality,disInputs,setDisInputs}) {
+export default function FilmsQuality({vidQuality,setVidQuality,disInputs,setDisInputs,vdData,vdFn}) {
     const [checked] = useState({"360P":false,"480P":false,"720P":false,"1080P":false});
     
 
@@ -19,6 +21,9 @@ export default function FilmsQuality({vidQuality,setVidQuality,disInputs,setDisI
     
     return (
         <div className={disInputs ? "video-quality-input active" : "video-quality-input"}>
+            <div className="icon" onClick={()=>vdFn({...vdData,status:false})}>
+                <FontAwesomeIcon icon={faArrowLeft} />
+            </div>
             <h1>Select Video Quality Types</h1>
             <div>
                 <input type="checkbox" checked={checked["360P"]} name="360P" value="360P" onChange={(e)=>vidQualityHandler(e)} />
