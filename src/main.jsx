@@ -13,6 +13,7 @@ import AlterUpload from './admin/pages/AlterUpload.jsx'
 import AdminIndex from './admin/AdminIndex.jsx'
 import UserDetails from './admin/pages/UserDetails.jsx'
 import Profile from './admin/pages/Profile.jsx'
+import DeleteUpload from './admin/pages/DeleteUpload.jsx'
 
 
 
@@ -59,7 +60,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/admin/delete_upload',
-    element: <AlterUpload/>,
+    element: <DeleteUpload/>,
     errorElement: <ErrorPage/>
   },
   {
