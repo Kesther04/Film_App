@@ -3,11 +3,12 @@ import Dashboard from "../components/Dashboard";
 import UploadFilms from "../components/UploadFilms";
 import { createVideoContext } from "../components/FilmsContext";
 import FilmsVideoHandler from "../components/FilmsVideoHandler";
+import FilmsSavedPopup from "../components/FilmsSavedPopup";
 export default function Upload() {
     // const [showNav, setShowNav] = useState(true);
 
-    const [selFilm,setSelFilm] = useState({status:false,data:[],eid:null,sid:null});
-    // console.log(selFilm.data);
+    const [selFilm,setSelFilm] = useState({status:false,type:"",isSaved:[],data:[],sid:[]});
+    console.log(selFilm);
     return (
         <>
             <Dashboard ddState={true}/>
@@ -18,7 +19,14 @@ export default function Upload() {
                     </createVideoContext.Provider>
                 </section>
             </main>
-            {selFilm.status ? <FilmsVideoHandler videoData={selFilm} videoFn={setSelFilm}/> : ""}
+            {
+                (selFilm.type == "movie" && selFilm.isSaved[0] == "Saved" && selFilm.status) ? <FilmsSavedPopup videoData={selFilm} videoFn={setSelFilm}/> :  
+                (selFilm.type == "serie" && selFilm.isSaved.includes(selFilm.sid[selFilm.sid.length-1]) &&  selFilm.status) ? <FilmsSavedPopup videoData={selFilm} videoFn={setSelFilm}/> : 
+                selFilm.status ? <FilmsVideoHandler videoData={selFilm} videoFn={setSelFilm}/> : ""
+            }
+     
+
+
         </>
     );
 }

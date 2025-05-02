@@ -35,7 +35,7 @@ export default function UploadFilms(){
     function decrementGenre() {
         return setGenreNo((prev) => (prev === 1 ? prev : prev - 1));
     }
-    console.log(movieData);
+    // console.log(movieData);
     return (
         <form>
             <h1>Upload Film</h1>

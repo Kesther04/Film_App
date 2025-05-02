@@ -4,7 +4,7 @@ import FilmsVideo from "./FilmsVideo";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function FilmsVideoHandler({videoData,videoFn}) {
+export default function FilmsVideoHandler({videoData,videoFn}) {    
     const [vidQuality,setVidQuality] = useState([]);
     const [disInputs,setDisInputs] = useState(true);
     let disLinks = false;
@@ -12,15 +12,23 @@ export default function FilmsVideoHandler({videoData,videoFn}) {
     disInputs ? disLinks = false : disLinks = true;
     
     useEffect(()=>{
-        // videoFn((prevVdData) => {
-        //     const newVdData = [...prevVdData];
-
-        //     return [...newVdData, ...Array().fill{}]
-        // });
+    
         videoFn({...videoData,data:[...Array(vidQuality.length).fill({})]});
         
     },[vidQuality]);
-    // console.log(videoData.data);
+
+    const saveVidUpload = () => {
+        if (videoData.type == "movie") {
+            videoFn({...videoData,status:false,isSaved:["Saved"]});    
+        }
+
+        if (videoData.type == "serie"){
+            let serievdDt = videoData.sid[videoData.sid.length-1];
+            videoFn({...videoData,status:false,isSaved:[...videoData.isSaved.filter((id => id !== serievdDt)),serievdDt]});
+        }
+               
+    }
+
     return (
         <section className="popup">
             <div className="video-popup-box">
@@ -34,7 +42,7 @@ export default function FilmsVideoHandler({videoData,videoFn}) {
                         <FilmsVideo vid={vid}  ind={ind} vdFn={videoFn} key={ind}/>
                     ))}
                     <div className="btn flex gap-2 justify-center">
-                        <button>Done</button>
+                        <button onClick={()=>saveVidUpload()}>Save</button>
                     </div>
                 </div>
             </div>

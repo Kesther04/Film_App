@@ -45,8 +45,15 @@ export default function MovieHandler({relYears}) {
 
                 {/* video / videos (for setting up download links or video links) */}
                 <div>
-                    <label htmlFor="video">Film Video:</label>
-                    <input type="button" name="video"  value="Click Here to add Film Video" required onClick={()=>setSelFilm({status:true,data:movieData.video})} />
+                    <label htmlFor="video">Movie Video:</label>
+                    <input 
+                        type="button" 
+                        name="video"  
+                        value={selFilm.isSaved[0] ? "Saved Successfully" :"Click Here to upload Movie Video"} 
+                        className={selFilm.isSaved[0] ? "saved" : ""}
+                        required 
+                        onClick={()=>setSelFilm({...selFilm,type:"movie",status:true,data:movieData.video})} 
+                    />
                 </div>
             </div>
             

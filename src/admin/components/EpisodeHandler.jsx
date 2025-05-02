@@ -20,6 +20,22 @@ export default function EpisodeHandler({ind,season_id,setSeason}) {
         (selFilm.eid === episode.id && selFilm.sid === season_id) && setEpisode({...episode,video:selFilm.data});
     },[selFilm.data]);    
     
+    const setEpisodeVid = () => {
+        setSelFilm((prev) => {
+
+            const newSes = prev.sid.filter((id) => id !== season_id+'.'+episode.id);
+
+
+            return {
+                ...selFilm,
+                type:"serie",
+                status:true,
+                data:episode.video,
+                sid:[...newSes,season_id+'.'+episode.id]
+            }
+        });
+    }
+    
     
     return(
         <>
@@ -39,8 +55,15 @@ export default function EpisodeHandler({ind,season_id,setSeason}) {
 
                 {/* video / videos (for setting up download links or video links) */}
                 <div>
-                    <label htmlFor="video">Film Video:</label>
-                    <input type="button" name="video"  value="Click Here to add Film Video" required onClick={()=>setSelFilm({status:true,data:episode.video,eid:episode.id,sid:season_id})}/>
+                    <label htmlFor="video">Episode Video:</label>
+                    <input 
+                        type="button" 
+                        name="video"  
+                        value={selFilm.isSaved.includes(season_id+'.'+episode.id) ? "Saved Successfully" :"Click Here to upload Episode Video"} 
+                        className={selFilm.isSaved.includes(season_id+'.'+episode.id) ? "saved" : ""}
+                        required 
+                        onClick={()=>setEpisodeVid()}
+                    />
                 </div>
             </div>
 

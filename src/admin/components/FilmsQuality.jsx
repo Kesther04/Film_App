@@ -18,6 +18,7 @@ export default function FilmsQuality({vidQuality,setVidQuality,disInputs,setDisI
         console.log(checked,vidQuality);    
     }
     
+
     
     return (
         <div className={disInputs ? "video-quality-input active" : "video-quality-input"}>
