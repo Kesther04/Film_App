@@ -27,6 +27,11 @@ export default function GenreHandler({genreNo,md,smd}) {
         });
         smd({...md,genre: genres});
     }, [genreNo]);
+
+    useEffect(()=>{
+        smd({...md,genre: genres});
+    },[genres]);
+
     return(
         <>
             {genres.map((genre,index) => {

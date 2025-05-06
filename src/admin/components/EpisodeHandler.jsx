@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { VideoContext } from "./FilmsContext";
+import { VideoContext } from "../context/FilmsContext";
 
 export default function EpisodeHandler({ind,season_id,setSeason}) {
     let sid = ind + 1;

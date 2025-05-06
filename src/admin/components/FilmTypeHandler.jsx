@@ -1,7 +1,7 @@
 import { useEffect,useState } from "react";
 import MovieHandler from "./MovieHandler";
 import SerieHandler from "./SerieHandler";
-import { FilmsContext } from "./FilmsContext";
+import { FilmsContext } from "../context/FilmsContext";
 
 export default function FilmTypeHandler({type}) {
     let date = new Date().getFullYear();

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import EpisodeHandler from "./EpisodeHandler";
-import { FilmsContext } from "./FilmsContext";
+import { FilmsContext } from "../context/FilmsContext";
 
 export default function SerieHandler({relYears,ind}){
     let sid = ind + 1;

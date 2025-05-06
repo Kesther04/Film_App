@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useState } from "react";
 
 export default function FilmsVideo({vid,vdFn, ind}){
@@ -5,7 +6,6 @@ export default function FilmsVideo({vid,vdFn, ind}){
     const [video,setVideo] = useState({size: "",film_ext: "",vid_type: "",link: ""});
     const [vidErr,setVidErr] = useState("");
     const [genType, setGenType] = useState("file");
-    console.log(video);    
 
     const getMimeType = (ext) => {
         const mimeTypes = {
@@ -43,6 +43,8 @@ export default function FilmsVideo({vid,vdFn, ind}){
                 link: vid_link
             });
             setVidErr("");
+
+            
         }
 
         vdFn((prev) => {
@@ -51,6 +53,8 @@ export default function FilmsVideo({vid,vdFn, ind}){
     
             return {...prev,data:updatedData};
         });
+
+        
     };
 
     const handleVideoFile = (e) => {
@@ -63,7 +67,6 @@ export default function FilmsVideo({vid,vdFn, ind}){
         let size = (selectedFile.size/(1024*1024)).toFixed(2);  
 
         if (!validTypes.includes(selectedFile.type)) {
-            console.log(selectedFile.type);
             setVidErr("Incorrect Video File Format");
         }else{
             
@@ -83,6 +86,16 @@ export default function FilmsVideo({vid,vdFn, ind}){
             return {...prev,data:updatedData};
         });
     }
+
+    useEffect(()=>{
+        vdFn((prev) => {
+            const updatedData = [...prev.data];
+            updatedData[ind] = video;
+    
+            return {...prev,data:updatedData};
+        });
+
+    },[video]);
 
     return (
         

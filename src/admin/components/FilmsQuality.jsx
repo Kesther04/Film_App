@@ -14,8 +14,7 @@ export default function FilmsQuality({vidQuality,setVidQuality,disInputs,setDisI
         }else{
             setVidQuality([...vidQuality,e.target.value]);
             checked[qual] = true;
-        }
-        console.log(checked,vidQuality);    
+        }    
     }
     
 

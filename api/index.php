@@ -32,6 +32,10 @@ switch ($type) {
         $admin = new AdminController();
         echo $admin->signin_admin("php://input");
         break;
+    case 'pushFilmData':
+        $film = new FilmsController();
+        echo $film->handle_film_data("php://input");    
+        break;
     default:
         echo json_encode([
             "status" => "error",

@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import FilmTypeHandler from "./FilmTypeHandler";
 import GenreHandler from "./GenreHandler";
-import { createFilmContext } from "./FilmsContext";
+import { createFilmContext } from "../context/FilmsContext";
+import axios from "axios";
+import { BASE_API_URL } from "../../constants";
+import { useEffect } from "react";
 
 export default function UploadFilms(){
     const [movieData,setMovieData] = useState({title: "",film_type: "",genre: [],img: "",trailer_link:"",release_year:"",film_cast: "",film_desc: "",video:[]});
     const [serieData,setSerieData] = useState({title: "",film_type: "",genre: [],season: []});
     const [type,setType] = useState("");
+    // const type = useRef("");
     const titleHandle = (e) => {
         if (type == "MOVIE" || type == "ANIMATED MOVIE") {
             setMovieData({...movieData,title:e.target.value});    
@@ -16,16 +20,23 @@ export default function UploadFilms(){
             setSerieData({...serieData,title:e.target.value});  
         }
     }
-    const TypeHandle = (e) => {
-        setType(e.target.value);
-        if (type == "MOVIE" || type == "ANIMATED MOVIE") {
-            setMovieData({...movieData,film_type:type});    
+
+    const typeHandle = (e) => {
+        const typeVal = e.target.value;
+        setType(typeVal);
+
+        if (typeVal == "MOVIE" || typeVal == "ANIMATED MOVIE") {
+            setMovieData({...movieData,film_type:typeVal});    
         }
 
         if (type == "SERIE" || type == "ANIMATED SERIE") {
-            setSerieData({...serieData,film_type:type});  
+            setSerieData({...serieData,film_type:typeVal});  
         }
-    };
+
+        
+    }
+    
+    
 
     const [genreNo,setGenreNo] = useState(1);
     
@@ -35,15 +46,41 @@ export default function UploadFilms(){
     function decrementGenre() {
         return setGenreNo((prev) => (prev === 1 ? prev : prev - 1));
     }
-    // console.log(movieData);
+    
+    
+    const URL = `${BASE_API_URL}?apiKey=pushFilmData`;
+    let pushableData;
+    const pushFilm = (e) => {
+        e.preventDefault();
+        if (type == "MOVIE" || type == "ANIMATED MOVIE") {
+            pushableData = movieData;
+        }
+
+        if (type == "SERIE" || type == "ANIMATED SERIE") {
+            pushableData = serieData;
+        }
+
+        axios.post(URL,pushableData,{withCredentials: true,headers:{'Content-Type':'application/json'}})
+            .then((res)=>{
+                console.log(res.data)
+                // if(res.data.status === "success"){
+                //     navigate('/admin/upload');
+                // }
+                // setMsg(res.data.message);
+            })
+            .catch((err)=>console.log(err))           
+
+    }
+
+
     return (
-        <form>
+        <form onSubmit={(data)=>pushFilm(data)}>
             <h1>Upload Film</h1>
             <div className="input-section">
                 {/* type */}
                 <div>
                     <label htmlFor="type">Film Type:</label>
-                    <select name="type" id="type" required onChange={(e)=>TypeHandle(e)}>
+                    <select name="type" id="type" required onChange={(e)=>typeHandle(e)}>
                         <option value=""></option>
                         <option value="MOVIE">MOVIE</option>
                         <option value="SERIE">SERIE</option>
@@ -90,10 +127,7 @@ export default function UploadFilms(){
                     <FilmTypeHandler type={type}/>
                 </createFilmContext.Provider> 
             }
-            
-            
-
-            
+        
             <div className="btn">
                 <button type="submit">Submit</button>
             </div>

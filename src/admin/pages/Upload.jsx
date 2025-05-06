@@ -1,14 +1,13 @@
 import { useState } from "react";
 import Dashboard from "../components/Dashboard";
 import UploadFilms from "../components/UploadFilms";
-import { createVideoContext } from "../components/FilmsContext";
+import { createVideoContext } from "../context/FilmsContext";
 import FilmsVideoHandler from "../components/FilmsVideoHandler";
 import FilmsSavedPopup from "../components/FilmsSavedPopup";
 export default function Upload() {
-    // const [showNav, setShowNav] = useState(true);
-
+    
     const [selFilm,setSelFilm] = useState({status:false,type:"",isSaved:[],data:[],sid:[]});
-    console.log(selFilm);
+    
     return (
         <>
             <Dashboard ddState={true}/>
