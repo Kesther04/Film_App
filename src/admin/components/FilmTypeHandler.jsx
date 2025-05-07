@@ -30,13 +30,15 @@ export default function FilmTypeHandler({type}) {
             // prevSeries is the already existing state
             setSeries((prevSeries) => {
                 const newSeries = [...prevSeries];
-    
+                
                 if (seriesNo > prevSeries.length) {
-                // Add more empty objects
-                return [...newSeries, ...Array(seriesNo - prevSeries.length).fill({})];
+                    // Add more empty objects
+                    // console.log([...newSeries, ...Array(seriesNo - prevSeries.length).fill({})]);
+                    return [...newSeries, ...Array(seriesNo - prevSeries.length).fill({})];
+                    
                 } else {
-                // Trim to new length
-                return newSeries.slice(0, seriesNo);
+                    // Trim to new length
+                    return newSeries.slice(0, seriesNo);
                 }
             });
             
@@ -46,6 +48,8 @@ export default function FilmTypeHandler({type}) {
         useEffect(()=>{
             setSeries((prev) => prev = serieData.season)
         },[serieData]);
+
+        console.log(series);
         return (
             <>
                 {   

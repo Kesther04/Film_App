@@ -29,7 +29,7 @@ export default function UploadFilms(){
             setMovieData({...movieData,film_type:typeVal});    
         }
 
-        if (type == "SERIE" || type == "ANIMATED SERIE") {
+        if (typeVal == "SERIE" || typeVal == "ANIMATED SERIE") {
             setSerieData({...serieData,film_type:typeVal});  
         }
 
@@ -72,6 +72,7 @@ export default function UploadFilms(){
 
     }
 
+    // console.log(serieData);
 
     return (
         <form onSubmit={(data)=>pushFilm(data)}>
