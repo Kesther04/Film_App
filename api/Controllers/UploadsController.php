@@ -26,4 +26,25 @@ class UploadsController extends Uploads{
 
         return $isSet;
     }
+
+    // Method to upload serie Videos
+    public function place_serie_uploads($id,$sid,$videos) {
+        $isSet = true;
+        foreach ($videos as $key => $vid) {
+            $arr = [
+                "id" =>  $id,
+                "video" =>   $vid["link"],
+                "sid" => $sid,
+                "size" => $vid["size"],
+                "film_ext" => $vid["film_ext"],
+                "type" =>  $vid["vid_type"]
+            ];
+
+            if($this->insert_upload($arr) !== "successful"){
+                $isSet = false;
+            };
+        }
+
+        return $isSet;
+    }
 }

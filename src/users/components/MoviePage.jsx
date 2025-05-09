@@ -15,8 +15,10 @@ export default function MoviePage ({movie}) {
                         <span className="w-auto xl:w-100">
                             <h1 className="text-2xl py-3 font-bold">{movie.title}</h1>
                             <p>
-                                {movie.film_desc} ---
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ex dignissimos placeat facere nulla minima vero reprehenderit autem voluptate quis. Quasi, harum a culpa distinctio officia sequi aperiam vitae atque exercitationem!
+                                {movie.film_cast}
+                            </p>
+                            <p>
+                                {movie.film_desc}
                             </p>
                         </span>
                         

@@ -14,23 +14,21 @@ class FilmsController extends Films{
         return $this->select_movie($id);
     }
 
-    private function check_if_arr_empty($arr,$err){
-        foreach ($arr as $key => $val) {
+    private function check_if_arr_empty($arr) {
+        foreach ($arr as $val) {
             if (is_array($val)) {
-                if (empty($val)) {
-                    $err = true;
-                }else{
-                    $arr[$key] = $this->check_if_arr_empty($val,$err);
+                if (empty($val) || $this->check_if_arr_empty($val)) {
+                    return true;
                 }
-            }else{
-                if(empty($val)){
-                    $err = true;
+            } else {
+                if (empty($val)) {
+                    return true;
                 }
             }
         }
-
-        return $err;
+        return false;
     }
+    
 
     private function sanitize_arr_data($array) {
         foreach ($array as $key => $value) {
@@ -45,108 +43,95 @@ class FilmsController extends Films{
 
     public function handle_film_data($input){
         $data = json_decode(file_get_contents($input), true);
-        $err = false;
 
-        if (empty($data["film_type"])) {
-            
-            return json_encode(["status" => "error","message" => "Film Type not Found"]);
-        }elseif ($data["film_type"] == "MOVIE" || $data["film_type"] == "ANIMATED MOVIE") {
-            // to push movies to be inserted
-            try {
-                
-                $dataFormat = [
-                    "title" => $data["title"],
-                    "genres" => $data["genre"],
-                    "img" => $data["img"],
-                    "desc" => $data["film_desc"],
-                    "cast" => $data["film_cast"],
-                    "type" => str_replace(' ','_',$data["film_type"]),
-                    "release_year" => $data["release_year"],
-                    "trailer_link" => $data["trailer_link"],
-                    "videos" => $data["video"]
-                ]; 
-                $updErr = $this->check_if_arr_empty($dataFormat,$err);
-                
-                if ($updErr == true) {
-                    return json_encode(["status" => "error","message" => "Ensure Movie Data is Complete"]);
-                }else{
-
-                    $movieDataFormat = $this->sanitize_arr_data($dataFormat);
-                    return $this->input_movie($movieDataFormat);
-                
-                }
-
-            } catch (Exception $e) {
-                return json_encode(["status"=>"error","message"=>"Error Occured".$e->getMessage()]);
-            }
-            
-        }elseif ($data["film_type"]  == "SERIE" || $data["film_type"] == "ANIMATED SERIE") {
-            // to push series to be inserted
-            try {
-                $img = [];
-                $cast = [];
-                $rel_yr = [];
-                $tr_link = [];
-                $ep = [];
-                $seasonNo = [];
-                foreach ($data["season"] as $key => $value) {
-                    
-                    switch ($key) {
-
-                        case "img":
-                            $img[] = $value;                            
-                            break;
-                        case "film_cast":
-                            $cast[] = $value;
-                            break;
-                        case "release_year":
-                            $rel_yr[] = $value;
-                            break;
-                        case "trailer_link":
-                            $tr_link[] = $value;
-                            break;
-                        case "episode":
-                            $ep[] = $value;
-                            break;
-                        default:
-                            $seasonNo[] = $value;
-                            break;
-                    }
-                }
-                $dataFormat = [
-                    "title" => $data["title"],
-                    "genres" => $data["genre"],
-                    "img" => $img,
-                    "desc" => NULL,
-                    "cast" => $cast,
-                    "release_year" => $rel_yr,
-                    "trailer_link" => $tr_link,
-                    "type" => str_replace(' ','_',$data["film_type"]),
-                    "seasonNo" => $seasonNo,
-                    "episodes" => $ep
-                ];
-
-              
-                $updErr = $this->check_if_arr_empty($dataFormat,$err);
-
-                if ($updErr == true) {
-                    return json_encode(["status" => "error","message" => "Ensure Serie Data is Complete"]);
-                }else{
-                
-                    $serieDataFormat = $this->sanitize_arr_data($dataFormat);
-                    // return $this->input_serie($serieDataFormat);    
-                    return json_encode(["status"=>"success","message"=>$serieDataFormat]);                
-                }
-            } catch (Exception $e) {
-                return json_encode(["status"=>"error","message"=>"Error Occured".$e->getMessage()]);
-            }
-        
-
+        $updErr = $this->check_if_arr_empty($data);
+        if ($updErr == true) {
+            return json_encode(["status" => "error","message" => "Ensure Film Data is Complete"]);
         }else{
-            return json_encode(["status" => "error", "message" => "Invalid Film Type"]);
+
+            $data["film_type"] = str_replace(' ','_',$data["film_type"]);
+            $dataFormat = $this->sanitize_arr_data($data);
+
+            if ($dataFormat["film_type"] == "MOVIE" || $dataFormat["film_type"] == "ANIMATED_MOVIE") {
+                // for uploading movies
+                try{
+                    $movieDataFormat = [
+                        "title" => $dataFormat["title"],
+                        "genres" => $dataFormat["genre"],
+                        "img" => $dataFormat["img"],
+                        "desc" => $dataFormat["film_desc"],
+                        "cast" => $dataFormat["film_cast"],
+                        "type" => $dataFormat["film_type"],
+                        "release_year" => $dataFormat["release_year"],
+                        "trailer_link" => $dataFormat["trailer_link"],
+                        "videos" => $dataFormat["video"]
+                    ]; 
+
+                    return $this->input_movie($movieDataFormat);
+                }catch (Exception $e) {
+                    return json_encode(["status"=>"error","message"=>"Error Occured".$e->getMessage()]);
+                }
+        
+            }elseif ($dataFormat["film_type"]  == "SERIE" || $dataFormat["film_type"] == "ANIMATED_SERIE") {
+                // for uploading series
+                try{ 
+                    $img = [];
+                    $cast = [];
+                    $rel_yr = [];
+                    $tr_link = [];
+                    $ep = [];
+                    $seasonNo = [];
+
+
+                    foreach ($dataFormat["season"] as $dtvalue) {
+
+                        foreach ($dtvalue as $key => $val) {
+                            switch ($key) {
+                                case "img":
+                                    $img[] = $val;                            
+                                    break;
+                                case "film_cast":
+                                    $cast[] = $val;
+                                    break;
+                                case "release_year":
+                                    $rel_yr[] = $val;
+                                    break;
+                                case "trailer_link":
+                                    $tr_link[] = $val;
+                                    break;
+                                case "episode":
+                                    $ep[] = $val;
+                                    break;
+                                case "id":
+                                    $seasonNo[] = $val;
+                                    break;
+                            }
+                        }
+                    }
+
+                    
+                    $serieDataFormat = [
+                        "title" => $dataFormat["title"],
+                        "genres" => $dataFormat["genre"],
+                        "img" => implode(".+.",$img),
+                        "desc" => NULL,
+                        "cast" => implode(".+.",$cast),
+                        "type" => $dataFormat["film_type"],
+                        "release_year" => implode(".+.",$rel_yr),
+                        "trailer_link" => implode(".+.",$tr_link),
+                        "seasonNo" => $seasonNo,
+                        "episodes" => $ep
+                    ];
+
+                    return $this->input_serie($serieDataFormat);    
+                    // return json_encode(["status"=>"success","message"=>$serieDataFormat]);         
+                }catch (Exception $e) {
+                    return json_encode(["status"=>"error","message"=>"Error Occured".$e->getMessage()]);
+                }
+           
+            }else{    
+                return json_encode(["status" => "error", "message" => "Invalid Film Type"]);
+            }
         }
-
-
     }
 }
-

@@ -72,7 +72,7 @@ export default function UploadFilms(){
 
     }
 
-    // console.log(serieData);
+    console.log(serieData);
 
     return (
         <form onSubmit={(data)=>pushFilm(data)}>

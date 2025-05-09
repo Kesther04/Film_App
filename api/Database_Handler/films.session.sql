@@ -16,17 +16,15 @@ CREATE TABLE users(
 CREATE TABLE films(
     id INT AUTO_INCREMENT,
     title VARCHAR(100) NOT NULL UNIQUE,
-    img VARCHAR(255) NOT NULL,
+    img TEXT NOT NULL,
     film_desc TEXT,
     film_cast TEXT NOT NULL,
     film_type VARCHAR(100) NOT NULL,
-    release_year INT NOT NULL,
-    trailer_link VARCHAR(255) NOT NULL,
+    release_year TEXT NOT NULL,
+    trailer_link TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(id) 
-)
-
---@block
+);
 CREATE TABLE genres(
     id INT AUTO_INCREMENT,
     film_id INT NOT NULL,
@@ -34,21 +32,18 @@ CREATE TABLE genres(
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(id),
     FOREIGN KEY(film_id) REFERENCES films(id)
-)
-
---@block
+);
 CREATE TABLE series(
     id INT AUTO_INCREMENT,
     film_id INT NOT NULL,
     season INT NOT NULL,
     episode INT NOT NULL,
+    title TEXT NOT NULL,
     episode_desc TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(id),
     FOREIGN KEY(film_id) REFERENCES films(id)
-)
-
---@block
+);
 CREATE TABLE uploads(
     id INT AUTO_INCREMENT,
     film_id INT NOT NULL,
@@ -61,11 +56,7 @@ CREATE TABLE uploads(
     PRIMARY KEY(id),
     FOREIGN KEY(film_id) REFERENCES films(id),
     FOREIGN KEY(series_id) REFERENCES series(id)
-)
-
-
-
---@block
+);
 CREATE TABLE records(
     id INT AUTO_INCREMENT,
     user__id INT NOT NULL,
@@ -77,7 +68,7 @@ CREATE TABLE records(
     FOREIGN KEY(user__id) REFERENCES users(id),
     FOREIGN KEY(film_id) REFERENCES films(id),
     FOREIGN KEY(upl_id) REFERENCES uploads(id)
-)
+);
 
 
 

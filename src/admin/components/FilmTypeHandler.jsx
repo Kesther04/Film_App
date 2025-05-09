@@ -10,8 +10,7 @@ export default function FilmTypeHandler({type}) {
     for (let index = date; index > 2000; index--) {          
         relYears.push(index);
     }
-    // console.log(relYears);
-    
+
 
     if (type == "MOVIE" || type == "ANIMATED MOVIE") {
         return (
@@ -33,7 +32,7 @@ export default function FilmTypeHandler({type}) {
                 
                 if (seriesNo > prevSeries.length) {
                     // Add more empty objects
-                    // console.log([...newSeries, ...Array(seriesNo - prevSeries.length).fill({})]);
+                    
                     return [...newSeries, ...Array(seriesNo - prevSeries.length).fill({})];
                     
                 } else {
@@ -49,7 +48,7 @@ export default function FilmTypeHandler({type}) {
             setSeries((prev) => prev = serieData.season)
         },[serieData]);
 
-        console.log(series);
+        
         return (
             <>
                 {   

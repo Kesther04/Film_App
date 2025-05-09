@@ -183,7 +183,7 @@ class Films extends Database{
 
             unset($data["videos"], $data["genres"]);
 
-            $stmt->bind_param("sssssis",...array_values($data));
+            $stmt->bind_param("sssssss",...array_values($data));
 
             
             if($stmt->execute()){
@@ -228,7 +228,7 @@ class Films extends Database{
 
                 return json_encode([
                     "status" => "error",
-                    "message" => "Movie not Inserted: ".$conn->error
+                    "message" => "Movie not Inserted: "
                 ]);
                 exit();
 
@@ -242,8 +242,7 @@ class Films extends Database{
                 "message" => "Error Occured: ".$e->getMessage()
             ]);
             exit();
-        }
-     
+        }     
     }
 
     // Method to input Serie Data
@@ -264,11 +263,12 @@ class Films extends Database{
             }
 
             $genres = $data["genres"];
-            $videos = $data["videos"];
+            $seasonNo = $data["seasonNo"];
+            $episodes = $data["episodes"];
 
-            unset($data["videos"], $data["genres"]);
+            unset($data["episodes"], $data["genres"], $data["seasonNo"]);
 
-            $stmt->bind_param("sssssis",...array_values($data));
+            $stmt->bind_param("sssssss",...array_values($data));
 
             
             if($stmt->execute()){
@@ -278,12 +278,11 @@ class Films extends Database{
                 $filmId = $this->select_on_film_insert($data["title"]);
 
                 require_once './Controllers/GenreController.php';
-                require_once './Controllers/UploadsController.php';
+                require_once './Controllers/SerieController.php';
                 $genRe = new GenreController();
-                $uploads = new UploadsController();
+                $serie = new SerieController();
                 
                 $checkGenres = $genRe->handle_genre($filmId,$genres);
-                $checkUplds = $uploads->place_movie_uploads($filmId,$videos);
                 
                 if (!$checkGenres) {
                     return json_encode([
@@ -292,19 +291,21 @@ class Films extends Database{
                     ]);
                     exit();
                 }
-                
-                if (!$checkUplds) {
-                    return json_encode([
-                        "status" => "error",
-                        "message" => "video Uploads not Complete"
-                    ]);
-                    exit();
-                }
 
+                foreach ($seasonNo as $key => $singleNo) {
+                    $serieCon = $serie->handle_series($filmId,$singleNo,$episodes[$key]);
 
+                    if ($serieCon !== "successful") {
+                        return json_encode([
+                            "status" => "error",
+                            "message" => $serieCon
+                        ]);        
+                        exit();
+                    }
+                }                
                 return json_encode([
                     "status" => "success",
-                    "message" => "All Movie Data Inserted Successful"
+                    "message" => "All Serie Data Inserted Successful"
                 ]);
                 exit();                   
             }else{
@@ -313,13 +314,11 @@ class Films extends Database{
 
                 return json_encode([
                     "status" => "error",
-                    "message" => "Movie not Inserted: ".$conn->error
+                    "message" => "Serie not Inserted: "
                 ]);
                 exit();
 
             }
-            
-            
 
         } catch (Exception $e) {
             return json_encode([

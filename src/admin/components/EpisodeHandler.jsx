@@ -30,6 +30,7 @@ export default function EpisodeHandler({ episode, setEpisode, season_id }) {
           placeholder="Enter Episode Title.."
           value={episode.ep_title}
           onChange={e => setEpisode({ ...episode, ep_title: e.target.value })}
+          required
         />
       </div>
 
@@ -39,6 +40,7 @@ export default function EpisodeHandler({ episode, setEpisode, season_id }) {
           placeholder="Enter Episode Description.."
           value={episode.ep_desc}
           onChange={e => setEpisode({ ...episode, ep_desc: e.target.value })}
+          required
         ></textarea>
       </div>
 
