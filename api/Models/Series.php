@@ -83,4 +83,44 @@ class Series extends Database{
             return "unsuccessful"; 
         }
     }
+
+    protected function select_episodes($id){
+        try {
+            $conn = $this->db_con();
+            
+            // Optional: check if the connection is alive
+            if (method_exists($conn, 'ping') && !$conn->ping()) {
+                $conn = $this->db_con();
+            }               
+
+            $query = "SELECT * FROM series WHERE film_id = ?";
+            $stmt = $conn->prepare($query);    
+            
+            if (!$stmt) {
+                throw new Exception("SQL preparation failed: " . $conn->error);
+            }
+
+            $stmt->bind_param("s",...array_values($id));
+
+            if($stmt->execute()){
+                $result = $stmt->get_result();
+                $stmt->close();
+                $conn->close();
+                $data = [];
+
+                while($row = $result->fetch_assoc()){
+                    $data[] = $row;
+                };
+                
+
+                return $data;
+
+            }else{
+                return ["unsuccessful"];
+            }
+
+        } catch (Exception $e) {
+            return ["unsuccessful"];
+        }
+    }
 }

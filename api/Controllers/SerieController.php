@@ -2,6 +2,10 @@
 require_once './Models/Series.php';
 
 class SerieController extends Series{
+
+    public function get_episodes($id){
+        return $this->select_episodes($id);
+    }
     
     public function handle_series($film_id,$season,$eps){
         $status;

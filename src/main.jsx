@@ -14,6 +14,7 @@ import AdminIndex from './admin/AdminIndex.jsx'
 import UserDetails from './admin/pages/UserDetails.jsx'
 import Profile from './admin/pages/Profile.jsx'
 import DeleteUpload from './admin/pages/DeleteUpload.jsx'
+import SerieReadPage from './users/pages/SerieReadPage.jsx'
 
 
 
@@ -26,6 +27,11 @@ const router = createBrowserRouter([
   {
     path: '/movies/:movieId',
     element: <MovieReadPage/>,
+    errorElement: <ErrorPage/>
+  },
+  {
+    path: '/series/:serieId',
+    element: <SerieReadPage/>,
     errorElement: <ErrorPage/>
   },
   {

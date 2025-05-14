@@ -14,6 +14,12 @@ class FilmsController extends Films{
         return $this->select_movie($id);
     }
 
+    public function get_Serie($input){
+        $id = ['id' => json_decode(file_get_contents($input), true)];
+        // $id = ['id' => 4];
+        return $this->select_serie($id);
+    }
+
     private function check_if_arr_empty($arr) {
         foreach ($arr as $val) {
             if (is_array($val)) {

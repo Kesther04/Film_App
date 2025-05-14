@@ -65,7 +65,7 @@ class Films extends Database{
 
     }
 
-    // Method to select Specific Film Data
+    // Method to select Specific Movie Data
     protected function select_movie($id){
 
         try {
@@ -98,6 +98,81 @@ class Films extends Database{
                 return json_encode([
                     "status" => "success",
                     "movieData" => $data
+                ]);
+                exit();                   
+            }else{
+                $stmt->close();
+                $conn->close();
+
+                return json_encode([
+                    "status" => "error",
+                    "message" => "Films Not Fetched: ".$conn->error
+                ]);
+                exit();
+
+            }
+            
+            
+
+        } catch (Exception $e) {
+            return json_encode([
+                "status" => "error",
+                "message" => "Error Occured: ".$e->getMessage()
+            ]);
+            exit();
+        }
+
+    }
+
+    // Method to select Specific Serie Data
+    protected function select_serie($id){
+
+        try {
+            $conn = $this->db_con();
+            
+            // Optional: check if the connection is alive
+            if (method_exists($conn, 'ping') && !$conn->ping()) {
+                $conn = $this->db_con();
+            }               
+
+            $query = "SELECT * FROM films WHERE id = ?";
+            $stmt = $conn->prepare($query);    
+            
+            if (!$stmt) {
+                throw new Exception("SQL preparation failed: " . $conn->error);
+            }
+
+            $stmt->bind_param("s",...array_values($id));
+
+            
+            if($stmt->execute()){
+                $result = $stmt->get_result();
+                $stmt->close();
+                $conn->close();
+                $data;
+
+                $row = $result->fetch_assoc();
+                $data = $row;
+                
+                // get serie genres
+
+                // get serie episodes
+                require_once './Controllers/SerieController.php';
+
+                $serie = new SerieController();
+
+                $episodes = $serie->get_episodes($id);
+
+                $data["episodes"] = $episodes;
+                $data["trailer_link"] = explode(".+.",$data["trailer_link"]);
+                $data["img"] = explode(".+.",$data["img"]);
+                $data["film_cast"] = explode(".+.",$data["film_cast"]);
+                $data["release_year"] = explode(".+.",$data["release_year"]);
+
+
+                return json_encode([
+                    "status" => "success",
+                    "serieData" => $data
                 ]);
                 exit();                   
             }else{

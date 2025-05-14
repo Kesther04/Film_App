@@ -1,8 +1,7 @@
 
 export default function MoviePage ({movie}) {
     return (
-        <section className="movie">
-            
+        <section className="movie">            
             <div className="movie-content">
                 <div className="movie-trailer">
                     <iframe src={movie.trailer_link} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>

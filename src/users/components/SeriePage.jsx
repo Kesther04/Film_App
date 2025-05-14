@@ -1,0 +1,124 @@
+import { useEffect, useState } from "react";
+
+export default function SeriePage({ serie, loading }) {
+    const [currentSeason, setCurrentSeason] = useState(null);
+    const [currentEpisode, setCurrentEpisode] = useState(null);
+
+    // Group episodes by season, keeping full episode objects
+    const groupBySeason = (episodes) => {
+        const seasonMap = {};
+
+        episodes.forEach((ep) => {
+            const { season } = ep;
+            if (!seasonMap[season]) {
+                seasonMap[season] = [];
+            }
+            seasonMap[season].push(ep);
+        });
+
+        return Object.entries(seasonMap).map(([season, episodes]) => ({
+            season: Number(season),
+            episodes,
+        }));
+    };
+
+    // Grouped episodes by season
+    const grouped = !loading ? groupBySeason(serie.episodes) : [];
+
+    // On load, set currentSeason and currentEpisode to last episode's season
+    useEffect(() => {
+        if (!loading && serie.episodes?.length) {
+            const lastEpisode = serie.episodes[serie.episodes.length - 1];
+            setCurrentSeason(lastEpisode.season);
+            setCurrentEpisode(lastEpisode);
+        }
+    }, [loading]);
+
+    // Update trailer, img, and cast based on currentSeason (zero-based index)
+    const trailer = serie.trailer_link?.[currentSeason - 1];
+    const img = serie.img?.[currentSeason - 1];
+    const cast = serie.film_cast?.[currentSeason - 1];
+    const desc = currentEpisode?.episode_desc;
+
+    // Get episodes for the current season
+    const episodesForCurrentSeason = grouped.find((s) => s.season === currentSeason)?.episodes || [];
+
+    return (
+        <section className="serie">
+            <div className="serie-content">
+                <div className="serie-trailer">
+                    <iframe
+                        src={trailer}
+                        title="YouTube video player"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerPolicy="strict-origin-when-cross-origin"
+                        allowFullScreen
+                    ></iframe>
+                </div>
+
+                <div className="serie-info">
+                    <div className="serie-info-dir">
+                        <div className="serie-info-img">
+                            <img src={img} alt={serie.title} />
+                        </div>
+
+                        <div className="serie-info-nav">
+                            <h1 className="text-2xl py-3 font-bold">Seasons</h1>
+                            <span className="btn grid grid-cols-5 gap-2">
+                                {grouped.map((season) => (
+                                    <button
+                                        key={season.season}
+                                        className={`secondary-color secondary-bg cursor-pointer p-1 rounded ${
+                                            currentSeason === season.season ? "current" : ""
+                                        }`}
+                                        onClick={() => {
+                                            setCurrentSeason(season.season);
+                                            setCurrentEpisode(
+                                                season.episodes[season.episodes.length - 1]
+                                            );
+                                        }}
+                                    >
+                                        {`S0${season.season}`}
+                                    </button>
+                                ))}
+                            </span>
+
+                            <h1 className="text-2xl py-3 font-bold">Episodes</h1>
+                            <span className="btn grid grid-cols-5  gap-2">
+                                {episodesForCurrentSeason.map((ep) => (
+                                    <button
+                                        key={ep.episode}
+                                        className={`secondary-color secondary-bg cursor-pointer p-1 rounded ${
+                                            currentEpisode?.episode === ep.episode ? "current" : ""
+                                        }`}
+                                        onClick={() => setCurrentEpisode(ep)}
+                                    >
+                                        {`E0${ep.episode}`}
+                                    </button>
+                                ))}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div className="serie-info-txt">
+                        <span className="w-auto xl:w-100">
+                            <h1 className="text-2xl py-3 font-bold">{serie.title}</h1>
+                            <p>{cast}</p>
+                            <p>{desc}</p>
+                        </span>
+
+                        <span className="btn flex w-full gap-2 mt-4 justify-end">
+                            <button className="secondary-color secondary-bg p-2 rounded cursor-pointer">
+                                Stream
+                            </button>
+                            <button className="secondary-color secondary-bg p-2 rounded border-solid cursor-pointer">
+                                Download
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}

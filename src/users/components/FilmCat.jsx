@@ -1,11 +1,11 @@
 import { useEffect, useState} from "react";
-import MovieCard from "./MovieCard";
+import FilmCard from "./FilmCard";
 import { BASE_API_URL } from "../../constants";
 
 
-function MovieCat({showNav}){
+function FilmCat({showNav}){
 
-    const [movieDet,setMovieDet] = useState([]);
+    const [filmDet,setFilmDet] = useState([]);
 
     const URL = `${BASE_API_URL}?apiKey=fetchFilms`;
     useEffect(() => {
@@ -17,7 +17,7 @@ function MovieCat({showNav}){
             });
             const data = await res.json();
             console.log(data);
-            setMovieDet(data.movieData);
+            setFilmDet(data.movieData);
         }
         fetchFilms();
     },[]);
@@ -31,8 +31,8 @@ function MovieCat({showNav}){
                 </h1>
                 {/* films under each category */}
                 <div className="movie-cat">
-                    {movieDet.map((film,index) => (
-                        <MovieCard film={film} key={index} />
+                    {filmDet.map((film,index) => (
+                        <FilmCard film={film} key={index} />
                     ))}
                 </div>
                 
@@ -49,8 +49,8 @@ function MovieCat({showNav}){
 
                 {/* films under each category */}
                 <div className="movie-cat">
-                    {movieDet.map((film,index) => (
-                        <MovieCard film={film} key={index} />
+                    {filmDet.map((film,index) => (
+                        <FilmCard film={film} key={index} />
                     ))}
                 </div>
                 
@@ -64,8 +64,12 @@ function MovieCat({showNav}){
 
             {/* films under each category */}
             <div className="movie-cat">
-                {movieDet.map((film,index) => (
-                    <MovieCard film={film} key={index} />
+                {filmDet.map((film,index) => (
+                    (film.film_type == "MOVIE" || film.film_type == "ANIMATED_MOVIE")
+                    ?
+                    <FilmCard film={film} key={index} />
+                    :
+                    ""
                 ))}
             </div>
             
@@ -79,8 +83,12 @@ function MovieCat({showNav}){
 
                 {/* films under each category */}
                 <div className="movie-cat">
-                    {movieDet.map((film,index) => (
-                        <MovieCard film={film} key={index} />
+                    {filmDet.map((film,index) => (
+                        (film.film_type == "MOVIE" || film.film_type == "ANIMATED_MOVIE")
+                        ?
+                        <FilmCard film={film} key={index} />
+                        :
+                        ""
                     ))}
                 </div>
                 
@@ -94,8 +102,12 @@ function MovieCat({showNav}){
 
                 {/* films under each category */}
                 <div className="movie-cat">
-                    {movieDet.map((film,index) => (
-                        <MovieCard film={film} key={index}  />
+                    {filmDet.map((film,index) => (
+                        (film.film_type == "SERIE" || film.film_type == "ANIMATED_SERIE")
+                        ?
+                        <FilmCard film={film} key={index} />
+                        :
+                        ""
                     ))}
                 </div>
                 
@@ -104,4 +116,4 @@ function MovieCat({showNav}){
     )
 }
 
-export default MovieCat;
+export default FilmCat;

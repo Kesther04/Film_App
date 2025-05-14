@@ -7,6 +7,8 @@ require_once './Controllers/AdminController.php';
 
 $type = $_GET['apiKey'];
 
+// $type = "fetchSerie";
+
 switch ($type) {
     case 'fetchFilms':
         $films = new FilmsController();
@@ -15,6 +17,10 @@ switch ($type) {
     case 'fetchMovie':
         $films = new FilmsController();
         echo $films->get_Movie("php://input");
+        break;
+    case 'fetchSerie':
+        $films = new FilmsController();
+        echo $films->get_Serie("php://input");
         break;
     case 'signUp':
         $users = new UserController();

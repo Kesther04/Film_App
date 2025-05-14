@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import Footer from "./components/Footer"
 import Header from "./components/Header"
-import MovieCat from "./components/MovieCat"
+import FilmCat from "./components/FilmCat"
 
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
       <>
         <Header showNav={showNav} setShowNav={setShowNav} />
         <main>
-          <MovieCat showNav={showNav}/>
+          <FilmCat showNav={showNav}/>
           <Footer/>
         </main>
       </>
