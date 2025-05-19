@@ -22,6 +22,7 @@ export default function Popular({filmDet,type}){
         read = filmDet.map((film,index) => (<FilmCard film={film} key={index} />));
         break;
     }
+    if(read.every(film => film == ""))return"";
     return(
     <section className="movie-cat-section">
                 

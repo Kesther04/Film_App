@@ -88,7 +88,6 @@ class User extends Database{
                 
             }
 
-
         }catch(Exception $e){
             return "unsuccessful".$e->getMessage();
             
@@ -108,6 +107,7 @@ class User extends Database{
 
             $stmt->bind_param("s",$data['email']);
 
+
             if (!$stmt->execute()) {
                 $stmt->close();
                 $conn->close();
@@ -117,13 +117,15 @@ class User extends Database{
                 $stmt->close();
                 $conn->close();
 
-                $row = $result->fetch_assoc();
+                if(!($row = $result->fetch_assoc())){
+                    throw new Exception("Invaild Credentials");
+                };
                 $updateUserLogin = $this->update_on_user_login($row['id']);
                 if ($field == 'admin' && $row['email'] === $data['email'] && password_verify($data['password'],$row['password'])) {
                    
                     if ($row['is_admin'] == 0) {
                         $isAdmin = false;
-                        throw new Exception("User is Not Admin");
+                        throw new Exception("User is Not an Admin");
                         
                     }else{
 
@@ -179,7 +181,7 @@ class User extends Database{
                         throw new Exception($updateUserLogin);
                     }
                 }else{
-                    throw new Exception("Incorrect Email or Password");
+                    throw new Exception("Invalid Credentials");
                 }
             }
             

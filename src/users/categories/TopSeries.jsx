@@ -14,6 +14,7 @@ export default function TopSeries({filmDet,type}){
         ));
         break;
     }
+    if(read.every(film => film == ""))return"";
     return(
         <section className="movie-cat-section">
             

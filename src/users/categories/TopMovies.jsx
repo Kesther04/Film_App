@@ -14,6 +14,8 @@ export default function TopMovies({filmDet,type}){
         ));
         break;
     }
+    console.log(read);
+    if(read.every(film => film == ""))return"";
     return(
         <section className="movie-cat-section">
             
