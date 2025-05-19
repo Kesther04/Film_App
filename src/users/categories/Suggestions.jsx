@@ -5,7 +5,6 @@ import { BASE_API_URL } from "../../constants";
 
 export default function Suggestions({type}) {
     const [filmDet,setFilmDet] = useState([]);
-    const [loading,setLoading] = useState(true);
     const { loggedIn, user} = UseSession();
     console.log(user);
     const URL = `${BASE_API_URL}?apiKey=fetchFilmsSearched`;
@@ -20,9 +19,7 @@ export default function Suggestions({type}) {
             console.log(data);
             if(data.status =="success"){
                 setFilmDet(data.filmData);    
-            }
-            
-            setLoading(false); 
+            } 
            
         }
         fetchFilmsSearched();
