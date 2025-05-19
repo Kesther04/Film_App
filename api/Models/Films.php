@@ -24,7 +24,7 @@ class Films extends Database{
            
             $conn = $this->get_connect();
 
-            $query = "SELECT * FROM films ORDER BY id DESC";
+            $query = "SELECT * FROM films ORDER BY RAND()";
             $stmt = $conn->prepare($query);    
             
             if (!$stmt) {
