@@ -8,8 +8,6 @@ require_once './Controllers/QueryController.php';
 
 $type = $_GET['apiKey'];
 
-// $type = "fetchSerie";
-
 switch ($type) {
     case 'fetchFilms':
         $films = new FilmsController();
