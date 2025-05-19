@@ -3,18 +3,22 @@
 require_once './Database_Handler/Database.php';
 
 class User extends Database{
+    // Method to connect to the Database
+    private function get_connect(){
+        $conn = $this->db_con();
+            
+        // Optional: check if the connection is alive
+        if (method_exists($conn, 'ping') && !$conn->ping()) {
+            $conn = $this->db_con();
+        }
 
-    
+        return $conn;
+    }
 
     // To insert user data into database
     protected function insert_user($data){
         try {
-            $conn = $this->db_con();
-            
-            // Optional: check if the connection is alive
-            if (method_exists($conn, 'ping') && !$conn->ping()) {
-                $conn = $this->db_con();
-            }
+            $conn = $this->get_connect();
 
             $query = "INSERT INTO users (google_id,email,username,is_admin,password) VALUES (?,?,?,?,?)";
 
@@ -26,7 +30,12 @@ class User extends Database{
 
             $stmt->bind_param("sssis",...array_values($data));
 
-            if ($stmt->execute()) {
+            if (!$stmt->execute()) {
+                $stmt->close();
+                $conn->close();
+                throw new Exception("Form Submission UnSuccessful");
+                
+            }else{
                 $stmt->close();
                 $conn->close();
 
@@ -44,17 +53,6 @@ class User extends Database{
                     ]);       
                 }
                 exit();
-                
-            }else{
-                $stmt->close();
-                $conn->close();
-
-                return json_encode([
-                    "status" => "error",
-                    "message" => "Form Submission UnSuccessful".$conn->error
-                ]);
-                exit();
-
             }
             
         } catch (Exception $e) {
@@ -69,15 +67,9 @@ class User extends Database{
     // To update users table when user logs in
     private function update_on_user_login($id){
         try{
-            $conn = $this->db_con();
-
-            // Optional: check if the connection is alive
-            if (method_exists($conn, 'ping') && !$conn->ping()) {
-                $conn = $this->db_con();
-            }
+            $conn = $this->get_connect();
 
             $query = "UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE id = ?";
-
             $stmt = $conn->prepare($query);
 
             if (!$stmt) {
@@ -86,15 +78,14 @@ class User extends Database{
 
             $stmt->bind_param("s",$id);
 
-            if ($stmt->execute()) {
+            if (!$stmt->execute()) {
+                throw new Exception("update unsuccessful");
+            }else{
                 $stmt->close();
                 $conn->close();
 
                 return "successful";
                 
-            }else{
-                return "unsuccessful";
-            
             }
 
 
@@ -107,15 +98,8 @@ class User extends Database{
     // To select user data from database based on email
     protected function select_user($data,$field){
         try {
-            $conn = $this->db_con();
-
-            // Optional: check if the connection is alive
-            if (method_exists($conn, 'ping') && !$conn->ping()) {
-                $conn = $this->db_con();
-            }
-
+            $conn = $this->get_connect();
             $query = "SELECT * FROM users WHERE email = ?";
-
             $stmt = $conn->prepare($query);
 
             if (!$stmt) {
@@ -124,7 +108,11 @@ class User extends Database{
 
             $stmt->bind_param("s",$data['email']);
 
-            if ($stmt->execute()) {
+            if (!$stmt->execute()) {
+                $stmt->close();
+                $conn->close();
+                throw new Exception("User Data not Fetched");
+            }else {
                 $result = $stmt->get_result();
                 $stmt->close();
                 $conn->close();
@@ -133,15 +121,10 @@ class User extends Database{
                 $updateUserLogin = $this->update_on_user_login($row['id']);
                 if ($field == 'admin' && $row['email'] === $data['email'] && password_verify($data['password'],$row['password'])) {
                    
-
-                    
                     if ($row['is_admin'] == 0) {
                         $isAdmin = false;
-                        return json_encode([
-                            "status"=>"error",
-                            "message"=>"User is Not an Admin"
-                        ]); 
-                        exit();
+                        throw new Exception("User is Not Admin");
+                        
                     }else{
 
                         $isAdmin = true;
@@ -161,11 +144,8 @@ class User extends Database{
                                 exit();    
                             }
                         }else{
-                            return json_encode([
-                                "status"=>"error",
-                                "message"=>$updateUserLogin
-                            ]); 
-                            exit();    
+                            throw new Exception($updateUserLogin);
+                            
                         }
                         
                     }
@@ -196,35 +176,17 @@ class User extends Database{
                             exit();    
                         }
                     }else{
-                        return json_encode([
-                            "status"=>"error",
-                            "message"=>$updateUserLogin
-                        ]); 
-                        exit();  
+                        throw new Exception($updateUserLogin);
                     }
                 }else{
-                    return json_encode([
-                        "status"=>"error",
-                        "message"=>"Incorrect Email and Password"
-                    ]); 
-                    exit();
+                    throw new Exception("Incorrect Email or Password");
                 }
-
-            }else {
-                $stmt->close();
-                $conn->close();
-
-                return json_encode([
-                    "status"=>"error",
-                    "message"=>"User Data not Fetched"
-                ]);
-                exit();
             }
             
         } catch (Exception $e) {
             return json_encode([
                 "status"=>"error",
-                "message"=>"Error Occured".$e->getMessage()
+                "message"=>"Error Occured: ".$e->getMessage()
             ]);
             exit();
         }

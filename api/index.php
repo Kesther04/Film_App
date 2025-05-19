@@ -22,6 +22,10 @@ switch ($type) {
         $films = new FilmsController();
         echo $films->get_Serie("php://input");
         break;
+    case 'searchQuery':
+        $films = new FilmsController();
+        echo $films->get_Searched("php://input");
+        break;
     case 'signUp':
         $users = new UserController();
         echo $users->signup_user("php://input");

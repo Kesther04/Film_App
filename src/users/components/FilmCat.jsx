@@ -1,9 +1,13 @@
 import { useEffect, useState} from "react";
-import FilmCard from "./FilmCard";
 import { BASE_API_URL } from "../../constants";
+import Suggestions from "../categories/Suggestions";
+import Trending from "../categories/Trending";
+import Popular from "../categories/Popular";
+import TopMovies from "../categories/TopMovies";
+import TopSeries from "../categories/TopSeries";
 
 
-function FilmCat({showNav}){
+function FilmCat({showNav,type}){
 
     const [filmDet,setFilmDet] = useState([]);
 
@@ -17,103 +21,52 @@ function FilmCat({showNav}){
             });
             const data = await res.json();
             console.log(data);
-            setFilmDet(data.movieData);
+            setFilmDet(data.filmData);
         }
         fetchFilms();
     },[]);
-    return (
-        <section className={showNav ? "main-section open":"main-section"}>
-            <section className="movie-cat-section">
-
-                {/* header for the film category */}
-                <h1>
-                    Suggestions
-                </h1>
-                {/* films under each category */}
-                <div className="movie-cat">
-                    {filmDet.map((film,index) => (
-                        <FilmCard film={film} key={index} />
-                    ))}
-                </div>
-                
+    switch (type) {
+        case "Movies":
+        return (
+            <section className={showNav ? "main-section open":"main-section"}>
+                <Suggestions filmDet={filmDet} type={type}/>
+                <Trending filmDet={filmDet} type={type}/>
+                <Popular filmDet={filmDet} type={type}/>
+                <TopMovies filmDet={filmDet} type={type}/>
             </section>
-            <section className="movie-cat-section">
-            
-                {/* header for the film category */}
-                <h1>
-                    <span className="flex gap-2">
-                    Trending Now 
-                    <img src="https://i.pinimg.com/736x/af/ab/26/afab26f2c1d6ef0cd3402dd5ef77e2de.jpg" alt="" className="w-6" />
-                    </span>
-                </h1>
-
-                {/* films under each category */}
-                <div className="movie-cat">
-                    {filmDet.map((film,index) => (
-                        <FilmCard film={film} key={index} />
-                    ))}
-                </div>
-                
+        );
+        case "Series":
+        return (
+            <section className={showNav ? "main-section open":"main-section"}>
+                <Suggestions filmDet={filmDet} type={type}/>
+                <Trending filmDet={filmDet} type={type}/>
+                <Popular filmDet={filmDet} type={type}/>
+                <TopSeries filmDet={filmDet} type={type}/>
             </section>
-            <section className="movie-cat-section">
-            
-            {/* header for the film category */}
-            <h1>
-                Popular Movies
-            </h1>
-
-            {/* films under each category */}
-            <div className="movie-cat">
-                {filmDet.map((film,index) => (
-                    (film.film_type == "MOVIE" || film.film_type == "ANIMATED_MOVIE")
-                    ?
-                    <FilmCard film={film} key={index} />
-                    :
-                    ""
-                ))}
-            </div>
-            
+        );
+        case "Animation":
+        return (
+            <section className={showNav ? "main-section open":"main-section"}>
+                <Suggestions filmDet={filmDet} type={type}/>
+                <Trending filmDet={filmDet} type={type}/>
+                <Popular filmDet={filmDet} type={type}/>
+                <TopMovies filmDet={filmDet} type={type}/>
+                <TopSeries filmDet={filmDet} type={type}/>
             </section>
-            <section className="movie-cat-section">
-                
-                {/* header for the film category */}
-                <h1>
-                    Top Movies
-                </h1>
-
-                {/* films under each category */}
-                <div className="movie-cat">
-                    {filmDet.map((film,index) => (
-                        (film.film_type == "MOVIE" || film.film_type == "ANIMATED_MOVIE")
-                        ?
-                        <FilmCard film={film} key={index} />
-                        :
-                        ""
-                    ))}
-                </div>
-                
+        );
+        default:
+        return (
+            <section className={showNav ? "main-section open":"main-section"}>
+                <Suggestions filmDet={filmDet} type={type}/>
+                <Trending filmDet={filmDet} type={type}/>
+                <Popular filmDet={filmDet} type={type}/>
+                <TopMovies filmDet={filmDet} type={type}/>
+                <TopSeries filmDet={filmDet} type={type}/>
             </section>
-            <section className="movie-cat-section">
-                
-                {/* header for the film category */}
-                <h1>
-                    Top Series
-                </h1>
+        );
+        
+    }
 
-                {/* films under each category */}
-                <div className="movie-cat">
-                    {filmDet.map((film,index) => (
-                        (film.film_type == "SERIE" || film.film_type == "ANIMATED_SERIE")
-                        ?
-                        <FilmCard film={film} key={index} />
-                        :
-                        ""
-                    ))}
-                </div>
-                
-            </section>
-        </section>
-    )
 }
 
 export default FilmCat;

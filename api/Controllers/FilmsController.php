@@ -16,7 +16,6 @@ class FilmsController extends Films{
 
     public function get_Serie($input){
         $id = ['id' => json_decode(file_get_contents($input), true)];
-        // $id = ['id' => 4];
         return $this->select_serie($id);
     }
 
@@ -139,5 +138,14 @@ class FilmsController extends Films{
                 return json_encode(["status" => "error", "message" => "Invalid Film Type"]);
             }
         }
+    }
+
+    public function get_Searched($input){
+        $data = json_decode(file_get_contents($input), true);
+        $data = htmlspecialchars(trim($data));
+        if (empty($data)) {
+            return json_encode(["status" => "error","searchData" => "Invalid Search"]);
+        }
+        return $this->search_data_from_film($data);
     }
 }

@@ -15,8 +15,10 @@ export default function AdminSignUp(){
                 console.log(res.data);
                 if(res.data.status === "success"){
                     navigate('/admin/');
+                }else{
+                    setMsg(res.data.message);
                 }
-                setMsg(res.data.message);
+                
             })
             .catch(error => console.log(error));       
         }  

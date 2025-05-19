@@ -2,16 +2,23 @@
 require_once './Database_Handler/Database.php';
 
 class Series extends Database{
+    
+    // Method to connect to the Database
+    private function get_connect(){
+        $conn = $this->db_con();
+            
+        // Optional: check if the connection is alive
+        if (method_exists($conn, 'ping') && !$conn->ping()) {
+            $conn = $this->db_con();
+        }
 
+        return $conn;
+    }
+    
     // To fetch series id when it's uploaded
     private function select_on_series_upload($filmId,$sid,$eid){
         try {
-            $conn = $this->db_con();
-            
-            // Optional: check if the connection is alive
-            if (method_exists($conn, 'ping') && !$conn->ping()) {
-                $conn = $this->db_con();
-            }      
+            $conn = $this->get_connect();
             $query = "SELECT * FROM series WHERE film_id = ? AND season = ? AND episode = ?";
             $stmt = $conn->prepare($query);
 
@@ -21,33 +28,29 @@ class Series extends Database{
 
             $stmt->bind_param("iii",$filmId,$sid,$eid);
 
-            if ($stmt->execute()) {
+
+            if (!$stmt->execute()) {
+                $stmt->close();
+                $conn->close();
+                return 0;  
+            }else{
                 $res = $stmt->get_result();
                 $stmt->close();
                 $conn->close();
                 
-
                 $row = $res->fetch_assoc();
-                
 
                 return $row["id"];
             }
         } catch (Exception $e) {
-            return "unsuccessful";
-            exit();
+            return 0;
         }
     }
 
     // Method to input episode data into database
     protected function input_episode($data){
         try {
-            $conn = $this->db_con();
-            
-            // Optional: check if the connection is alive
-            if (method_exists($conn, 'ping') && !$conn->ping()) {
-                $conn = $this->db_con();
-            }               
-                
+            $conn = $this->get_connect();
             $query = "INSERT INTO series (film_id,season,episode,title,episode_desc)VALUES(?,?,?,?,?)";
             $stmt = $conn->prepare($query);
             
@@ -61,7 +64,10 @@ class Series extends Database{
 
             $stmt->bind_param("iiiss",...array_values($data));
 
-            if ($stmt->execute()) {
+            if (!$stmt->execute()) {
+                return "unsuccessful"; 
+            }else{   
+                
                 $stmt->close();
                 $conn->close();
 
@@ -76,8 +82,6 @@ class Series extends Database{
                 }        
 
                 return "successful";
-            }else{
-                return "unsuccessful";    
             }
         } catch (Exception $e) {
             return "unsuccessful"; 
@@ -86,13 +90,7 @@ class Series extends Database{
 
     protected function select_episodes($id){
         try {
-            $conn = $this->db_con();
-            
-            // Optional: check if the connection is alive
-            if (method_exists($conn, 'ping') && !$conn->ping()) {
-                $conn = $this->db_con();
-            }               
-
+            $conn = $this->get_connect();
             $query = "SELECT * FROM series WHERE film_id = ?";
             $stmt = $conn->prepare($query);    
             
@@ -111,8 +109,6 @@ class Series extends Database{
                 while($row = $result->fetch_assoc()){
                     $data[] = $row;
                 };
-                
-
                 return $data;
 
             }else{

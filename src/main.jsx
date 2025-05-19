@@ -2,7 +2,6 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import {createBrowserRouter,RouterProvider} from 'react-router-dom'
 import './index.css'
-import App from './users/App.jsx'
 import MovieReadPage from './users/pages/MovieReadPage.jsx'
 import ErrorPage from './users/pages/ErrorPage.jsx';
 import AdminSignIn from './admin/auth/AdminSignIn.jsx'
@@ -15,13 +14,39 @@ import UserDetails from './admin/pages/UserDetails.jsx'
 import Profile from './admin/pages/Profile.jsx'
 import DeleteUpload from './admin/pages/DeleteUpload.jsx'
 import SerieReadPage from './users/pages/SerieReadPage.jsx'
+import MoviesPage from './users/pages/MoviesPage.jsx'
+import SeriesPage from './users/pages/SeriesPage.jsx'
+import Animations from './users/pages/Animations.jsx'
+import Home from './users/Home.jsx'
+import SearchPageHandler from './users/pages/SearchPageHandler.jsx'
+import { QueryProvider } from './users/context/QueryContext.jsx'
 
 
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App/>,
+    element: <Home/>,
+    errorElement: <ErrorPage/>
+  },
+  {
+    path: '/search',
+    element: <SearchPageHandler/>,
+    errorElement: <ErrorPage/>
+  },
+  {
+    path: '/movies',
+    element: <MoviesPage/>,
+    errorElement: <ErrorPage/>
+  },
+  {
+    path: '/series',
+    element: <SeriesPage/>,
+    errorElement: <ErrorPage/>
+  },
+  {
+    path: '/animation',
+    element: <Animations/>,
     errorElement: <ErrorPage/>
   },
   {
@@ -83,7 +108,7 @@ const router = createBrowserRouter([
 
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>,
+  <QueryProvider>
+      <RouterProvider router={router} />
+  </QueryProvider>
 )

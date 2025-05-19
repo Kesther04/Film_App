@@ -71,6 +71,20 @@ CREATE TABLE records(
 );
 
 
+--@block
+SELECT
+-- films.id AS film_id,
+-- genres.id AS gen_id,
+-- name,
+-- -- id,
+-- title,
+-- film_cast,
+-- film_desc,
+-- release_year,
+*
+FROM films LEFT OUTER JOIN genres ON films.id = genres.film_id
+
+;
 
 
 --@block

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
-import Footer from "./components/Footer"
-import Header from "./components/Header"
-import FilmCat from "./components/FilmCat"
+import Header from "../components/Header";
+import FilmCat from "../components/FilmCat";
+import Footer from "../components/Footer";
 
 
-function App() {
+export default function MoviesPage() {
   const [showNav, setShowNav] = useState(true);
   useEffect(()=>{
     const mediaQuery = window.matchMedia('(max-width:1000px)');
@@ -27,11 +27,10 @@ function App() {
       <>
         <Header showNav={showNav} setShowNav={setShowNav} />
         <main>
-          <FilmCat showNav={showNav}/>
+          
+          <FilmCat showNav={showNav} type={"Movies"}/>
           <Footer/>
         </main>
       </>
     )
 }
-
-export default App

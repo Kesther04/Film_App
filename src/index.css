@@ -157,6 +157,10 @@ main{
   @apply flex flex-col  text-center lg:w-40  w-30 h-auto cursor-pointer;
 }
 
+.movie-cat > .no_results{
+  @apply border border-black font-bold cursor-pointer  min-w-50 w-100 p-3 rounded text-red-500;
+}
+
 .LinkHolder{
   @apply w-full h-full flex flex-col;
 }

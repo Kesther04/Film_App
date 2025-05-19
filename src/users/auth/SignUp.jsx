@@ -15,8 +15,9 @@ export default function SignUp({auth}) {
             console.log(res.data);
             if(res.data.status === "success"){
                 navigate('/');
+            }else{
+                setMsg(res.data.message);
             }
-            setMsg(res.data.message);
         })
         .catch(error =>console.log(error));       
     }  

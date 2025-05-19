@@ -13,6 +13,11 @@ class GenreController extends Genres {
 
         return $isSet;
     }
+
+    public function get_genres($id){
+        return $this->select_genres($id);
+    }
+
 }
 
 ?>

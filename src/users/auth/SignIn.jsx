@@ -15,8 +15,9 @@ export default function SignIn({auth}) {
             console.log(res.data)
             if(res.data.status === "success"){
                 navigate('/');
+            }else{
+                setMsg(res.data.message);
             }
-            setMsg(res.data.message);
         })
         .catch((err)=>console.log(err));
     }

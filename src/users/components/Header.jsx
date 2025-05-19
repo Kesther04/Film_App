@@ -15,9 +15,9 @@ function Header({showNav,setShowNav}){
             <nav className={showNav ? "header-nav open" :  "header-nav" }>
                 <ul className="nav-links">
                     <li><Link to="/">Home</Link></li>
-                    <li><Link to="#">TV Show</Link></li>
-                    <li><Link to="#">Movie</Link></li>
-                    <li><Link to="#" >Animation</Link></li>
+                    <li><Link to="/series">TV Show</Link></li>
+                    <li><Link to="/movies">Movie</Link></li>
+                    <li><Link to="/animation" >Animation</Link></li>
                 </ul>
             </nav>
 

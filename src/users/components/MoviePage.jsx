@@ -1,5 +1,10 @@
 
 export default function MoviePage ({movie}) {
+    let indCast = movie.film_cast?.split(",").map((idCast) => (
+            <span className="border p-1 text-xs rounded font-bold text-white bg-black">
+                {idCast}
+            </span>
+        ));
     return (
         <section className="movie">            
             <div className="movie-content">
@@ -13,12 +18,13 @@ export default function MoviePage ({movie}) {
                     <div className="movie-info-txt">
                         <span className="w-auto xl:w-100">
                             <h1 className="text-2xl py-3 font-bold">{movie.title}</h1>
-                            <p>
-                                {movie.film_cast}
-                            </p>
+
                             <p>
                                 {movie.film_desc}
                             </p>
+                            <div className="py-2 flex justify-end">
+                                {indCast}
+                            </div>
                         </span>
                         
                         <span className="btn flex w-full gap-2  mt-4 justify-end">

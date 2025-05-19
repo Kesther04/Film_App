@@ -37,8 +37,18 @@ export default function SeriePage({ serie, loading }) {
     // Update trailer, img, and cast based on currentSeason (zero-based index)
     const trailer = serie.trailer_link?.[currentSeason - 1];
     const img = serie.img?.[currentSeason - 1];
-    const cast = serie.film_cast?.[currentSeason - 1];
+    const cast = serie.film_cast?.[currentSeason - 1] || "";
+    let indCast = "";
     const desc = currentEpisode?.episode_desc;
+    const ep_title = currentEpisode?.title;
+
+    if (!loading) {
+        indCast = cast.split(",").map((idCast) => (
+            <span className="border p-1 text-xs rounded font-bold text-white bg-black">
+                {idCast}
+            </span>
+        ));
+    }
 
     // Get episodes for the current season
     const episodesForCurrentSeason = grouped.find((s) => s.season === currentSeason)?.episodes || [];
@@ -104,8 +114,12 @@ export default function SeriePage({ serie, loading }) {
                     <div className="serie-info-txt">
                         <span className="w-auto xl:w-100">
                             <h1 className="text-2xl py-3 font-bold">{serie.title}</h1>
-                            <p>{cast}</p>
+                            <p className="font-bold text-md">{ep_title}</p>
                             <p>{desc}</p>
+                            <div className="py-2 flex justify-end">
+                                {indCast}
+                            </div>
+
                         </span>
 
                         <span className="btn flex w-full gap-2 mt-4 justify-end">
