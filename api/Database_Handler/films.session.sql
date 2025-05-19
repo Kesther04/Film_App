@@ -70,21 +70,17 @@ CREATE TABLE records(
     FOREIGN KEY(upl_id) REFERENCES uploads(id)
 );
 
-
 --@block
-SELECT
--- films.id AS film_id,
--- genres.id AS gen_id,
--- name,
--- -- id,
--- title,
--- film_cast,
--- film_desc,
--- release_year,
-*
-FROM films LEFT OUTER JOIN genres ON films.id = genres.film_id
+CREATE TABLE searches(
+    id INT AUTO_INCREMENT,
+    user__id INT NOT NULL,
+    keyword TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY(id),
+    FOREIGN KEY(user__id) REFERENCES users(id)
+)
 
-;
+
 
 
 --@block
@@ -106,3 +102,6 @@ DROP TABLE series;
 DROP TABLE genres; 
 DROP TABLE films;
 -- DROP TABLE users;
+
+--@block
+DROP TABLE searches;

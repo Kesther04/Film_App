@@ -94,6 +94,37 @@ class User extends Database{
         }
     }
 
+    // To select user id from users based on email
+    protected function select_userId($email){
+        try {
+            $conn = $this->get_connect();
+            $query = "SELECT * FROM users WHERE email = ?";
+            $stmt = $conn->prepare($query);
+
+            if (!$stmt) {
+                throw new Exception("SQL preparation failed: " . $conn->error);
+            }
+
+            $stmt->bind_param("s",$email);
+
+             if (!$stmt->execute()) {
+                $stmt->close();
+                $conn->close();
+                throw new Exception("User Data not Fetched");
+            }else {
+                $result = $stmt->get_result();
+                $stmt->close();
+                $conn->close();
+
+                $row = $result->fetch_assoc();
+
+                return $row["id"];
+            }
+        } catch (Exception $e) {
+            return 0;
+        }
+    }
+
     // To select user data from database based on email
     protected function select_user($data,$field){
         try {

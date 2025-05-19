@@ -24,7 +24,7 @@ class Films extends Database{
            
             $conn = $this->get_connect();
 
-            $query = "SELECT * FROM films ORDER BY RAND()";
+            $query = "SELECT * FROM films ORDER BY id DESC";
             $stmt = $conn->prepare($query);    
             
             if (!$stmt) {
@@ -43,7 +43,10 @@ class Films extends Database{
                 require_once './Controllers/GenreController.php';
                 $genres = new GenreController();
 
-                while ($row = $result->fetch_assoc()) {
+                while($row = $result->fetch_assoc()){
+                    // foreach ($row ) {
+                    
+                
                     $row["genres"] = $genres->get_genres($row["id"]);
                     $data[] = $row;
                 }
@@ -64,9 +67,8 @@ class Films extends Database{
         }
     }
 
-    
     // Method to search for Film
-    protected function search_data_from_film($kword){
+    private function search_data_from_film($kword){
         try {
             $conn = $this->get_connect();
             $query = "SELECT 
@@ -103,22 +105,40 @@ class Films extends Database{
                 $data = array_values($data);
 
 
-                return json_encode([
+                return [
                     "status" => "success",
                     "searchData" => $data
-                ]);
+                ];
                 exit();          
             }
             
         } catch (Exception $e) {
-            return json_encode([
+            return [
                 "status" => "error",
-                "message" => "Error Occured: ".$e->getMessage()
-            ]);
+                "searchData" => "Error Occured: ".$e->getMessage()
+            ];
             exit();
-        }
+        }        
+    }
+
+    
+    // Method to search data from films according to searchbar
+    protected function search_data_from_searchbar($kword){
+        $search = $this->search_data_from_film($kword);
+
+        require_once './Controllers/QueryController.php';
+        $query = new QueryController();
+        $queryStore = $query->record_search($kword);
+
+        return json_encode($search);
     }
     
+
+    // Method to search data from films according to searches table
+    protected function search_data_from_searches($kword){
+        $search = $this->search_data_from_film($kword);
+        return $search["searchData"];
+    }
 
     // Method to select Specific Movie Data
     protected function select_movie($id){

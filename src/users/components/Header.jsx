@@ -26,7 +26,7 @@ function Header({showNav,setShowNav}){
             </div>
 
 
-            <SearchBar/>
+            <SearchBar user={user}/>
 
             {loggedIn ? 
             

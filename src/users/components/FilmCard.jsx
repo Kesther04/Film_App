@@ -21,7 +21,6 @@ export default function FilmCard({film}){
 
     if (film.film_type == "SERIE" || film.film_type == "ANIMATED_SERIE"){
         const img  = film.img.split(".+.");
-        console.log(img);
         return (
             
             <div>

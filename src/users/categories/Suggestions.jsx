@@ -1,28 +1,66 @@
+import { useEffect, useState } from "react";
 import FilmCard from "../components/FilmCard";
+import { UseSession } from "../components/UseSession";
+import { BASE_API_URL } from "../../constants";
 
-export default function Suggestions({filmDet,type}) {
+export default function Suggestions({type}) {
+    const [filmDet,setFilmDet] = useState([]);
+    const [loading,setLoading] = useState(true);
+    const { loggedIn, user} = UseSession();
+    console.log(user);
+    const URL = `${BASE_API_URL}?apiKey=fetchFilmsSearched`;
+    useEffect(()=>{
+        async function fetchFilmsSearched() {
+            const res = await fetch(URL, {
+                method: 'POST',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify(user)
+            });
+            const data = await res.json();
+            console.log(data);
+            if(data.status =="success"){
+                setFilmDet(data.filmData);    
+            }
+            
+            setLoading(false); 
+           
+        }
+        fetchFilmsSearched();
+    },[user]);
+    console.log(filmDet);
     let read;
-    switch (type) {
-        case "Movies":
-        read = filmDet.map((film,index) => (
-            (film.film_type == "MOVIE" || film.film_type == "ANIMATED_MOVIE") ? <FilmCard film={film} key={index} /> : "" 
-        ));
-        break;
-        case "Series":
-        read = filmDet.map((film,index) => (
-            (film.film_type == "SERIE" || film.film_type == "ANIMATED_SERIE") ? <FilmCard film={film} key={index} /> : "" 
-        ));
-        break;
-        case "Animation":
-        read = filmDet.map((film,index) => (
-            (film.film_type == "ANIMATED_MOVIE" || film.film_type == "ANIMATED_SERIE") ? <FilmCard film={film} key={index} /> : "" 
-        ));
-        break;
-        default:
-        read = filmDet.map((film,index) => (<FilmCard film={film} key={index} />));
-        break;
+    
+    let cond = (film) => {
+        return film.film_id ? film.id = film.film_id : film.id
     }
-    if(read.every(film => film == ""))return"";
+
+    if (filmDet.length > 0) {
+        switch (type) {
+            case "Movies":
+            read = filmDet.map((film,index) => (
+                (cond(film))&&
+                (film.film_type == "MOVIE" || film.film_type == "ANIMATED_MOVIE") ? <FilmCard film={film} key={index} /> : "" 
+            ));
+            break;
+            case "Series":
+            read = filmDet.map((film,index) => (
+                (cond(film))&&
+                (film.film_type == "SERIE" || film.film_type == "ANIMATED_SERIE") ? <FilmCard film={film} key={index} /> : "" 
+            ));
+            break;
+            case "Animation":
+            read = filmDet.map((film,index) => (
+                (cond(film))&&
+                (film.film_type == "ANIMATED_MOVIE" || film.film_type == "ANIMATED_SERIE") ? <FilmCard film={film} key={index} /> : "" 
+            ));
+            break;
+            default:
+            read = filmDet.map((film,index) => ((cond(film))&&<FilmCard film={film} key={index} />));
+            break;
+        }
+        if(read.every(film => film == ""))return"";     
+    }
+   
     return (
         <section className="movie-cat-section">
             {/* header for suggestions */}

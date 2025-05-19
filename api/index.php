@@ -4,6 +4,7 @@ require_once './header_cors_validator.php';
 require_once './Controllers/FilmsController.php';
 require_once './Controllers/UserController.php';
 require_once './Controllers/AdminController.php';
+require_once './Controllers/QueryController.php';
 
 $type = $_GET['apiKey'];
 
@@ -13,6 +14,10 @@ switch ($type) {
     case 'fetchFilms':
         $films = new FilmsController();
         echo $films->get_Films();        
+        break;
+    case 'fetchFilmsSearched':
+        $films = new QueryController();
+        echo $films->get_searchedFilms("php://input");        
         break;
     case 'fetchMovie':
         $films = new FilmsController();

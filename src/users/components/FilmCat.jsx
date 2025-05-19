@@ -20,7 +20,6 @@ function FilmCat({showNav,type}){
                 headers: {'Content-Type':'application/json'}
             });
             const data = await res.json();
-            console.log(data);
             setFilmDet(data.filmData);
         }
         fetchFilms();
@@ -29,7 +28,7 @@ function FilmCat({showNav,type}){
         case "Movies":
         return (
             <section className={showNav ? "main-section open":"main-section"}>
-                <Suggestions filmDet={filmDet} type={type}/>
+                <Suggestions  type={type}/>
                 <Trending filmDet={filmDet} type={type}/>
                 <Popular filmDet={filmDet} type={type}/>
                 <TopMovies filmDet={filmDet} type={type}/>
@@ -38,7 +37,7 @@ function FilmCat({showNav,type}){
         case "Series":
         return (
             <section className={showNav ? "main-section open":"main-section"}>
-                <Suggestions filmDet={filmDet} type={type}/>
+                <Suggestions  type={type}/>
                 <Trending filmDet={filmDet} type={type}/>
                 <Popular filmDet={filmDet} type={type}/>
                 <TopSeries filmDet={filmDet} type={type}/>
@@ -47,7 +46,7 @@ function FilmCat({showNav,type}){
         case "Animation":
         return (
             <section className={showNav ? "main-section open":"main-section"}>
-                <Suggestions filmDet={filmDet} type={type}/>
+                <Suggestions  type={type}/>
                 <Trending filmDet={filmDet} type={type}/>
                 <Popular filmDet={filmDet} type={type}/>
                 <TopMovies filmDet={filmDet} type={type}/>
@@ -57,7 +56,7 @@ function FilmCat({showNav,type}){
         default:
         return (
             <section className={showNav ? "main-section open":"main-section"}>
-                <Suggestions filmDet={filmDet} type={type}/>
+                <Suggestions type={type}/>
                 <Trending filmDet={filmDet} type={type}/>
                 <Popular filmDet={filmDet} type={type}/>
                 <TopMovies filmDet={filmDet} type={type}/>

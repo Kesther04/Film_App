@@ -4,7 +4,7 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { useSearch } from "../context/QueryContext";
 
-function SearchBar(){
+function SearchBar({user}){
     const [search, setSearch] = useState("");
     const { setQuery } = useSearch();
     const navigate = useNavigate();
@@ -12,8 +12,9 @@ function SearchBar(){
     const searchData = (e) => {
         e.preventDefault();
         if (!search.trim()) return;
-
+        if(!user) return( navigate("/user/auth/signin"));
         setQuery(search);
+        
         navigate("/search");
     };
 

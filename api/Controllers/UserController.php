@@ -54,4 +54,8 @@ class UserController extends User{
 
     }
 
+    public function get_userId($email){
+        return $this->select_userId($email);
+    }
+
 }

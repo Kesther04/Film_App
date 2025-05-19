@@ -146,6 +146,10 @@ class FilmsController extends Films{
         if (empty($data)) {
             return json_encode(["status" => "error","searchData" => "Invalid Search"]);
         }
-        return $this->search_data_from_film($data);
+        return $this->search_data_from_searchbar($data);
+    }
+
+    public function get_Searches($data){
+        return $this->search_data_from_searches($data);
     }
 }
