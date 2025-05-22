@@ -47,4 +47,12 @@ class UploadsController extends Uploads{
 
         return $isSet;
     }
+
+    // // Method to get Uploads
+    public function get_uploads($input){
+        $data = json_decode(file_get_contents($input), true);
+        return $this->select_uploads($data["fid"],$data["sid"]);
+    }
+
+
 }

@@ -5,8 +5,10 @@ require_once './Controllers/FilmsController.php';
 require_once './Controllers/UserController.php';
 require_once './Controllers/AdminController.php';
 require_once './Controllers/QueryController.php';
+require_once './Controllers/UploadsController.php';
 
 $type = $_GET['apiKey'];
+// $type = "fetchUploads";
 
 switch ($type) {
     case 'fetchFilms':
@@ -44,6 +46,10 @@ switch ($type) {
     case 'admin_signIn':
         $admin = new AdminController();
         echo $admin->signin_admin("php://input");
+        break;
+    case 'fetchUploads':
+        $uploads = new UploadsController();
+        echo $uploads->get_uploads("php://input");
         break;
     case 'pushFilmData':
         $film = new FilmsController();

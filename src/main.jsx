@@ -109,6 +109,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <QueryProvider>
+    <StrictMode>
       <RouterProvider router={router} />
+    </StrictMode>
   </QueryProvider>
 )

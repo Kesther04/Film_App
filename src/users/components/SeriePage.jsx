@@ -1,9 +1,22 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
-export default function SeriePage({ serie, loading }) {
+
+export default function SeriePage({ serie, loading, setVidDet }) {
     const [currentSeason, setCurrentSeason] = useState(null);
     const [currentEpisode, setCurrentEpisode] = useState(null);
-
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    let preStreamFile = queryParams.get("stream"); // This will give you the filename
+    let streamFile;
+    let decodedFile;
+    if (preStreamFile){
+        streamFile = preStreamFile?.split("___");
+        let bdecodedFile =  streamFile[0]?.replace("&#039;","'").replace("%20"," ");
+        console.log(streamFile);
+        decodedFile = decodeURIComponent(bdecodedFile.replace(/"/g, ''));
+    }
+    
     // Group episodes by season, keeping full episode objects
     const groupBySeason = (episodes) => {
         const seasonMap = {};
@@ -31,8 +44,15 @@ export default function SeriePage({ serie, loading }) {
             const lastEpisode = serie.episodes[serie.episodes.length - 1];
             setCurrentSeason(lastEpisode.season);
             setCurrentEpisode(lastEpisode);
+
+                if (preStreamFile) {
+                    const nowEpisode = serie.episodes.filter((ep)=>ep.id == streamFile[1]);
+                    setCurrentSeason(nowEpisode[0].season);
+                    setCurrentEpisode(nowEpisode[0]);
+                }
         }
     }, [loading]);
+
 
     // Update trailer, img, and cast based on currentSeason (zero-based index)
     const trailer = serie.trailer_link?.[currentSeason - 1];
@@ -53,18 +73,35 @@ export default function SeriePage({ serie, loading }) {
     // Get episodes for the current season
     const episodesForCurrentSeason = grouped.find((s) => s.season === currentSeason)?.episodes || [];
 
+    function setVidQual(e){
+        setVidDet(
+            {
+                status:true,type:e,fid:serie.id,sid:currentEpisode?.id
+            }
+        );
+    }
+
+    console.log(serie.episodes);
+
     return (
         <section className="serie">
             <div className="serie-content">
                 <div className="serie-trailer">
-                    <iframe
-                        src={trailer}
-                        title="YouTube video player"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerPolicy="strict-origin-when-cross-origin"
-                        allowFullScreen
-                    ></iframe>
+                    {
+                        queryParams.size == 1 ?
+                        <video controls autoPlay width={360} height={640}>
+                            <source src={`../../../storage/vid/${decodedFile}`} type="video/mp4"/>
+                        </video>
+                        :
+                        <iframe
+                            src={trailer}
+                            title="YouTube video player"
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerPolicy="strict-origin-when-cross-origin"
+                            allowFullScreen
+                        ></iframe>    
+                    }
                 </div>
 
                 <div className="serie-info">
@@ -122,13 +159,11 @@ export default function SeriePage({ serie, loading }) {
 
                         </span>
 
-                        <span className="btn flex w-full gap-2 mt-4 justify-end">
-                            <button className="secondary-color secondary-bg p-2 rounded cursor-pointer">
+                        <span className="btn flex w-full gap-2  mt-4 justify-end">
+                            <button className="secondary-color secondary-bg p-2 rounded  cursor-pointer" value="stream" onClick={(e)=>setVidQual(e.target.value)}>
                                 Stream
                             </button>
-                            <button className="secondary-color secondary-bg p-2 rounded border-solid cursor-pointer">
-                                Download
-                            </button>
+                            <button className="secondary-color secondary-bg p-2 rounded border-solid cursor-pointer" value="download" onClick={(e)=>setVidQual(e.target.value)}>Download</button>
                         </span>
                     </div>
                 </div>
