@@ -6,9 +6,9 @@ require_once './Controllers/UserController.php';
 require_once './Controllers/AdminController.php';
 require_once './Controllers/QueryController.php';
 require_once './Controllers/UploadsController.php';
+require_once './Controllers/RecordsController.php';
 
 $type = $_GET['apiKey'];
-// $type = "fetchUploads";
 
 switch ($type) {
     case 'fetchFilms':
@@ -50,6 +50,10 @@ switch ($type) {
     case 'fetchUploads':
         $uploads = new UploadsController();
         echo $uploads->get_uploads("php://input");
+        break;
+    case 'records':
+        $records = new RecordsController();
+        echo $records->save_records("php://input");
         break;
     case 'pushFilmData':
         $film = new FilmsController();

@@ -1,24 +1,62 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+import { BASE_API_URL } from "../../constants";
+import {  useNavigate } from "react-router-dom";
 
-export default function FilmsPopupHandler({upl,type,setVidDet,title}){
+export default function FilmsPopupHandler({upl,vidDet,setVidDet,title}){
+    let navigate = useNavigate();
+    const URL =  `${BASE_API_URL}?apiKey=records`;
+    
+    
+    const recordActivity = (type,upl_id,video,series_id = 0) => {
+        
+        axios.post(URL, {
+            email: vidDet.user_email,
+            film_id: vidDet.fid,
+            upl_id: upl_id,
+            type: type
+        }, {withCredentials: true, headers:{'Content-Type':'application/json'}}).then(
+            (res)=>{
+                console.log(res.data);
+                if(res.data.status == "success"){
+                    if (type == "stream"){
+                        navigate(`?stream=${video}___${series_id}`);
+                        setVidDet({status:false,type:"",fid:null,sid:null});
+                    }
+                    
+
+                    if (type == "download") {
+                        const fileUrl = `../../../storage/vid/${video}`;
+                        const a = document.createElement('a');
+                        a.href = fileUrl;
+                        a.download = video;
+                        a.click();
+
+                        setVidDet({status:false,type:"",fid:null,sid:null});
+                    }
+                }
+            }
+        ).catch(
+            (err)=>console.log(err)
+        )
+
+    }
    
-    let fsupl;
+    console.log(upl,vidDet);
     let links = upl?.map(supl => {
         supl.video = supl.video.replace(/&#039;/g, "'");
 
-        if (type === "stream") {
+        if (vidDet.type === "stream") {
             return (
                 <div className="btn py-0.5" key={supl.id}>
-                    <a href={`?stream=${supl.video}___${supl.series_id}`}>
-                        <input type="button" value={`Stream on ${supl.vid_type}`} />
-                    </a>
+                    <input type="button" value={`Stream on ${supl.vid_type}`} onClick={()=>{recordActivity(vidDet.type,supl.id,supl.video,supl.series_id)}} />
                 </div>
             );
-        } else if (type === "download") {
+        } else if (vidDet.type === "download") {
             return (
                 <div className="btn py-0.5" key={supl.id}>
-                    <input type="button" value={`Download on ${supl.vid_type}`} />
+                    <input type="button" value={`Download on ${supl.vid_type}`} onClick={()=>{recordActivity(vidDet.type,supl.id,supl.video)}}/>
                 </div>
             );
         }

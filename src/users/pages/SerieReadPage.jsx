@@ -30,7 +30,7 @@ export default function SerieReadPage() {
         fetchSerie();
     },[serieId]);
     const [showNav, setShowNav] = useState(false);
-    const [vidDet,setVidDet] = useState({status:false,type:"",fid:null,sid:null});
+    const [vidDet,setVidDet] = useState({status:false,user_email: null,type:"",fid:null,sid:null});
     useEffect(()=>{ 
         if (vidDet.status) {
             async function fetchUploads() {
@@ -57,7 +57,7 @@ export default function SerieReadPage() {
                 <Footer/>
             </main>
 
-            {vidDet.status && <FilmsPopupHandler upl={upl} type={vidDet.type} title={serie.title} setVidDet={setVidDet} />}
+            {vidDet.status && <FilmsPopupHandler upl={upl} vidDet={vidDet} title={serie.title} setVidDet={setVidDet} />}
         </>
     );
 }

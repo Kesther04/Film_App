@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { UseSession } from "./UseSession";
 
 
 export default function SeriePage({ serie, loading, setVidDet }) {
+    let navigate = useNavigate();
+    const {user} = UseSession();    
     const [currentSeason, setCurrentSeason] = useState(null);
     const [currentEpisode, setCurrentEpisode] = useState(null);
     const location = useLocation();
@@ -16,6 +19,8 @@ export default function SeriePage({ serie, loading, setVidDet }) {
         console.log(streamFile);
         decodedFile = decodeURIComponent(bdecodedFile.replace(/"/g, ''));
     }
+
+    console.log(queryParams);
     
     // Group episodes by season, keeping full episode objects
     const groupBySeason = (episodes) => {
@@ -45,13 +50,24 @@ export default function SeriePage({ serie, loading, setVidDet }) {
             setCurrentSeason(lastEpisode.season);
             setCurrentEpisode(lastEpisode);
 
-                if (preStreamFile) {
-                    const nowEpisode = serie.episodes.filter((ep)=>ep.id == streamFile[1]);
-                    setCurrentSeason(nowEpisode[0].season);
-                    setCurrentEpisode(nowEpisode[0]);
-                }
+            if (preStreamFile) {
+                const nowEpisode = serie.episodes.filter((ep)=>ep.id == streamFile[1]);
+                setCurrentSeason(nowEpisode[0].season);
+                setCurrentEpisode(nowEpisode[0]);
+            }
         }
     }, [loading]);
+
+
+    useEffect(() => {
+        if (!loading && preStreamFile) {
+            const nowEpisode = serie.episodes?.filter((ep)=>ep.id == streamFile[1]);
+            setCurrentSeason(nowEpisode[0].season);
+            setCurrentEpisode(nowEpisode[0]);
+            window.location.reload();
+        }
+    },[preStreamFile]);
+
 
 
     // Update trailer, img, and cast based on currentSeason (zero-based index)
@@ -74,14 +90,13 @@ export default function SeriePage({ serie, loading, setVidDet }) {
     const episodesForCurrentSeason = grouped.find((s) => s.season === currentSeason)?.episodes || [];
 
     function setVidQual(e){
+        if(!user) return navigate("/user/auth/signin");
         setVidDet(
             {
-                status:true,type:e,fid:serie.id,sid:currentEpisode?.id
+                status:true,user_email:user.email,type:e,fid:serie.id,sid:currentEpisode?.id
             }
         );
     }
-
-    console.log(serie.episodes);
 
     return (
         <section className="serie">
@@ -89,9 +104,9 @@ export default function SeriePage({ serie, loading, setVidDet }) {
                 <div className="serie-trailer">
                     {
                         queryParams.size == 1 ?
-                        <video controls autoPlay width={360} height={640}>
-                            <source src={`../../../storage/vid/${decodedFile}`} type="video/mp4"/>
-                        </video>
+                            <video controls autoPlay width={360} height={640}>
+                                <source src={`../../../storage/vid/${decodedFile}`} type="video/mp4"/>
+                            </video>
                         :
                         <iframe
                             src={trailer}

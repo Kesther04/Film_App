@@ -1,6 +1,9 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { UseSession } from "./UseSession";
 
 export default function MoviePage ({movie,setVidDet}) {
+    let navigate = useNavigate();
+    const {user} = UseSession();    
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     let preStreamFile = queryParams.get("stream"); // This will give you the filename
@@ -11,19 +14,22 @@ export default function MoviePage ({movie,setVidDet}) {
         decodedFile = decodeURIComponent(streamFile[0]?.replace(/"/g, ''));
     }
     let indCast = movie.film_cast?.split(",").map((idCast) => (
-        <span className="border p-1 text-xs rounded font-bold text-white bg-black">
+        <span className="border p-1 text-xs rounded font-bold text-white bg-black" key={idCast}>
             {idCast}
         </span>
     ));
 
+
     function setVidQual(e){
+        if (!user) return navigate("/user/auth/signin");
         setVidDet(() => {
             return {
-                status:true,type:e,fid:movie.id,sid:null
+                status:true,user_email:user.email,type:e,fid:movie.id,sid:null
             }
         });
     }
 
+    console.log(user);
     return (
         <section className="movie">            
             <div className="movie-content">

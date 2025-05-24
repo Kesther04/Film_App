@@ -15,7 +15,7 @@ export default function MovieReadPage() {
     const sURL = `${BASE_API_URL}?apiKey=fetchUploads`;
 
     const [showNav, setShowNav] = useState(false);
-    const [vidDet, setVidDet] = useState({ status: false, type: "", fid: null, sid: null });
+    const [vidDet, setVidDet] = useState({ status: false, user_email: null, type: "", fid: null, sid: null });
 
     // Fetch the movie data
     useEffect(() => {
@@ -31,8 +31,7 @@ export default function MovieReadPage() {
         fetchMovie();
     }, [movieId]);
 
-    // Fetch upload data when vidDet.status is true and updatedAt changes
-    
+    // Fetch upload data when vidDet.status is true
     useEffect(()=>{ 
         if (vidDet.status) {
             async function fetchUploads() {
@@ -60,7 +59,7 @@ export default function MovieReadPage() {
             </main>
 
             {/* Optional: Show popup */}
-            {vidDet.status && <FilmsPopupHandler upl={upl} type={vidDet.type} title={movie.title} setVidDet={setVidDet} />}
+            {vidDet.status && <FilmsPopupHandler upl={upl} vidDet={vidDet} title={movie.title} setVidDet={setVidDet} />}
         </>
     );
 }

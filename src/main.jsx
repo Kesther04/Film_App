@@ -20,6 +20,8 @@ import Animations from './users/pages/Animations.jsx'
 import Home from './users/Home.jsx'
 import SearchPageHandler from './users/pages/SearchPageHandler.jsx'
 import { QueryProvider } from './users/context/QueryContext.jsx'
+import Streams from './users/pages/Streams.jsx'
+import Downloads from './users/pages/Downloads.jsx'
 
 
 
@@ -57,6 +59,16 @@ const router = createBrowserRouter([
   {
     path: '/series/:serieId',
     element: <SerieReadPage/>,
+    errorElement: <ErrorPage/>
+  },
+  {
+    path: '/streams',
+    element: <Streams/>,
+    errorElement: <ErrorPage/>
+  },
+  {
+    path: '/downloads',
+    element: <Downloads/>,
     errorElement: <ErrorPage/>
   },
   {
