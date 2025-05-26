@@ -62,12 +62,12 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage/>
   },
   {
-    path: '/streams',
+    path: '/watch_history',
     element: <Streams/>,
     errorElement: <ErrorPage/>
   },
   {
-    path: '/downloads',
+    path: '/download_history',
     element: <Downloads/>,
     errorElement: <ErrorPage/>
   },

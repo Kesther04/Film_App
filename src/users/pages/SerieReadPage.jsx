@@ -4,7 +4,6 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { BASE_API_URL } from "../../constants";
 import SeriePage from "../components/SeriePage";
-import { createFilmTypeContext } from "../context/FilmTypeContext";
 import FilmsPopupHandler from "../components/FilmsPopupHandler";
 
 export default function SerieReadPage() {

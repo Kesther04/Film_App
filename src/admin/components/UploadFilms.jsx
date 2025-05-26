@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import FilmTypeHandler from "./FilmTypeHandler";
 import GenreHandler from "./GenreHandler";
 import { createFilmContext } from "../context/FilmsContext";
@@ -10,7 +10,7 @@ export default function UploadFilms(){
     const [movieData,setMovieData] = useState({title: "",film_type: "",genre: [],img: "",trailer_link:"",release_year:"",film_cast: "",film_desc: "",video:[]});
     const [serieData,setSerieData] = useState({title: "",film_type: "",genre: [],season: []});
     const [type,setType] = useState("");
-    // const type = useRef("");
+    const [msgHandler,setMsgHandler] = useState({status:"",msg:""});
     const titleHandle = (e) => {
         if (type == "MOVIE" || type == "ANIMATED MOVIE") {
             setMovieData({...movieData,title:e.target.value});    
@@ -63,21 +63,28 @@ export default function UploadFilms(){
         axios.post(URL,pushableData,{withCredentials: true,headers:{'Content-Type':'application/json'}})
             .then((res)=>{
                 console.log(res.data)
-                // if(res.data.status === "success"){
-                //     navigate('/admin/upload');
-                // }
-                // setMsg(res.data.message);
+                setMsgHandler({status:res.data.status,msg:res.data.message});
+                if(res.data.status === "success"){
+                    navigate('/admin/upload');
+                }
+                
             })
             .catch((err)=>console.log(err))           
 
     }
 
-    console.log(serieData);
+    let msg;
+    msgHandler.status === "success" && (msg = (<p className="pp-msg">{msgHandler.msg}</p>))
+    msgHandler.status === "error" && (msg = (<p className="p-msg">{msgHandler.msg}</p>))
+
+    // console.log(serieData);
 
     return (
         <form onSubmit={(data)=>pushFilm(data)}>
             <h1>Upload Film</h1>
+            {msg}
             <div className="input-section">
+
                 {/* type */}
                 <div>
                     <label htmlFor="type">Film Type:</label>

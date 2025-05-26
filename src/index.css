@@ -110,10 +110,14 @@ main{
   @apply flex flex-col py-2;  
 }
 
-.auth form .p-msg{
+
+.p-msg{
   @apply text-red-500;
 }
 
+.pp-msg{
+  @apply  text-blue-700;
+}
 .auth form div.btn button{
   @apply p-2;
 }
@@ -474,6 +478,27 @@ footer:hover{
   color:var(--tertiary-color);
 }
 
+
+
+.main-section > .records{
+  @apply w-full relative left-0 border p-5 md:min-h-200 min-h-auto xl:p-10;
+}
+
+.main-section.open > .records{
+  @apply xl:w-10/12 xl:left-60;
+}
+/* 
+.records{
+  @apply w-full xl:p-10 flex justify-center md:min-h-200 min-h-auto;
+}
+
+.records.open{
+  @apply w-full;
+} */
+
+.records-content{
+  @apply  w-full rounded xl:shadow-2xl border h-auto;
+}
 
 @keyframes move-vid-disp{
   0% {

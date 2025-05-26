@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { UseSession } from "./UseSession";
 
 export default function MoviePage ({movie,setVidDet}) {
@@ -54,9 +54,11 @@ export default function MoviePage ({movie,setVidDet}) {
                     {/* */}
                 </div>
                 <div className="movie-info">
+                    <Link to={`/movies/${movie.id}`}>
                     <div className="movie-info-img">
                         <img src={movie.img} alt={movie.title}  />
                     </div>
+                    </Link>
                     <div className="movie-info-txt">
                         <span className="w-auto xl:w-100">
                             <h1 className="text-2xl py-3 font-bold">{movie.title}</h1>

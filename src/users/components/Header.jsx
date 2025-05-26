@@ -32,14 +32,14 @@ function Header({showNav,setShowNav}){
             
             <div className="btn flex gap-2 justify-around">
                 <button>
-                    <Link to='/downloads'>
-                        Downloads
+                    <Link to='/download_history'>
+                        Download History
                     </Link>
                 </button>
 
 
                 <button>
-                    <Link to='/streams'>
+                    <Link to='/watch_history'>
                         Watch History
                     </Link>
                 </button>

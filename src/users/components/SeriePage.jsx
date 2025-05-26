@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { UseSession } from "./UseSession";
 
 
@@ -121,9 +121,11 @@ export default function SeriePage({ serie, loading, setVidDet }) {
 
                 <div className="serie-info">
                     <div className="serie-info-dir">
+                        <Link to={`/series/${serie.id}`}>
                         <div className="serie-info-img">
                             <img src={img} alt={serie.title} />
                         </div>
+                        </Link>
 
                         <div className="serie-info-nav">
                             <h1 className="text-2xl py-3 font-bold">Seasons</h1>

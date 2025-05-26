@@ -47,16 +47,23 @@ export default function FilmsPopupHandler({upl,vidDet,setVidDet,title}){
     let links = upl?.map(supl => {
         supl.video = supl.video.replace(/&#039;/g, "'");
 
+        let size;
+        if (supl.size >= 1024) {
+            let gbSize = supl.size/1024;
+            size = `${gbSize.toFixed(1)}GB`;
+        }else{
+            size = ` ${supl.size}MB`;
+        }
         if (vidDet.type === "stream") {
             return (
                 <div className="btn py-0.5" key={supl.id}>
-                    <input type="button" value={`Stream on ${supl.vid_type}`} onClick={()=>{recordActivity(vidDet.type,supl.id,supl.video,supl.series_id)}} />
+                    <input type="button" value={`Stream for ${size} (${supl.vid_type})`} onClick={()=>{recordActivity(vidDet.type,supl.id,supl.video,supl.series_id)}} />
                 </div>
             );
         } else if (vidDet.type === "download") {
             return (
                 <div className="btn py-0.5" key={supl.id}>
-                    <input type="button" value={`Download on ${supl.vid_type}`} onClick={()=>{recordActivity(vidDet.type,supl.id,supl.video)}}/>
+                    <input type="button" value={`Download for ${size} (${supl.vid_type})`} onClick={()=>{recordActivity(vidDet.type,supl.id,supl.video)}}/>
                 </div>
             );
         }

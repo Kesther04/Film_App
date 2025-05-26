@@ -17,4 +17,9 @@ class RecordsController extends Records{
         ];
         return $this->insert_records($newData);
     }
+
+    public function get_user_records($input){
+        $data = json_decode(file_get_contents($input), true);
+        return json_encode(["msg"=>$data]);
+    }
 }
