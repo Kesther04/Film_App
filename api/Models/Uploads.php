@@ -90,4 +90,41 @@ class Uploads extends Database{
             exit();
         }
     }
+
+    // Method to select specific upload based on id
+    protected function select_specific_upload($id){
+         try {
+            $conn = $this->get_connect();
+            
+            $query = "SELECT * FROM uploads WHERE id = ?";
+            $stmt = $conn->prepare($query);
+
+            if (!$stmt) {
+                throw new Exception("SQL preparation failed: " . $conn->error);
+            }
+
+            $stmt->bind_param("i",$id);
+        
+
+            
+            if (!$stmt->execute()) {
+                return 0;
+            }else{    
+                $result = $stmt->get_result();
+                $stmt->close();
+                $conn->close();
+
+                $row = $result->fetch_assoc();
+
+                return [
+                    "seriesId"=>$row["series_id"],
+                    "videoName"=>$row["video"],
+                    "videoSize"=>$row["size"]
+                ];
+            }
+        } catch (Exception $e) {
+            return 0;
+            exit();
+        }
+    }
 }

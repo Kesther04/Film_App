@@ -29,4 +29,8 @@ class SerieController extends Series{
         return $status;
 
     }
+
+    public function get_serie_on_id($id){
+        return $this->select_serie_on_id($id);
+    }
 }

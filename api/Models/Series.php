@@ -47,6 +47,36 @@ class Series extends Database{
         }
     }
 
+    // Method to select serie on Id
+    protected function select_serie_on_id($id){
+        try {
+            $conn = $this->get_connect();
+            $query = "SELECT * FROM series WHERE id = ?";
+            $stmt = $conn->prepare($query);
+
+            if (!$stmt) {
+                throw new Exception("SQL preparation failed: " . $conn->error);
+            }
+
+            $stmt->bind_param("i",$id);
+
+
+            if (!$stmt->execute()) {
+                return 0;  
+            }else{
+                $res = $stmt->get_result();
+                $stmt->close();
+                $conn->close();
+                
+                $row = $res->fetch_assoc();
+
+                return $row["season"];
+            }
+        } catch (Exception $e) {
+            return 0;
+        }
+    }
+
     // Method to input episode data into database
     protected function input_episode($data){
         try {

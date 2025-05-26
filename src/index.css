@@ -479,25 +479,21 @@ footer:hover{
 }
 
 
-
 .main-section > .records{
-  @apply w-full relative left-0 border p-5 md:min-h-200 min-h-auto xl:p-10;
+  @apply w-full relative left-0 p-5 md:min-h-200 min-h-auto xl:p-10;
 }
 
 .main-section.open > .records{
   @apply xl:w-10/12 xl:left-60;
 }
-/* 
-.records{
-  @apply w-full xl:p-10 flex justify-center md:min-h-200 min-h-auto;
+
+.record{
+  @apply flex p-3 rounded-2xl shadow-xl m-5 justify-between transition ease-in-out duration-300;
 }
 
-.records.open{
-  @apply w-full;
-} */
-
-.records-content{
-  @apply  w-full rounded xl:shadow-2xl border h-auto;
+.record:hover{
+  background-color:var(--tertiary-bg);
+  color:var(--secondary-color);
 }
 
 @keyframes move-vid-disp{

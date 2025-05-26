@@ -152,4 +152,12 @@ class FilmsController extends Films{
     public function get_Searches($data){
         return $this->search_data_from_searches($data);
     }
+
+    public function get_movie_byId($id){
+        return $this->select_movie(["id" =>$id]);
+    }
+
+    public function get_serie_byId($id){
+        return $this->select_serie(["id" => $id]);
+    }
 }
