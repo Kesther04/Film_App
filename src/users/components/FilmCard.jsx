@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 export default function FilmCard({film}){
+    
     if (film.film_type == "MOVIE" || film.film_type == "ANIMATED_MOVIE"){
         return (
             

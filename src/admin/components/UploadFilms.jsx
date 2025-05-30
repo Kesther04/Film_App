@@ -5,12 +5,14 @@ import { createFilmContext } from "../context/FilmsContext";
 import axios from "axios";
 import { BASE_API_URL } from "../../constants";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function UploadFilms(){
     const [movieData,setMovieData] = useState({title: "",film_type: "",genre: [],img: "",trailer_link:"",release_year:"",film_cast: "",film_desc: "",video:[]});
     const [serieData,setSerieData] = useState({title: "",film_type: "",genre: [],season: []});
     const [type,setType] = useState("");
     const [msgHandler,setMsgHandler] = useState({status:"",msg:""});
+    let navigate = useNavigate();
     const titleHandle = (e) => {
         if (type == "MOVIE" || type == "ANIMATED MOVIE") {
             setMovieData({...movieData,title:e.target.value});    
@@ -77,7 +79,7 @@ export default function UploadFilms(){
     msgHandler.status === "success" && (msg = (<p className="pp-msg">{msgHandler.msg}</p>))
     msgHandler.status === "error" && (msg = (<p className="p-msg">{msgHandler.msg}</p>))
 
-    // console.log(serieData);
+    console.log(serieData);
 
     return (
         <form onSubmit={(data)=>pushFilm(data)}>

@@ -75,15 +75,18 @@ export default function SeriePage({ serie, loading, setVidDet }) {
     const img = serie.img?.[currentSeason - 1];
     const cast = serie.film_cast?.[currentSeason - 1] || "";
     let indCast = "";
-    const desc = currentEpisode?.episode_desc;
+    const bfdesc = currentEpisode?.episode_desc;
     const ep_title = currentEpisode?.title;
 
+    let desc = bfdesc?.replace(/&#039;/g,"'");
     if (!loading) {
         indCast = cast.split(",").map((idCast) => (
             <span className="border p-1 text-xs rounded font-bold text-white bg-black">
                 {idCast}
             </span>
         ));
+
+        
     }
 
     // Get episodes for the current season
@@ -97,6 +100,8 @@ export default function SeriePage({ serie, loading, setVidDet }) {
             }
         );
     }
+
+    
 
     return (
         <section className="serie">
@@ -143,7 +148,7 @@ export default function SeriePage({ serie, loading, setVidDet }) {
                                             );
                                         }}
                                     >
-                                        {`S0${season.season}`}
+                                        {season.season >= 10 ? `S${season.season}` : `S0${season.season}`}
                                     </button>
                                 ))}
                             </span>
@@ -158,7 +163,7 @@ export default function SeriePage({ serie, loading, setVidDet }) {
                                         }`}
                                         onClick={() => setCurrentEpisode(ep)}
                                     >
-                                        {`E0${ep.episode}`}
+                                        {ep.episode >= 10 ? `E${ep.episode}` : `E0${ep.episode}`}
                                     </button>
                                 ))}
                             </span>

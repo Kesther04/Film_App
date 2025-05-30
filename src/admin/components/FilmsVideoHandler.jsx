@@ -17,14 +17,40 @@ export default function FilmsVideoHandler({videoData,videoFn}) {
         
     },[vidQuality]);
 
-    const saveVidUpload = () => {
-        if (videoData.type == "movie") {
-            videoFn({...videoData,status:false,isSaved:["Saved"]});    
-        }
+    function validateArrayOfObjects(array) {
+        if (!Array.isArray(array)) return false;
 
-        if (videoData.type == "serie"){
-            let serievdDt = videoData.sid[videoData.sid.length-1];
-            videoFn({...videoData,status:false,isSaved:[...videoData.isSaved.filter((id => id !== serievdDt)),serievdDt]});
+        return array.every(obj => {
+            if (typeof obj !== 'object' || obj === null || Array.isArray(obj) || obj === "") return false;
+
+            const keys = Object.keys(obj);
+            if (keys.length == 0) return false;
+
+            return keys.every(key => {
+            const value = obj[key];
+            if (value == "") {
+                return false; 
+            }else { 
+                return true;
+            }
+            });
+        });
+    }
+
+
+    const saveVidUpload = () => {
+        if (!validateArrayOfObjects(videoData.data)) {
+            return videoFn({...videoData,status:true}); 
+        }else{
+
+            if (videoData.type == "movie") {
+                videoFn({...videoData,status:false,isSaved:["Saved"]});    
+            }
+
+            if (videoData.type == "serie"){
+                let serievdDt = videoData.sid[videoData.sid.length-1];
+                videoFn({...videoData,status:false,isSaved:[...videoData.isSaved.filter((id => id !== serievdDt)),serievdDt]});
+            }
         }
                
     }

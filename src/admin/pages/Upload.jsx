@@ -7,6 +7,8 @@ import FilmsSavedPopup from "../components/FilmsSavedPopup";
 export default function Upload() {
     
     const [selFilm,setSelFilm] = useState({status:false,type:"",isSaved:[],data:[],sid:[]});
+
+    console.log(selFilm);
     
     return (
         <>

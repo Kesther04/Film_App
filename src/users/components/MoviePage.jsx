@@ -30,6 +30,7 @@ export default function MoviePage ({movie,setVidDet}) {
     }
 
     console.log(user);
+    let desc = movie.film_desc?.replace(/&#039;/g,"'").replace(/&quot;/g,'"');
     return (
         <section className="movie">            
             <div className="movie-content">
@@ -64,7 +65,7 @@ export default function MoviePage ({movie,setVidDet}) {
                             <h1 className="text-2xl py-3 font-bold">{movie.title}</h1>
 
                             <p>
-                                {movie.film_desc}
+                                {desc}
                             </p>
                             <div className="py-2 flex justify-end">
                                 {indCast}

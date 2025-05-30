@@ -104,12 +104,23 @@ class Series extends Database{
                 $seriesId = $this->select_on_series_upload($data["film_id"],$data["season"],$data["episode"]);
 
                 require_once './Controllers/UploadsController.php';
+                require_once './Controllers/FilmsController.php';
                 $uploads = new UploadsController();
+                $films = new FilmsController();
 
-                $checkUplds = $uploads->place_serie_uploads($data["film_id"],$seriesId,$videos);
+                
+
+                $FilmsData = json_decode($films->get_serie_byId($data["film_id"]),true);
+
+                $stitle = str_replace(" ","_",$FilmsData["serieData"]["title"]);
+                $srel_yr = $FilmsData["serieData"]["release_year"];
+
+                $checkUplds = $uploads->place_serie_uploads($data["film_id"],$stitle,$data["season"],$data["episode"],$data["title"],$seriesId,$srel_yr,$videos);
                 if (!$checkUplds) {
                    return "Video Uploads not Complete";
                 }        
+
+
 
                 return "successful";
             }

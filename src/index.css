@@ -410,7 +410,7 @@ footer:hover{
 
 
 .video-popup-box{
-  @apply w-120 h-120 bg-white shadow-2xl p-5 m-20 flex flex-col content-center justify-center text-center rounded-2xl overflow-hidden;
+  @apply w-full md:w-120 h-120 bg-white shadow-2xl md:p-5 m-20 flex flex-col content-center justify-center text-center rounded-2xl overflow-hidden;
   
 }
 
@@ -423,7 +423,7 @@ footer:hover{
 }
 
 .video-quality-input,.video-link-input{
-  @apply hidden transition ease-in-out duration-500;
+  @apply hidden transition ease-in-out duration-500 overflow-auto;
 }
 
 .video-quality-input.active, .video-link-input.active{
@@ -457,6 +457,15 @@ footer:hover{
 .video-link-input > div{
   @apply p-2 ;
 }
+
+.video-link-input > div >  label{
+  @apply text-lg italic py-2;
+}
+
+.video-link-input > div > span{
+  @apply flex justify-around py-2;
+}
+
 
 
 .video-link-input input[type="url"],.video-link-input input[type="file"]{

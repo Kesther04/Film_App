@@ -318,7 +318,8 @@ class Films extends Database{
                 $uploads = new UploadsController();
                 
                 $checkGenres = $genRe->handle_genre($filmId,$genres);
-                $checkUplds = $uploads->place_movie_uploads($filmId,$videos);
+                $mtitle = str_replace(" ","_",$data["title"]);
+                $checkUplds = $uploads->place_movie_uploads($filmId,$mtitle,$data["release_year"],$videos);
                 
                 if (!$checkGenres) {
                     throw new Exception("Genre Uploads not Complete"); 
