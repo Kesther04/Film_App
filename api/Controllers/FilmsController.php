@@ -160,4 +160,49 @@ class FilmsController extends Films{
     public function get_serie_byId($id){
         return $this->select_serie(["id" => $id]);
     }
+
+    public function get_Total_series_et_movies(){
+        $films = json_decode($this->select_Films(),true);
+        $allFilms = $films["filmData"];
+        $movieCount = 0;
+        $serieCount = 0;
+        foreach ($allFilms as $row) {
+            if ($row["film_type"] == "MOVIE" || $row["film_type"] == "ANIMATED_MOVIE") {
+                $movieCount += 1;      
+            }
+
+            if ($row["film_type"] == "SERIE" || $row["film_type"] == "ANIMATED_SERIE") {
+                $serieCount += 1;      
+            }
+        }
+
+        $arrData = [
+            "movies" => $movieCount,
+            "series" => $serieCount
+        ];
+
+        return $arrData;
+    }
+
+    // method top 5 recorded(downloaded/streamed) films using usort to display them in descending order similar to rsort & arsort
+    public function top_record_films($type){
+        $films = json_decode($this->select_Films(),true);
+        $allFilms = $films["filmData"];
+
+        require_once './Controllers/RecordsController.php';
+        $records = new RecordsController();
+
+        $arrData = [];
+        foreach ($allFilms as $row) {
+           $dlCount =  count($records->get_film_records($row["id"],$type));
+           $arrData[] = [$row["title"],$dlCount];            
+        }
+
+        usort($arrData, function ($a,$b){
+            return $b[1] <=> $a[1];
+        });
+
+        $newData = array_slice($arrData,0,5);
+        return $newData;
+    }    
 }

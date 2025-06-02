@@ -505,6 +505,104 @@ footer:hover{
   color:var(--secondary-color);
 }
 
+.userContent{
+  @apply my-5 flex flex-col gap-5;
+}
+
+.userBox{
+  @apply p-3 rounded-lg shadow h-auto;
+}
+
+.userBox h3{
+  @apply font-bold text-xl;
+}
+
+.userBox > div{
+  @apply flex;
+}
+
+.userBox .btn button{
+  @apply border px-2 font-semibold ;
+}
+
+.adminOverview{
+  @apply flex flex-col gap-20 py-5;
+}
+
+.adminOverview > .dataVals{
+  @apply flex flex-wrap justify-around gap-5;
+}
+
+.adminOverview > .dataVals span{
+  @apply flex flex-col justify-center content-center text-center p-5 gap-4 rounded-lg shadow-xl w-100 cursor-pointer transition duration-300 ease-in-out;
+}
+
+.adminOverview > .dataVals span:hover{
+  background: var(--tertiary-color);
+  color:var(--secondary-color);
+}
+
+.adminOverview > .dataVals span h3{
+  @apply text-2xl ;
+}
+
+.adminOverview > .sndDataVals{
+  @apply grid grid-cols-3 justify-around;
+}
+
+.adminOverview > .sndDataVals div{
+  @apply  rounded border-l-gray-500 border-solid border-l-2;
+}
+
+.adminOverview > .sndDataVals div h3{
+  @apply text-xl p-2 text-center font-bold;
+  background-color: var(--tertiary-color);
+  color: var(--secondary-color);
+}
+
+.adminOverview > .sndDataVals div p{
+  @apply italic p-3 pl-10 text-justify shadow;
+}
+
+.adminOverview > .thdDataVals{
+  @apply flex flex-col gap-3;
+}
+
+.adminOverview > .thdDataVals h2{
+  @apply text-2xl italic font-bold;
+}
+
+.adminOverview > .thdDataVals div{
+  @apply flex gap-10;
+}
+
+.adminOverview > .thdDataVals a{
+  @apply border p-2 rounded-lg text-lg italic font-bold transition ease-in-out duration-300;
+  
+}
+
+.adminOverview > .thdDataVals a:hover{
+  background: var(--tertiary-bg);
+  color:var(--secondary-color); 
+}
+
+
+.adminOverview > .fthDataVals{
+  @apply flex flex-col gap-3;
+}
+
+.adminOverview > .fthDataVals h2{
+  @apply text-2xl italic font-bold;
+}
+
+.adminOverview > .fthDataVals div{
+  @apply flex gap-10;
+}
+
+.adminOverview >.fthDataVals div span{
+  @apply text-xl;
+}
+
 @keyframes move-vid-disp{
   0% {
     opacity: 0;

@@ -58,4 +58,41 @@ class UserController extends User{
         return $this->select_userId($email);
     }
 
+    public function getOverview($input){
+        $data= json_decode(file_get_contents($input),true);
+        $email = $data["email"] ?? "";
+        if ($email == "" ) return json_encode([]);
+
+        $uid = $this->select_userId($email);
+
+        require_once './Controllers/FilmsController.php';
+        $films = new FilmsController();
+        require_once './Controllers/UploadsController.php';
+        $upls = new UploadsController();
+        require_once './Controllers/RecordsController.php';
+        $records = new RecordsController();
+        
+        $filmCount = $films->get_Total_series_et_movies();
+        $userCount = count($this->select_users());
+        $storageCount = $upls->calc_storage();
+        $DLCount = $records->count_records("download");
+        $STCount = $records->count_records("stream");
+        $latestUploads = $upls->latest_uploads();
+        $topDLs = $films->top_record_films("download");
+        $topStrs = $films->top_record_films("stream");
+        
+        $arrData = [
+            "totalMovies"=>$filmCount["movies"],
+            "totalSeries"=>$filmCount["series"],
+            "totalUsers" => $userCount,
+            "storageUsed"=>$storageCount,
+            "downloadsToday"=>$DLCount,
+            "streamsToday"=>$STCount,
+            "latestUploads"=>$latestUploads,
+            "topDownloads"=>$topDLs,
+            "topStreams"=>$topStrs
+        ];
+        
+        return json_encode($arrData);
+    }
 }

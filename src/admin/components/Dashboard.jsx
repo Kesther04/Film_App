@@ -5,7 +5,6 @@ import { faArrowRightFromBracket, faHouse, faListCheck, faUser, faUsers } from "
 import Logout from "./Logout";
 import { useState } from "react";
 import { UseSessionAdmin } from "./UseSessionAdmin";
-import FilmsVideoHandler from "./FilmsVideoHandler";
 
 
 export default function Dashboard({ddState}){
@@ -61,8 +60,7 @@ export default function Dashboard({ddState}){
                     </Link>
                     <ul className={isOpen ? "open" : ""}>
                         <li><Link to="/admin/upload">Enter Upload</Link></li>
-                        <li><Link to="/admin/alter_upload">Alter Upload</Link></li>
-                        <li><Link to="/admin/delete_upload">Delete Upload</Link></li>
+                        <li><Link to="/admin/view_uploads">View Uploads</Link></li>
                     </ul>
                 </li>
             

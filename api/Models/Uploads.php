@@ -127,4 +127,35 @@ class Uploads extends Database{
             exit();
         }
     }
+
+    // Method to select all Uploads
+    protected function select_all_uploads(){
+        try {
+            $conn = $this->get_connect();
+            $query = "SELECT * FROM uploads";
+            $stmt = $conn->prepare($query);
+
+            if (!$stmt) {
+                throw new Exception("SQL preparation failed: " . $conn->error);
+            }
+            
+            if (!$stmt->execute()) {
+                throw new Exception("Uploads Not Selected");
+            }else{    
+                $result = $stmt->get_result();
+                $stmt->close();
+                $conn->close();
+                $data = [];
+
+                while($row = $result->fetch_assoc()){
+                    $data[] = $row;
+                }
+
+                return $data;
+            }
+        } catch (Exception $e) {
+            return [];
+            exit();
+        }
+    }
 }

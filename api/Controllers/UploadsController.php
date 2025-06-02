@@ -85,4 +85,24 @@ class UploadsController extends Uploads{
     public function get_upload($id){
         return $this->select_specific_upload($id);
     }
+
+
+    // Method to get the total storage based on size 
+    public function calc_storage(){
+        $allUpls = $this->select_all_uploads();
+        $total = 0;
+        foreach ($allUpls as $row) {
+            $total += $row["size"];   
+        }
+
+        return $total;
+    }
+
+    // Method to get the 5 latest uploads 
+    public function latest_uploads(){
+        $allUpls = $this->select_all_uploads();
+        $latUpls = array_slice($allUpls,-5);
+        rsort($latUpls);
+        return $latUpls;
+    }
 }

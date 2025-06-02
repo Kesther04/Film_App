@@ -1,4 +1,5 @@
 import Dashboard from "../components/Dashboard";
+import UsersContainer from "../components/UsersContainer";
 
 export default function UserDetails() {
     return (
@@ -6,7 +7,8 @@ export default function UserDetails() {
             <Dashboard ddState={false}/>
             <main>
                 <section className="admin-content">
-                    <h1>Welcome</h1>
+                    <h1 className="font-bold text-3xl">All Users</h1>
+                    <UsersContainer/>
                 </section>
 
             </main>

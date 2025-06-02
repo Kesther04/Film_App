@@ -19,6 +19,10 @@ switch ($type) {
         $films = new QueryController();
         echo $films->get_searchedFilms("php://input");        
         break;
+    case 'adminOverviewData':
+        $user = new UserController();
+        echo $user->getOverview("php://input");
+        break;
     case 'fetchMovie':
         $films = new FilmsController();
         echo $films->get_Movie("php://input");

@@ -24,7 +24,7 @@ class Films extends Database{
            
             $conn = $this->get_connect();
 
-            $query = "SELECT * FROM films ORDER BY RAND()";
+            $query = "SELECT * FROM films";
             $stmt = $conn->prepare($query);    
             
             if (!$stmt) {
@@ -167,6 +167,7 @@ class Films extends Database{
                 $data;
 
                 $row = $result->fetch_assoc();
+                $row["film_cast"] = str_replace('&#039;',"'",$row["film_cast"]);
                 $data = $row;
 
                 return json_encode([
@@ -214,6 +215,7 @@ class Films extends Database{
                 $data;
 
                 $row = $result->fetch_assoc();
+                $row["film_cast"] = str_replace('&#039;',"'",$row["film_cast"]);
                 $data = $row;
                 
                 // get serie genres
@@ -416,4 +418,5 @@ class Films extends Database{
             exit();
         }
     }
+
 }

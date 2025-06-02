@@ -139,4 +139,74 @@ class Records extends Database{
             ]);
         }   
     }
+
+    
+    // Method to select records based on film_id
+    protected function select_film_records($id,$type){
+        try {
+            $conn = $this->get_connect();
+            $query = "SELECT * FROM records WHERE film_id = ? AND record_type = ? ORDER BY id DESC";
+            $stmt = $conn->prepare($query);
+
+            if (!$stmt) {
+                throw new Exception("SQL preparation failed: " . $conn->error);
+            }
+
+            $stmt->bind_param("is",$id,$type);
+
+            if (!$stmt->execute()) {
+                throw new Exception($type."s not Selected");
+            }else {
+                $result = $stmt->get_result();
+                $stmt->close();
+                $conn->close();
+                $data = [];
+
+                while ($row = $result->fetch_assoc()) {
+                    $data[] = $row;
+                }
+
+                return $data;
+            }
+            
+        } catch (Exception $e) {
+            return json_encode([
+                "status" => "error",
+                "message" => "Error Occured: ".$e->getMessage()
+            ]);
+        }   
+    }
+
+    // Method to select based on record type
+    protected function select_based_records($type){
+        try {
+            $conn = $this->get_connect();
+            $query = "SELECT * FROM records WHERE record_type = ?";
+            $stmt = $conn->prepare($query);
+
+            if (!$stmt) {
+                throw new Exception("SQL preparation failed: " . $conn->error);
+            }
+
+            $stmt->bind_param("s",$type);
+
+            if (!$stmt->execute()) {
+                throw new Exception($type."s not Selected");
+            }else {
+                $result = $stmt->get_result();
+                $stmt->close();
+                $conn->close();
+                $data = [];
+
+                while ($row = $result->fetch_assoc()) {
+                    $data[] = $row;
+                }
+                
+                return $data;
+            }
+            
+        } catch (Exception $e) {
+            return [];
+        }
+    }
 }

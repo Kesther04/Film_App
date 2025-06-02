@@ -8,11 +8,10 @@ import AdminSignIn from './admin/auth/AdminSignIn.jsx'
 import AdminSignUp from './admin/auth/AdminSignUp.jsx'
 import Auth from './users/components/Auth.jsx'
 import Upload from './admin/pages/Upload.jsx'
-import AlterUpload from './admin/pages/AlterUpload.jsx'
+import ViewUploads from './admin/pages/ViewUploads.jsx'
 import AdminIndex from './admin/AdminIndex.jsx'
 import UserDetails from './admin/pages/UserDetails.jsx'
 import Profile from './admin/pages/Profile.jsx'
-import DeleteUpload from './admin/pages/DeleteUpload.jsx'
 import SerieReadPage from './users/pages/SerieReadPage.jsx'
 import MoviesPage from './users/pages/MoviesPage.jsx'
 import SeriesPage from './users/pages/SeriesPage.jsx'
@@ -97,13 +96,8 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage/>
   },
   {
-    path: '/admin/alter_upload',
-    element: <AlterUpload/>,
-    errorElement: <ErrorPage/>
-  },
-  {
-    path: '/admin/delete_upload',
-    element: <DeleteUpload/>,
+    path: '/admin/view_uploads',
+    element: <ViewUploads/>,
     errorElement: <ErrorPage/>
   },
   {

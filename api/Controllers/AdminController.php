@@ -53,4 +53,8 @@ class AdminController extends Admin{
 
     }
 
+    public function get_overview($input){
+
+        return;
+    }
 }

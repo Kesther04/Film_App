@@ -19,7 +19,8 @@ export default function FilmsVideoHandler({videoData,videoFn}) {
 
     function validateArrayOfObjects(array) {
         if (!Array.isArray(array)) return false;
-
+        if (array.length === 0) return false;
+        
         return array.every(obj => {
             if (typeof obj !== 'object' || obj === null || Array.isArray(obj) || obj === "") return false;
 
@@ -27,18 +28,19 @@ export default function FilmsVideoHandler({videoData,videoFn}) {
             if (keys.length == 0) return false;
 
             return keys.every(key => {
-            const value = obj[key];
-            if (value == "") {
-                return false; 
-            }else { 
-                return true;
-            }
+                const value = obj[key];
+                if (value == "" || value == null) {
+                    return false; 
+                }else { 
+                    return true;
+                }
             });
         });
     }
 
 
     const saveVidUpload = () => {
+        
         if (!validateArrayOfObjects(videoData.data)) {
             return videoFn({...videoData,status:true}); 
         }else{

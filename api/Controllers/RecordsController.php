@@ -25,6 +25,24 @@ class RecordsController extends Records{
         $users = new UserController();
         $uid = $users->get_userId($data["email"] ?? null);
         return $this->select_user_records($uid,$data["type"]);
-        // return json_encode(["records"=>$uid]);
+    }
+
+    public function get_film_records($id,$type){
+        return $this->select_film_records($id,$type);
+    }
+
+    public function count_records($type){
+        $allRecs = $this->select_based_records($type);
+        $curDate = date("Y-m-d");
+        $todaysRecords = [];
+        foreach ($allRecs as $key => $row) {
+            $dateTime = explode(" ",$row["created_at"]);
+            $date = $dateTime[0];
+            if ($curDate == $date) {
+                $todaysRecords[] = $row;
+            }
+        }
+        $val = count($todaysRecords);
+        return $val;
     }
 }

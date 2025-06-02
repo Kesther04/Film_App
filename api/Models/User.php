@@ -225,4 +225,41 @@ class User extends Database{
         }
     
     }
+
+    // To get all users
+    protected function select_users(){
+        try {
+            $conn = $this->get_connect();
+            $query = "SELECT * FROM users";
+            $stmt = $conn->prepare($query);
+
+            if (!$stmt) {
+                throw new Exception("SQL preparation failed: " . $conn->error);
+            }
+
+
+
+            if (!$stmt->execute()) {
+                $stmt->close();
+                $conn->close();
+                throw new Exception("User Data not Fetched");
+            }else {
+                $result = $stmt->get_result();
+                $stmt->close();
+                $conn->close();
+                $data = [];
+
+                while($row = $result->fetch_assoc()){
+                    $data[] = $row;
+                }
+
+                return $data;
+            }
+            
+        } catch (Exception $e) {
+            return [];
+            exit();
+        }
+    }
+
 }

@@ -29,6 +29,7 @@ export default function SignIn({auth}) {
                 <div className="content">
                     <h1>Enter your Credentials Here to Create Account</h1>
                     <br/>
+                    <p>If you already have an Account</p>
                     <Link to="/user/auth/signin">Click Here to Sign In</Link> 
                 </div>
             </span>

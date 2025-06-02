@@ -1,3 +1,4 @@
+import AdminOverview from "./components/AdminOverview";
 import Dashboard from "./components/Dashboard";
 
 
@@ -8,7 +9,8 @@ export default function AdminIndex(){
             <Dashboard ddState={ddStates} />
             <main>
                 <section className="admin-content">
-                    <h1>Welcome</h1>
+                    <h1 className="font-bold text-3xl">Overview</h1>
+                    <AdminOverview/>
                 </section>
             </main>
         </>

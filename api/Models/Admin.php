@@ -1,6 +1,5 @@
 <?php
 
-// require_once './Database_Handler.php';
 require_once './Models/User.php';
 
 class Admin extends User{
@@ -15,4 +14,5 @@ class Admin extends User{
         $field = "admin";
         return $this->select_user($data,$field);
     }
+
 }
