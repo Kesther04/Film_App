@@ -95,4 +95,67 @@ class UserController extends User{
         
         return json_encode($arrData);
     }
+
+    public function get_all_users(){
+        
+        $allUsers = $this->select_users();
+        $arrData = [];
+        
+        $curYear = date("Y");
+        $curMon = date("m");
+        $curDay = date("d");
+
+        foreach ($allUsers as $row) {
+            $caArr = explode(" ", $row["created_at"]);
+            $caDateArr = explode("-",$caArr[0]);
+            $caDate = $caDateArr[2].'/'.$caDateArr[1].'/'.$caDateArr[0];
+
+            $llArr = explode(" ",$row["last_login"]);
+            $llDate = explode("-",$llArr[0]);
+            $newllDate = $llDate[2].'/'.$llDate[1].'/'.$llDate[0];
+            $llYr = $llDate[0];
+            $llMon = $llDate[1];
+            $llDay = $llDate[2];
+
+            if ($llYr == $curYear && $llMon + 6 >= $curMon) {
+                $activeUser = true;
+            }elseif ($llYr < $curYear) {
+                $llMon = 12 - $llMon;
+
+                if ($llMon + 6 >= $curMon) {
+                    $activeUser = true;
+                }else{
+                    $activeUser = false;
+                }
+            }else{
+                $activeUser = false;
+            }          
+
+            if ($row["is_admin"] == 0) {
+                $isAdmin = false;
+            }else {
+                $isAdmin = true;
+            }
+
+            $arrData[] = [
+                "google_id" => $row["google_id"],
+                "name" => $row["username"],
+                "email" => $row["email"],
+                "is_admin" => $isAdmin,
+                "joined_on" => $caDate,
+                "last_login" => $newllDate,
+                "activeState" => $activeUser
+
+            ];
+
+            
+            
+        }
+        
+
+        
+        return json_encode(
+            ["userData"=>$arrData]
+        );
+    }
 }

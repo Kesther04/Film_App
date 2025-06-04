@@ -67,6 +67,10 @@ switch ($type) {
         $film = new FilmsController();
         echo $film->handle_film_data("php://input");    
         break;
+    case 'fetchUsers':
+        $users = new UserController();
+        echo $users->get_all_users();
+        break;
     default:
         echo json_encode([
             "status" => "error",

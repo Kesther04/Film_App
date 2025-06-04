@@ -89,13 +89,8 @@ export default function AdminOverview() {
                     </Link>
 
                 
-                    <Link to="/admin/alter_upload">
-                        <span>View and Update Films</span>
-                    </Link>
-
-                
-                    <Link to="/admin/delete_upload">
-                        <span>Delete Film</span>
+                    <Link to="/admin/view_uploads">
+                        <span>View Uploaded Films</span>
                     </Link>
 
                     <Link to="/admin/user_details">
