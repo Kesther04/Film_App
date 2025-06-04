@@ -14,7 +14,7 @@ export default function SearchBar({ph}){
     }
     console.log(search);
     return (
-    <div className="py-2">
+    <div className="py-2 flex justify-center">
     <span className="w-auto relative">
             <button className="absolute p-2 cursor-pointer text-sm ">
                 <FontAwesomeIcon icon={faMagnifyingGlass} />

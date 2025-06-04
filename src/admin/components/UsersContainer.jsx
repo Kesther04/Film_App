@@ -13,7 +13,7 @@ const UsersContainer = () => {
         searchVal.replace('+',' ');    
     }
     
-    // console.log(searchVal, queryParams.size);
+    
     const URL = `${BASE_API_URL}?apiKey=fetchUsers`;
     useEffect(() => {
         
@@ -52,9 +52,10 @@ const UsersContainer = () => {
     },[searchVal]);
 
     if (queryParams.size == 1 && searchVal !== "") {
+        if (searchedUsers.length == 0) return( <p className="italic text-red-500">No Results Found</p>);
         return (
             <>
-                <h1>Results</h1>
+                <h1 className="font-bold italic text-2xl">Results</h1>
                 <div className="w-full min-h-150 h-auto grid grid-cols-4 gap-5 p-5 ">
                     {searchedUsers?.map((user,id) => <UserCard key={id} user={user}/>)}
                 </div>
