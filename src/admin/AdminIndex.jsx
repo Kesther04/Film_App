@@ -7,7 +7,7 @@ export default function AdminIndex(){
     return (
         <>
             <Dashboard ddState={ddStates} />
-            <main>
+            <main className="admin-main">
                 <section className="admin-content">
                     <h1 className="font-bold text-3xl">Overview</h1>
                     <AdminOverview/>

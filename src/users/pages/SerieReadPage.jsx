@@ -22,7 +22,6 @@ export default function SerieReadPage() {
                 body: JSON.stringify(serieId)
             });
             const result = await res.json();
-            console.log(result.serieData);
             setSerie(result.serieData);
             setLoading(false);
         }
@@ -40,7 +39,6 @@ export default function SerieReadPage() {
                 });
 
                 const result = await res.json();
-                console.log("Uploads:", result);
                 setUpl(result.uploads);
             }
 

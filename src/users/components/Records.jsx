@@ -6,7 +6,7 @@ export default function Records({showNav,header,films}) {
         <section className={showNav ? "main-section open" : "main-section"}>
             <section className="records">
                 <h1 className="text-2xl font-bold py-3">{header}</h1>
-                <div className="w-full rounded xl:shadow-2xl h-auto flex flex-col gap-5">
+                <div className="w-full rounded xl:shadow-2xl h-auto flex flex-col gap-0 xl:gap-5">
                     {
                         films.map((film,ind) => (
 

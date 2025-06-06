@@ -7,24 +7,30 @@ export default function Record({film}){
         size = ` ${film.size}MB`;
     }
 
-   
+    let dateTime = film.date.split(" ");
+    let date = dateTime[0]; 
     return(
         <div className="record">
-            <div className="flex gap-5">
-                <span className="overflow-hidden relative rounded-2xl">
+            <div className="flex gap-2 xl:gap-5 w-full">
+                <span className="overflow-hidden rounded-2xl">
                     {/* for the image */}
-                    <img src={film.img} alt={film.img} className="w-40 h-40 rounded-2xl hover:scale-105 object-cover transition duration-300 ease-in-out"/>
+                    <img src={film.img} alt={film.img} className="w-40 h-30 xl:h-40 rounded-2xl hover:scale-105 object-cover transition duration-300 ease-in-out"/>
                 </span>
 
-                <span className="font-bold italic py-5">
+                <span className="font-semibold italic py-5 flex flex-col justify-between w-full overflow-hidden text-sm xl:text-lg">
                     {/* for the text */}
-                    {film.name.replace("&#039;","'")}<br/>{size}
+                    {film.name.replace("&#039;","'")}
+                        <br/>
+                    {size}
+
+                    <div className="font-bold italic w-auto h-auto self-end flex justify-end">
+                        {/* for the date or time */}
+                        <span className="h-auto justify-end bottom-0"> {date}</span>
+                    </div>
+
                 </span>
             </div>
-            <div className="font-bold italic gap-5 relative w-40">
-                {/* for the date or time */}
-                <span className="h-auto justify-end absolute bottom-0"> {film.date}</span>
-            </div>
+           
         </div>
     );
 }

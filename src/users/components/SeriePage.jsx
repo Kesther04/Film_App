@@ -16,11 +16,10 @@ export default function SeriePage({ serie, loading, setVidDet }) {
     if (preStreamFile){
         streamFile = preStreamFile?.split("___");
         let bdecodedFile =  streamFile[0]?.replace("&#039;","'").replace("%20"," ");
-        console.log(streamFile);
         decodedFile = decodeURIComponent(bdecodedFile.replace(/"/g, ''));
     }
 
-    console.log(queryParams);
+    
     
     // Group episodes by season, keeping full episode objects
     const groupBySeason = (episodes) => {
@@ -80,8 +79,8 @@ export default function SeriePage({ serie, loading, setVidDet }) {
 
     let desc = bfdesc?.replace(/&#039;/g,"'");
     if (!loading) {
-        indCast = cast.split(",").map((idCast) => (
-            <span className="border p-1 text-xs rounded font-bold text-white bg-black">
+        indCast = cast.split(",").map((idCast,id) => (
+            <span className="border p-1 text-xs rounded font-semibold" key={id}>
                 {idCast}
             </span>
         ));
@@ -174,8 +173,11 @@ export default function SeriePage({ serie, loading, setVidDet }) {
                         <span className="w-auto xl:w-100">
                             <h1 className="text-2xl py-3 font-bold">{serie.title}</h1>
                             <p className="font-bold text-md">{ep_title}</p>
+                            <p>{serie.release_year?.filter((_,id) => ( id+1 == currentSeason ))}</p>
+                            <p className="italic font-semibold">{serie.genres?.map(genre => genre+" ")}</p>
+
                             <p>{desc}</p>
-                            <div className="py-2 flex justify-end">
+                            <div className="py-2 flex justify-end gap-2 w-full">
                                 {indCast}
                             </div>
 

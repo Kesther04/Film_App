@@ -28,7 +28,6 @@ export default function SearchPageHandler() {
       .then((res) => {
         setResults(res.data.searchData || []);
         setLoading(false);
-        console.log(res.data);
       })
       .catch((error) => console.error(error));
       // .finally(() => setLoading(false));

@@ -13,7 +13,7 @@ export default function Upload() {
     return (
         <>
             <Dashboard ddState={true}/>
-            <main>
+            <main className="admin-main">
                 <section className="admin-content">
                     <createVideoContext.Provider value={{selFilm,setSelFilm}}>
                     <UploadFilms/>

@@ -8,7 +8,7 @@ export default function FilmCard({film}){
             <div className="w-full h-auto  relative flex justify-center content-center text-center">
                 {/* profile image div */}
                 <div className="w-50 h-60 relative overflow-hidden cursor-pointer rounded text-center">
-                    <img src={img[img.length-1]} alt={film.title} className="w-full h-full rounded object-fill transition ease-in-out duration-500s scale-100 hover:scale-105"/>
+                    <img src={img[img.length-1]} alt={film.title} className="w-full h-full rounded object-fill transition ease-in-out duration-300 scale-100 hover:scale-105"/>
                 </div>
 
             

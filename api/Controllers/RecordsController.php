@@ -20,10 +20,11 @@ class RecordsController extends Records{
 
     public function get_user_records($input){
         $data = json_decode(file_get_contents($input), true);
-        
+        $email = $data["email"] ?? "";
+        if ($email == "" ) return json_encode(["status"=>"error","records"=>[]]);
         require_once './Controllers/UserController.php';
         $users = new UserController();
-        $uid = $users->get_userId($data["email"] ?? null);
+        $uid = $users->get_userId($email);
         return $this->select_user_records($uid,$data["type"]);
     }
 

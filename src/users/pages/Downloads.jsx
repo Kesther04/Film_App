@@ -3,17 +3,14 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Records from "../components/Records";
 import { UseSession } from "../components/UseSession";
-import { useNavigate } from "react-router-dom";
 import { BASE_API_URL } from "../../constants";
 
 export default function Downloads(){
     const [showNav, setShowNav] = useState(true);
-    const {loggedIn,user} = UseSession();
+    const {user} = UseSession();
     const [films,setFilms] = useState([]);
     const URL = `${BASE_API_URL}?apiKey=fetchRecords`;
-    let navigate = useNavigate();
-    if (!loggedIn) navigate("/user/auth/signin");
-    
+     
     useEffect(()=>{
     
         async function fetchRecords() {
@@ -23,7 +20,6 @@ export default function Downloads(){
                 body: JSON.stringify({email:user?.email,type:"download"})
             });
             const data = await res.json();
-            console.log(data);
             setFilms(data.records);
         }
         fetchRecords();
@@ -46,7 +42,7 @@ export default function Downloads(){
         return () => {
         mediaQuery.removeListener(handleNav);
         }
-    },[]);
+    },[user]);
 
     return (
         <>

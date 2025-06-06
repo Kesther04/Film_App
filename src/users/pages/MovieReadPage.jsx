@@ -42,7 +42,6 @@ export default function MovieReadPage() {
                 });
 
                 const result = await res.json();
-                // console.log("Uploads:", result);
                 setUpl(result.uploads);
             }
 

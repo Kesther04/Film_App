@@ -30,7 +30,7 @@ function SearchBar({user}){
                     required
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="pl-10 pr-4 py-1 xl:w-120 w-full border border-gray-500 rounded-sm outline-none focus:shadow-sm focus:border-gray-700"
+                    className="pl-10 pr-4 py-1 lg:w-120 w-full border border-gray-500 rounded-sm outline-none focus:shadow-sm focus:border-gray-700"
                 />
               </form>
         </span>

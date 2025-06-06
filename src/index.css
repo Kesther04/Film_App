@@ -29,6 +29,7 @@
 
 *{
   /* color:var(--primary-color); */
+  box-sizing: border-box;
 }
 
 .header-nav{
@@ -55,17 +56,21 @@
 }
 
 main{
-  @apply w-full xl:mt-12 h-auto mt-20 ;
+  @apply w-full xl:mt-12 h-auto mt-25;
   background-color: var(--primary-bg);
   color:var(--primary-color);
 }
 
+.admin-main{
+  @apply w-full mt-0 mb-20 xl:mb-0;
+}
+
 .main-auth{
-  @apply w-full xl:mt-0 h-full  mt-0 p-32  flex justify-center content-center gap-2 ;
+  @apply w-full xl:mt-0 h-full  mt-0  py-6 sm:p-32  flex flex-col xl:flex-row justify-center content-center gap-2 ;
 }
 
 .auth{
-  @apply w-128 h-128;
+  @apply w-full md:w-128 h-128 ;
 }
 
 .auth span{
@@ -135,11 +140,11 @@ main{
 }
 
 .main-section > .movie-cat-section{
-  @apply w-full relative left-0 h-auto  p-5;
+  @apply w-full relative left-0 h-auto  p-5 ;
 }
 
 .main-section.open > .movie-cat-section{
-  @apply xl:w-10/12 xl:left-60;
+  @apply lg:w-10/12 lg:left-60;
 }
 
 
@@ -149,7 +154,7 @@ main{
 }
 
 .movie-cat{
-  @apply grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-9 grid-rows-1  w-full  xl:gap-5 gap-2  py-5 ;
+  @apply grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-9 grid-rows-1  w-full  xl:gap-5 gap-2  py-5 ;
 }
 
 
@@ -158,11 +163,11 @@ main{
 }
 
 .movie-cat > div{
-  @apply flex flex-col  text-center lg:w-40  w-30 h-auto cursor-pointer;
+  @apply flex flex-col  text-center lg:w-40  w-35 h-auto cursor-pointer;
 }
 
 .movie-cat > .no_results{
-  @apply font-bold cursor-pointer  min-w-50 w-100 py-3 rounded text-red-500;
+  @apply font-bold cursor-pointer xl:text-nowrap py-3 rounded text-red-500 ;
 }
 
 .LinkHolder{
@@ -242,7 +247,7 @@ main{
 }
 
 .serie-info-img{
-  @apply w-40 h-60 rounded overflow-hidden;
+  @apply w-50 sm:w-40 h-60 rounded overflow-hidden;
 }
 
 
@@ -284,7 +289,7 @@ footer:hover{
 
 
 .dashboard{
-  @apply fixed top-0 left-0 w-0 md:w-50 h-0  md:h-screen p-5 hidden   z-20 transition ease-in-out duration-700 translate-x-80 pt-16 xl:pt-5 md:shadow-xl; 
+  @apply fixed xl:top-0 bottom-0 left-0 w-full xl:w-50 h-15 xl:h-screen p-5 hidden  z-20 transition ease-in-out duration-700 translate-x-80 pt-2 xl:pt-5 border-t-1 border-gray-200 xl:border-0 md:shadow-xl; 
   background-color: var(--primary-bg) ;
   color:var(--primary-color);
 }
@@ -294,17 +299,20 @@ footer:hover{
 }
 
 .db-links{
-  @apply flex flex-col xl:gap-5 gap-2;
+  @apply flex flex-row xl:flex-col xl:gap-5 gap-2 justify-center content-center;
 }
 
+.db-links li{
+  @apply relative xl:static;
+}
 
 .db-links li  a, .db-links li  button{
-  @apply   px-5 py-3  flex text-center transition ease-in-out duration-300 rounded font-bold relative w-full cursor-pointer;
+  @apply  px-5 py-3  flex text-center transition ease-in-out duration-300 rounded font-light xl:font-bold relative xl:w-full cursor-pointer w-5 justify-center xl:justify-normal;
   color:var(--primary-color);
 }
 
 .db-links  li  a  span, .db-links  li  button  span{
-  @apply absolute top-2 left-12;
+  @apply absolute top-2 left-0 xl:left-12  xl:block hidden;
 }
 
 .db-links li a span.arrow{
@@ -316,13 +324,17 @@ footer:hover{
 }
 
 .db-links  li > ul{
-  @apply relative shadow-xl rounded-lg overflow-hidden invisible left-0 border-gray-500 border transition duration-300 ease-in-out h-0 -translate-y-10 ; 
+  @apply absolute xl:relative shadow-xl rounded-lg overflow-hidden invisible left-0 border-gray-500 border transition duration-300 ease-in-out h-0 xl:-translate-y-10 translate-y-0 bg-white; 
 }
+
 
 .db-links li > ul.open{
-  @apply h-auto visible translate-y-0 left-0;
+  @apply h-auto visible xl:translate-y-0 -translate-y-40 left-0;
 }
 
+.db-links li > ul.open li a{
+  @apply w-40 xl:w-full;
+}
 
 .db-links  li  a:hover, .db-links  li  button:hover{
   @apply shadow-xl;
@@ -330,8 +342,9 @@ footer:hover{
   color:var(--secondary-color);
 }
 
+
 .admin-content{
-  @apply shadow-xl rounded-xl relative left-60 w-10/12 p-5;
+  @apply shadow-xl rounded-xl relative w-full left-0 xl:left-60 xl:w-10/12 p-5  xl:block;
 }
 
 .admin-content form  h1{
@@ -339,11 +352,11 @@ footer:hover{
 }
 
 .input-section{
-  @apply flex flex-col lg:flex-row py-5 flex-wrap justify-between gap-2;
+  @apply flex flex-col md:flex-row py-5 flex-wrap justify-between gap-2;
 }
 
 .input-section div{
-  @apply flex flex-col text-lg py-5 w-3/12 ;
+  @apply flex flex-col text-lg py-5 w-full md:w-4/12 xl:w-3/12;
 }
 
 .input-section div > input, .input-section div > select{
@@ -379,7 +392,7 @@ footer:hover{
 }
 
 .admin-content form .reverse-btn input[type="button"]{
-  @apply transition ease-in-out duration-300 p-2 rounded cursor-pointer;
+  @apply transition ease-in-out duration-300 p-2 text-wrap rounded cursor-pointer;
   color:var(--secondary-color); 
   background: var(--secondary-bg);
 }
@@ -410,7 +423,7 @@ footer:hover{
 
 
 .video-popup-box{
-  @apply w-full md:w-120 h-120 bg-white shadow-2xl md:p-5 m-20 flex flex-col content-center justify-center text-center rounded-2xl overflow-hidden;
+  @apply w-full md:w-120 h-120 bg-white shadow-2xl p-2 md:p-5  fixed xl:static bottom-0 sm:m-20 flex flex-col content-center justify-center text-center rounded-2xl overflow-hidden;
   
 }
 
@@ -489,7 +502,7 @@ footer:hover{
 
 
 .main-section > .records{
-  @apply w-full relative left-0 p-5 md:min-h-200 min-h-auto xl:p-10;
+  @apply w-full relative left-0 p-0 md:min-h-200 min-h-auto xl:p-10 ;
 }
 
 .main-section.open > .records{
@@ -497,7 +510,7 @@ footer:hover{
 }
 
 .record{
-  @apply flex p-3 rounded-2xl shadow-xl m-5 justify-between transition ease-in-out duration-300;
+  @apply flex p-3 rounded-2xl shadow-xl my-2 xl:m-5 justify-between transition ease-in-out duration-300;
 }
 
 .record:hover{
@@ -547,7 +560,7 @@ footer:hover{
 }
 
 .adminOverview > .sndDataVals{
-  @apply grid grid-cols-3 justify-around;
+  @apply grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 justify-around;
 }
 
 .adminOverview > .sndDataVals div{
@@ -596,7 +609,7 @@ footer:hover{
 }
 
 .adminOverview > .fthDataVals div{
-  @apply flex gap-10;
+  @apply flex flex-col md:flex-row gap-10;
 }
 
 .adminOverview >.fthDataVals div span{

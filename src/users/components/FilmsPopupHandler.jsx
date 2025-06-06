@@ -18,7 +18,7 @@ export default function FilmsPopupHandler({upl,vidDet,setVidDet,title}){
             type: type
         }, {withCredentials: true, headers:{'Content-Type':'application/json'}}).then(
             (res)=>{
-                console.log(res.data);
+                
                 if(res.data.status == "success"){
                     if (type == "stream"){
                         navigate(`?stream=${video}___${series_id}`);

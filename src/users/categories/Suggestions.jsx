@@ -5,8 +5,8 @@ import { BASE_API_URL } from "../../constants";
 
 export default function Suggestions({type}) {
     const [filmDet,setFilmDet] = useState([]);
-    const { loggedIn, user} = UseSession();
-    console.log(user);
+    const { user} = UseSession();
+    
     const URL = `${BASE_API_URL}?apiKey=fetchFilmsSearched`;
     useEffect(()=>{
         async function fetchFilmsSearched() {
@@ -16,7 +16,7 @@ export default function Suggestions({type}) {
                 body: JSON.stringify(user)
             });
             const data = await res.json();
-            console.log(data);
+            
             if(data.status =="success"){
                 setFilmDet(data.filmData);    
             } 
@@ -24,7 +24,7 @@ export default function Suggestions({type}) {
         }
         fetchFilmsSearched();
     },[user]);
-    console.log(filmDet);
+    
     let read;
     
     let cond = (film) => {

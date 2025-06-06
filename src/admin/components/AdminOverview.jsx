@@ -83,7 +83,7 @@ export default function AdminOverview() {
             <div className="thdDataVals">
                 <h2>Quick Actions</h2>
 
-                <div className="flex gap-5">
+                <div className="flex flex-col md:flex-row  gap-5">
                     <Link to="/admin/upload">
                         <span>Add New Film(Movie / Serie)</span>
                     </Link>

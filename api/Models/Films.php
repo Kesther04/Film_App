@@ -166,9 +166,16 @@ class Films extends Database{
                 $conn->close();
                 $data;
 
+                
+                require_once './Controllers/GenreController.php';
+                $genres = new GenreController();
+
                 $row = $result->fetch_assoc();
                 $row["film_cast"] = str_replace('&#039;',"'",$row["film_cast"]);
+                $row["genres"] = $genres->get_genres($row["id"]);
+                $data[] = $row;
                 $data = $row;
+
 
                 return json_encode([
                     "status" => "success",
@@ -218,7 +225,10 @@ class Films extends Database{
                 $row["film_cast"] = str_replace('&#039;',"'",$row["film_cast"]);
                 $data = $row;
                 
-                // get serie genres
+                // get serie genres                  
+                require_once './Controllers/GenreController.php';
+                $genres = new GenreController();
+
 
                 // get serie episodes
                 require_once './Controllers/SerieController.php';
@@ -231,6 +241,7 @@ class Films extends Database{
                 $data["img"] = explode(".+.",$data["img"]);
                 $data["film_cast"] = explode(".+.",$data["film_cast"]);
                 $data["release_year"] = explode(".+.",$data["release_year"]);
+                $data["genres"] = $genres->get_genres($row["id"]);
 
 
                 return json_encode([

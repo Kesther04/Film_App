@@ -5,7 +5,7 @@ export default function Profile(){
     return (
         <>
             <Dashboard ddState={false} />
-            <main>
+            <main className="admin-main">
                 <section className="admin-content">
                     <h1 className="font-bold text-3xl">My Profile</h1>
                     <AdminInfo/>

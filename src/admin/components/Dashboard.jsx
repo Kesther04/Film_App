@@ -27,69 +27,70 @@ export default function Dashboard({ddState}){
 
     return (
         <>
-        <section className="dashboard open">
             
-            <div className="logo">
-                {/* logo img for the brand of the movie website */}
-            </div>
-            
-            <ul className="db-links">
-                <li>
-                    <Link to="/admin/">
-                        <FontAwesomeIcon icon={faListCheck} />
-                        <span>Overview</span>
-                    </Link>
-                </li>
-
-                <li>
-                    <Link to="/" target="-blank">
-                        <FontAwesomeIcon icon={faHouse} />
-                        <span>Home</span>
-                    </Link>
-                </li>
-
-                <li>
-                    <Link to="#" onClick={toggleDropDown}>
-                        <FontAwesomeIcon icon={faFilm} />
-                        <span>
-                            Films
-                        </span>
-                        <span className={isOpen ? "arrow open" : "arrow"}>
-                            &#9662;
-                        </span>
-                    </Link>
-                    <ul className={isOpen ? "open" : ""}>
-                        <li><Link to="/admin/upload">Enter Upload</Link></li>
-                        <li><Link to="/admin/view_uploads">View Uploads</Link></li>
-                    </ul>
-                </li>
-            
-                <li>
-                    <Link to="/admin/user_details">
-                        <FontAwesomeIcon icon={faUsers} />
-                        <span>Users</span>
-                    </Link>
-                </li>
+            <section className="dashboard open">
                 
-                <li>
-                    <Link to="/admin/profile">
-                        <FontAwesomeIcon icon={faUser} />
-                        <span>Profile</span>
-                    </Link>
-                </li>
+                <div className="logo">
+                    {/* logo img for the brand of the movie website */}
+                </div>
                 
-                <li>
-                    <button onClick={()=>setToLo(true)}>
-                        <FontAwesomeIcon icon={faArrowRightFromBracket} />
-                        <span>Log Out</span>
-                    </button>
-                </li>
+                <ul className="db-links">
+                    <li title="Overview">
+                        <Link to="/admin/">
+                            <FontAwesomeIcon icon={faListCheck} />
+                            <span>Overview</span>
+                        </Link>
+                    </li>
+
+                    <li>
+                        <Link to="/" target="-blank">
+                            <FontAwesomeIcon icon={faHouse} />
+                            <span>Home</span>
+                        </Link>
+                    </li>
+
+                    <li>
+                        <Link to="#" onClick={toggleDropDown}>
+                            <FontAwesomeIcon icon={faFilm} />
+                            <span>
+                                Films
+                            </span>
+                            <span className={isOpen ? "arrow open" : "arrow"}>
+                                &#9662;
+                            </span>
+                        </Link>
+                        <ul className={isOpen ? "open" : ""}>
+                            <li><Link to="/admin/upload">Enter Upload</Link></li>
+                            <li><Link to="/admin/view_uploads">View Uploads</Link></li>
+                        </ul>
+                    </li>
                 
-            </ul>
+                    <li>
+                        <Link to="/admin/user_details">
+                            <FontAwesomeIcon icon={faUsers} />
+                            <span>Users</span>
+                        </Link>
+                    </li>
+                    
+                    <li>
+                        <Link to="/admin/profile">
+                            <FontAwesomeIcon icon={faUser} />
+                            <span>Profile</span>
+                        </Link>
+                    </li>
+                    
+                    <li>
+                        <button onClick={()=>setToLo(true)}>
+                            <FontAwesomeIcon icon={faArrowRightFromBracket} />
+                            <span>Log Out</span>
+                        </button>
+                    </li>
+                    
+                </ul>
 
 
-        </section>
-        {toLo ? <Logout toLo={setToLo} /> : ""}
+            </section>
+            {toLo ? <Logout toLo={setToLo} /> : ""}
         </>
     );
 }

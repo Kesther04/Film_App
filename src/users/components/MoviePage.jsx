@@ -14,7 +14,7 @@ export default function MoviePage ({movie,setVidDet}) {
         decodedFile = decodeURIComponent(streamFile[0]?.replace(/"/g, ''));
     }
     let indCast = movie.film_cast?.split(",").map((idCast) => (
-        <span className="border p-1 text-xs rounded font-bold text-white bg-black" key={idCast}>
+        <span className="border p-1 text-xs rounded font-semibold" key={idCast}>
             {idCast}
         </span>
     ));
@@ -29,7 +29,7 @@ export default function MoviePage ({movie,setVidDet}) {
         });
     }
 
-    console.log(user);
+    
     let desc = movie.film_desc?.replace(/&#039;/g,"'").replace(/&quot;/g,'"');
     return (
         <section className="movie">            
@@ -63,16 +63,17 @@ export default function MoviePage ({movie,setVidDet}) {
                     <div className="movie-info-txt">
                         <span className="w-auto xl:w-100">
                             <h1 className="text-2xl py-3 font-bold">{movie.title}</h1>
-
+                            <p>{movie.release_year}</p>
+                            <p className="italic font-semibold">{movie.genres?.map(genre => genre+" ")}</p>
                             <p>
                                 {desc}
                             </p>
-                            <div className="py-2 flex justify-end">
+                            <div className="py-2 flex justify-end gap-2 w-full">
                                 {indCast}
                             </div>
                         </span>
                         
-                        <span className="btn flex w-full gap-2  mt-4 justify-end">
+                        <span className="btn flex w-full gap-2  mt-4 justify-end ">
                             <button className="secondary-color secondary-bg p-2 rounded  cursor-pointer" value="stream" onClick={(e)=>setVidQual(e.target.value)}>
                                 Stream
                             </button>

@@ -64,14 +64,14 @@ export default function AllUploads() {
         return (
             <>
                 <h1 className="font-bold italic text-2xl">Results</h1>
-                <div className="w-full min-h-150 h-auto grid grid-cols-4 gap-5 p-5 ">
+                <div className="w-full min-h-150 h-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 p-5 ">
                     {searchedFilms?.map((film,id) => <FilmCard key={id} film={film}/>)}
                 </div>
             </>
         );
     }
     return (
-        <div className="w-full min-h-150 h-auto grid grid-cols-4 gap-5 p-5 ">
+        <div className="w-full min-h-150 h-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 p-5">
             {allFilms.map((film, id) => (<FilmCard key={id} film={film} />))}
         </div>
     );
