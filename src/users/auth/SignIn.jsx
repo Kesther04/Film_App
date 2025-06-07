@@ -22,8 +22,8 @@ export default function SignIn({auth}) {
         .catch((err)=>console.log(err));
     }
     return (
-        <section className="auth">
-            <span className={auth !== "signin" ? "active  -left-3" : ""}>
+        <section className="auth xl:w-128 xl:h-128">
+            <span className={auth !== "signin" ? "active  xl:-left-3" : ""}>
                 <div className="bg-content left-0"></div>
 
                 <div className="content">

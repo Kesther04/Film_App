@@ -5,11 +5,14 @@ import ErrorPage from "../pages/ErrorPage";
 
 export default function Auth() {
     let authSign;
+    let respDisp;
     const params = useParams();
     if (params.auth === "signin" || params.auth === "signup"){
         authSign = params.auth;
+        authSign == "signin" && (respDisp = "main-auth flex-col");
+        authSign == "signup" && (respDisp = "main-auth flex-col-reverse");
         return(
-            <main className="main-auth">
+            <main className={respDisp}>
                 <SignUp auth={authSign} />
                 <SignIn auth={authSign} />
             </main>

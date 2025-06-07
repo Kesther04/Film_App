@@ -24,8 +24,8 @@ export default function SignUp({auth}) {
          
     return (
         
-        <section className="auth">
-            <span className={auth !== "signup" ? "active  -right-3 justify-end " : ""}>
+        <section className="auth xl:w-128 xl:h-128">
+            <span className={auth !== "signup" ? "active  xl:-right-3 justify-end " : ""}>
                 <div className="bg-content right-0 "></div>
 
                 <div className="content">

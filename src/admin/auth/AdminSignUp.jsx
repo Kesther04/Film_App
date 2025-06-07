@@ -25,7 +25,7 @@ export default function AdminSignUp(){
             
         return (
             <main className="main-auth">
-                <section className="auth">
+                <section className="auth  h-128">
 
                     <form className="active" onSubmit={(data)=>signUpUser(data)}>
                         <h1>Sign Up</h1>
