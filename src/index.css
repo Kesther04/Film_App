@@ -66,11 +66,11 @@ main{
 }
 
 .main-auth{
-  @apply w-full xl:mt-0 h-full  mt-0  py-6 sm:p-32  flex  xl:flex-row justify-center content-center xl:gap-2 ;
+  @apply w-full h-full  mt-0  py-6 sm:p-32  flex  justify-center content-center xl:gap-2 ;
 }
 
 .auth{
-  @apply w-full md:w-128 ;
+  @apply w-full md:w-128;
 }
 
 .auth span{
@@ -78,7 +78,7 @@ main{
 }
 
 .auth span.active{
-  @apply w-full h-auto xl:h-full flex overflow-hidden rounded-2xl z-10;
+  @apply w-full h-auto md:h-full flex overflow-hidden rounded-2xl z-10;
 }
 
 

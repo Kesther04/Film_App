@@ -9,8 +9,8 @@ export default function Auth() {
     const params = useParams();
     if (params.auth === "signin" || params.auth === "signup"){
         authSign = params.auth;
-        authSign == "signin" && (respDisp = "main-auth flex-col");
-        authSign == "signup" && (respDisp = "main-auth flex-col-reverse");
+        authSign == "signin" && (respDisp = "main-auth flex-col md:flex-row");
+        authSign == "signup" && (respDisp = "main-auth flex-col-reverse md:flex-row");
         return(
             <main className={respDisp}>
                 <SignUp auth={authSign} />

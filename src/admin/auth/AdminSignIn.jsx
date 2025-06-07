@@ -22,7 +22,7 @@ export default function AdminSignIn(){
             .catch((err)=>console.log(err));
         }
         return (
-            <main className="main-auth flex-col">
+            <main className="main-auth">
                 <section className="auth  h-128">
 
                 <form className="active" action="" method="post" onSubmit={(data)=>signIn(data)}>
