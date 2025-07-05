@@ -4,7 +4,6 @@ import GenreHandler from "./GenreHandler";
 import { createFilmContext } from "../context/FilmsContext";
 import axios from "axios";
 import { BASE_API_URL } from "../../constants";
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function UploadFilms(){
