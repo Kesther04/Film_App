@@ -49,7 +49,7 @@
   @apply  text-center px-5 py-2  transition ease-in-out duration-300  rounded font-bold block;
 }
 
-.nav-links > li > a:hover{
+.nav-links > li > a:hover,.nav-links > li > a.active{
   @apply shadow-xl;
   background-color: var(--tertiary-bg);
   color:var(--secondary-color);
@@ -336,7 +336,7 @@ footer:hover{
   @apply w-40 xl:w-full;
 }
 
-.db-links  li  a:hover, .db-links  li  button:hover{
+.db-links  li  a:hover, .db-links  li  button:hover, .db-links li a.active{
   @apply shadow-xl;
   background-color: var(--tertiary-bg);
   color:var(--secondary-color);

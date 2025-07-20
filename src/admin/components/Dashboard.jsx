@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { faFilm } from "@fortawesome/free-solid-svg-icons/faFilm";
 import { faArrowRightFromBracket, faHouse, faListCheck, faUser, faUsers } from "@fortawesome/free-solid-svg-icons";
 import Logout from "./Logout";
@@ -24,6 +24,10 @@ export default function Dashboard({ddState}){
     params == "/admin/upload" || params == "/admin/alter_upload" && setIsOpen(true) 
     // console.log(params);
     
+    // Get the current path to determine which link should be active on the dashboard
+    const location = useLocation();
+    const pathParts = location.pathname.split("/");
+    const fileName = pathParts[2];
 
     return (
         <>
@@ -36,7 +40,7 @@ export default function Dashboard({ddState}){
                 
                 <ul className="db-links">
                     <li title="Overview">
-                        <Link to="/admin/">
+                        <Link to="/admin/" className={fileName === "" && "active"}>
                             <FontAwesomeIcon icon={faListCheck} />
                             <span>Overview</span>
                         </Link>
@@ -60,20 +64,20 @@ export default function Dashboard({ddState}){
                             </span>
                         </Link>
                         <ul className={isOpen ? "open" : ""}>
-                            <li><Link to="/admin/upload">Enter Upload</Link></li>
-                            <li><Link to="/admin/view_uploads">View Uploads</Link></li>
+                            <li><Link to="/admin/upload" className={fileName === "upload" && "active"}>Enter Upload</Link></li>
+                            <li><Link to="/admin/view_uploads" className={fileName === "view_uploads" && "active"}>View Uploads</Link></li>
                         </ul>
                     </li>
                 
                     <li>
-                        <Link to="/admin/user_details">
+                        <Link to="/admin/user_details" className={fileName === "user_details" && "active"}>
                             <FontAwesomeIcon icon={faUsers} />
                             <span>Users</span>
                         </Link>
                     </li>
                     
                     <li>
-                        <Link to="/admin/profile">
+                        <Link to="/admin/profile" className={fileName === "profile" && "active"}>
                             <FontAwesomeIcon icon={faUser} />
                             <span>Profile</span>
                         </Link>
