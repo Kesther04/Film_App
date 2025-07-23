@@ -46,7 +46,7 @@
 }
 
 .nav-links > li > a{
-  @apply  text-center px-5 py-2  transition ease-in-out duration-300  rounded  font-semibold block relative;
+  @apply  md:text-center px-20 md:px-5 py-2  transition ease-in-out duration-300  rounded  font-semibold flex md:block relative;
 }
 
 .nav-links > li > a:hover,.nav-links > li > a.active{
@@ -56,7 +56,7 @@
 }
 
 .nav-links > li > a > .icon{
-  @apply w-6 absolute top-2;
+  @apply w-6 mx-2 md:mx-0 md:absolute top-2;
 }
 
 main{
@@ -132,7 +132,7 @@ main{
 }
 
 .auth form  div > label{
-  @apply py-2 font-bold text-2xl;
+  @apply py-2 font-semibold text-2xl;
 }
 
 .auth form div > input{
