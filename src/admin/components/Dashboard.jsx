@@ -20,28 +20,9 @@ export default function Dashboard({ddState}){
     }else{
         navigate('/admin/auth/signin');
     }    
-    useEffect(()=>{
-        
-        const mediaQuery = window.matchMedia('(max-width:1000px)');
-        const handleFilmOpen = (e) => {
-            if(!e.matches) {
-                ctrlParams(false)
-            }else{
-                ctrlParams(true)
-            }
+    
 
-        }
-        handleFilmOpen(mediaQuery);
-        mediaQuery.addListener(handleFilmOpen);
-
-        return () => {
-            mediaQuery.removeListener(handleFilmOpen);
-        }
-    },[]);
-
-    function ctrlParams(bool){
-        return params == "/admin/upload" || params == "/admin/alter_upload" && setIsOpen(bool);
-    }
+    params == "/admin/upload" || params == "/admin/alter_upload" && setIsOpen(true);
     
     // console.log(params);
     

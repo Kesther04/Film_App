@@ -31,6 +31,7 @@ export default function SignIn({auth}) {
                     <br/>
                     <p>If you already have an Account</p>
                     <Link to="/user/auth/signin">Click Here to Sign In</Link> 
+                    {/* <button>Click Here to Sign In</button> */}
                 </div>
             </span>
             <form method="post" onSubmit={(data)=>signIn(data)} className={auth == "signin" ? "active" : ""}>
@@ -53,3 +54,4 @@ export default function SignIn({auth}) {
         </section>
     )
 }
+

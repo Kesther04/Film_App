@@ -15,7 +15,7 @@ function Logout({toLo}) {
     return (
         <section className="popup">
             <div className="popup-box">
-            <p className="py-2 italic font-bold text-xl text-red-500">Are you Sure you want to Log Out</p>
+            <p className="py-2 italic font-semibold md:text-xl text-red-500">Are you sure you want to Log Out</p>
                 <div className="btn flex gap-2 justify-center">
                     <button onClick={()=>toLo(false)}>No</button>
                     <button onClick={handleLogOut}>Yes</button>

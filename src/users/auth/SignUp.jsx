@@ -33,6 +33,7 @@ export default function SignUp({auth}) {
                     <br />
                     <p>If you don't have an Account Yet</p>
                     <Link to="/user/auth/signup">Click Here to Sign Up</Link>   
+                    {/* <button>Click Here to Sign Up</button> */}
                 </div>
                      
             </span>
