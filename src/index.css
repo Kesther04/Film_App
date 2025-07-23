@@ -33,7 +33,7 @@
 }
 
 .header-nav{
-  @apply md:top-12 top-0 left-0 w-screen md:w-50 h-auto md:h-screen p-5 hidden absolute  z-20 transition ease-in-out duration-700 translate-x-80 pt-16 xl:pt-5 md:shadow-xl; 
+  @apply md:top-12 top-0 left-0 w-screen md:w-55 h-auto md:h-screen p-5 hidden absolute  z-20 transition ease-in-out duration-700 translate-x-80 pt-16 xl:pt-5 md:shadow-xl; 
   background-color: var(--primary-bg) ;
 }
 
@@ -46,13 +46,17 @@
 }
 
 .nav-links > li > a{
-  @apply  text-center px-5 py-2  transition ease-in-out duration-300  rounded font-bold block;
+  @apply  text-center px-5 py-2  transition ease-in-out duration-300  rounded  font-semibold block relative;
 }
 
 .nav-links > li > a:hover,.nav-links > li > a.active{
   @apply shadow-xl;
   background-color: var(--tertiary-bg);
   color:var(--secondary-color);
+}
+
+.nav-links > li > a > .icon{
+  @apply w-6 absolute top-2 ;
 }
 
 main{
@@ -289,8 +293,8 @@ footer:hover{
 
 
 .dashboard{
-  @apply fixed xl:top-0 bottom-0 left-0 w-full xl:w-50 h-15 xl:h-screen p-5 hidden  z-20 transition ease-in-out duration-700 translate-x-80 pt-2 xl:pt-5 border-t-1 border-gray-200 xl:border-0 md:shadow-xl; 
-  background-color: var(--primary-bg) ;
+  @apply fixed xl:top-0 bottom-0 left-0 w-full xl:w-60 h-15 xl:h-screen p-5 hidden  z-20 transition ease-in-out duration-700 translate-x-80 pt-2 xl:pt-5 border-t-1 border-gray-200 xl:border-0 md:shadow-xl bg-gray-100; 
+  /* background-color: var(--primary-bg) ; */
   color:var(--primary-color);
 }
 
@@ -300,6 +304,7 @@ footer:hover{
 
 .db-links{
   @apply flex flex-row xl:flex-col xl:gap-5 gap-2 justify-center content-center;
+
 }
 
 .db-links li{
@@ -307,7 +312,7 @@ footer:hover{
 }
 
 .db-links li  a, .db-links li  button{
-  @apply  px-5 py-3  flex text-center transition ease-in-out duration-300 rounded font-light xl:font-bold relative xl:w-full cursor-pointer w-5 justify-center xl:justify-normal;
+  @apply  px-5 py-3  flex text-center transition ease-in-out duration-300 rounded  font-light xl:font-semibold relative xl:w-full cursor-pointer w-5 justify-center xl:justify-normal;
   color:var(--primary-color);
 }
 
@@ -344,7 +349,7 @@ footer:hover{
 
 
 .admin-content{
-  @apply shadow-xl rounded-xl relative w-full left-0 xl:left-60 xl:w-10/12 p-5  xl:block;
+  @apply  rounded-xl relative w-full left-0 xl:left-60 xl:w-10/12 p-5  xl:block;
 }
 
 .admin-content form  h1{

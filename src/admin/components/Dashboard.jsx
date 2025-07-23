@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { faFilm } from "@fortawesome/free-solid-svg-icons/faFilm";
 import { faArrowRightFromBracket, faHouse, faListCheck, faUser, faUsers } from "@fortawesome/free-solid-svg-icons";
 import Logout from "./Logout";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { UseSessionAdmin } from "./UseSessionAdmin";
 
 
@@ -20,8 +20,29 @@ export default function Dashboard({ddState}){
     }else{
         navigate('/admin/auth/signin');
     }    
+    useEffect(()=>{
+        
+        const mediaQuery = window.matchMedia('(max-width:1000px)');
+        const handleFilmOpen = (e) => {
+            if(!e.matches) {
+                ctrlParams(false)
+            }else{
+                ctrlParams(true)
+            }
+
+        }
+        handleFilmOpen(mediaQuery);
+        mediaQuery.addListener(handleFilmOpen);
+
+        return () => {
+            mediaQuery.removeListener(handleFilmOpen);
+        }
+    },[]);
+
+    function ctrlParams(bool){
+        return params == "/admin/upload" || params == "/admin/alter_upload" && setIsOpen(bool);
+    }
     
-    params == "/admin/upload" || params == "/admin/alter_upload" && setIsOpen(true) 
     // console.log(params);
     
     // Get the current path to determine which link should be active on the dashboard
@@ -41,7 +62,7 @@ export default function Dashboard({ddState}){
                 <ul className="db-links">
                     <li title="Overview">
                         <Link to="/admin/" className={fileName === "" && "active"}>
-                            <FontAwesomeIcon icon={faListCheck} />
+                            <FontAwesomeIcon icon={faListCheck}  />
                             <span>Overview</span>
                         </Link>
                     </li>
