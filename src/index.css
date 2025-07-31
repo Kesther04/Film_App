@@ -30,6 +30,7 @@
 *{
   /* color:var(--primary-color); */
   box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
 }
 
 .header-nav{

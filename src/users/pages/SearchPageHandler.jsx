@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 import { useSearch } from "../context/QueryContext";
 import axios from "axios";
 import { BASE_API_URL } from "../../constants";
-import SearchResults from "../components/searchResults";
+import SearchResults from "../components/SearchResults";
 
 export default function SearchPageHandler() {
   const [showNav, setShowNav] = useState(true);
