@@ -61,7 +61,7 @@
 }
 
 main{
-  @apply w-full xl:mt-12 h-auto mt-25;
+  @apply w-full sm:mt-12 h-auto mt-35;
   background-color: var(--primary-bg);
   color:var(--primary-color);
 }
