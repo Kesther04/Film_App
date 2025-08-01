@@ -1,8 +1,8 @@
 <?php
 
-$uiUrl = "http://localhost:5173" ?? "http://localhost:5174";
+// $uiUrl = "http://localhost:5173" ?? "http://localhost:5174";
 
-// $uiUrl = "https://filmworld-box.vercel.app";
+$uiUrl = "https://filmworld-box.vercel.app";
 
 header("Access-Control-Allow-Origin: $uiUrl");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS"); 
