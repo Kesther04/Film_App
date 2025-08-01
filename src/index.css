@@ -141,7 +141,7 @@ main{
 }
 
 .main-section{
-  @apply md:min-h-200 min-h-auto;
+  @apply min-h-200;
 }
 
 .main-section > .movie-cat-section{
@@ -289,7 +289,7 @@ main{
 
 footer:hover{
   color:var(--tertiary-color);
-  text-decoration: underline;
+
 }
 
 

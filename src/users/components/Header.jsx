@@ -20,25 +20,25 @@ function Header({showNav,setShowNav}){
             <nav className={showNav ? "header-nav open" :  "header-nav" }>
                 <ul className="nav-links">
                     <li>
-                        <Link to="/" className={fileName === "" && "active"}>
+                        <Link to="/" className={fileName === "" ? "active" : ""}>
                         <HomeImg styles={"icon"}/>
                         Home
                         </Link>
                     </li>
                     <li>
-                        <Link to="/series" className={fileName === "series" && "active"} >
+                        <Link to="/series" className={fileName === "series" ? "active" : ""} >
                             <SerieImg styles={"icon"}/>
                             TV Show
                         </Link>
                     </li>
                     <li>
-                        <Link to="/movies" className={fileName === "movies" && "active"}>
+                        <Link to="/movies" className={fileName === "movies" ? "active" : ""}>
                             <MovieImg styles={"icon"}/>
                             Movie
                         </Link>
                     </li>
                     <li>
-                        <Link to="/animation" className={fileName === "animation" && "active"}>
+                        <Link to="/animation" className={fileName === "animation" ? "active" : ""}>
                         <AnimImg styles={"icon"}/>
                         Animation
                         </Link>
